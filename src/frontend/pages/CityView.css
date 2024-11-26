@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background-color: #000;
+    color: #fff;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+}
+
+.city-view {
+    flex: 1;
+    background-image: url('https://images.unsplash.com/photo-1514924013411-cbf25faa35bb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.city-view::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6));
+    z-index: 1;
+}
+
+.city-name {
+    font-size: 12vw;
+    color: white;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    position: relative;
+    z-index: 2;
+    animation: shimmer 5s infinite linear;
+    background: linear-gradient(to right, #fff 0%, #fff 40%, #39ff14 50%, #fff 60%, #fff 100%);
+    background-size: 200% auto;
+    color: #000;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+@keyframes shimmer {
+    0% { background-position: 200% center; }
+    100% { background-position: -200% center; }
+}
+
+.city-nav {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(26, 26, 26, 0.8);
+    padding: 15px 0;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+    backdrop-filter: blur(10px);
+}
+
+.city-nav a {
+    color: #808080;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0 15px;
+    flex: 1;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.city-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #39ff14;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.city-nav a:hover, .city-nav a.active {
+    color: #fff;
+}
+
+.city-nav a:hover::after, .city-nav a.active::after {
+    width: 80%;
+}
+
+.city-nav a.active {
+    color: #39ff14;
+}
+
+.profiles {
+    flex-grow: 1;
+    display: flex;
+    overflow-x: auto;
+    padding: 20px;
+    background-color: #121212;
+    width: 100%;
+}
+
+.profiles::-webkit-scrollbar {
+    height: 8px;
+}
+
+.profiles::-webkit-scrollbar-track {
+    background: #121212;
+}
+
+.profiles::-webkit-scrollbar-thumb {
+    background-color: #39ff14;
+    border-radius: 20px;
+    border: 3px solid #121212;
+}
+
+.profile {
+    flex: 0 0 auto;
+    width: 150px;
+    margin-right: 20px;
+    text-align: center;
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.profile:last-child {
+    margin-right: 0;
+}
+
+.profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #39ff14;
+}
+
+.profile:hover img {
+    transform: scale(1.1);
+}
+
+.profile h3 {
+    margin: 10px 0 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile p {
+    margin: 2px 0;
+    font-size: 0.7rem;
+    color: #bbb;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.connections {
+    color: #ff4500;
+    font-weight: bold;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.add-btn {
+    background-color: transparent;
+    color: #39ff14;
+    border: 2px solid #39ff14;
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.7rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.add-btn:hover {
+    background-color: #39ff14;
+    color: #000;
+}

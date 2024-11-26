@@ -1,0 +1,245 @@
+:root {
+  --primary: #6200EA;
+  --secondary: #B388FF;
+  --dark: #1A1A1A;
+  --light: #FFFFFF;
+  --accent: #00E5FF;
+  --success: #00E676;
+  --warning: #FFD740;
+  --error: #FF1744;
+  --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --surface: #232323;
+  --surface-light: #2C2C2C;
+  --button-purple: #8B5CF6;
+  --background-dark: #18181B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--background-dark);
+  color: var(--light);
+  min-height: 100vh;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  height: 100vh;
+  background: var(--background-dark);
+}
+
+.sidebar {
+  background: var(--background-dark);
+  padding: 2rem;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--button-purple);
+  text-decoration: none;
+  display: block;
+}
+
+.nav-menu {
+  list-style: none;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  color: var(--light);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  font-size: 1rem;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-link.active {
+  background: var(--button-purple);
+  color: var(--light);
+}
+
+.main-content {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.inventory-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: #27272A;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  width: 300px;
+  margin-right: 1rem;
+}
+
+.search-bar input {
+  background: none;
+  border: none;
+  color: var(--light);
+  width: 100%;
+  padding: 0.5rem;
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.action-button {
+  background: var(--button-purple);
+  color: var(--light);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.inventory-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #27272A;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.stat-title {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.stat-trend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.trend-up {
+  color: var(--success);
+}
+
+.trend-down {
+  color: var(--error);
+}
+
+.inventory-table {
+  background: #27272A;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+  padding: 1rem;
+  background: #323232;
+  font-weight: 500;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  align-items: center;
+}
+
+.table-row:last-child {
+  border-bottom: none;
+}
+
+.stock-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+}
+
+.stock-high {
+  background: var(--success);
+}
+
+.stock-medium {
+  background: var(--warning);
+}
+
+.stock-low {
+  background: var(--error);
+}
+
+.stock-status {
+  display: flex;
+  align-items: center;
+}
+
+.item-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.item-button {
+  background: #323232;
+  border: none;
+  color: var(--light);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.item-button:hover {
+  background: var(--button-purple);
+}

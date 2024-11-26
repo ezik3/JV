@@ -1,0 +1,143 @@
+.messages-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  height: calc(100vh - 2rem);
+  background: var(--background-dark, #1a1a1a);
+  border-radius: 1rem;
+  overflow: hidden;
+  color: white;
+  padding: 1rem;
+}
+
+.messages-sidebar {
+  background: var(--surface, #2a2a2a);
+  border-right: 1px solid rgba(255,255,255,0.1);
+  padding: 1rem;
+}
+
+.messages-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.messages-header h2 {
+  color: var(--light);
+  font-size: 1.5rem;
+}
+
+.chat-list {
+  overflow-y: auto;
+  height: calc(100% - 80px);
+  margin-top: 1rem;
+}
+
+.chat-item {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chat-item:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+.chat-item.active {
+  background: var(--button-purple);
+}
+
+.chat-info h4 {
+  color: var(--light);
+  margin-bottom: 0.25rem;
+}
+
+.chat-info p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+}
+
+.chat-window {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  padding: 1.5rem;
+  background: var(--surface);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.chat-header h3 {
+  color: var(--light);
+}
+
+.messages-list {
+  flex: 1;
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message {
+  max-width: 70%;
+  padding: 1rem;
+  border-radius: 1rem;
+  color: var(--light);
+}
+
+.message.sent {
+  background: var(--button-purple);
+  align-self: flex-end;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.message.received {
+  background: var(--surface);
+  align-self: flex-start;
+  border-bottom-left-radius: 0.25rem;
+}
+
+.message-input {
+  padding: 1rem;
+  background: var(--surface);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.message-input input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  background: var(--background-dark);
+  color: var(--light);
+}
+
+.message-input button {
+  background: var(--button-purple);
+  border: none;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  color: var(--light);
+}
+
+.no-chat-selected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(255,255,255,0.5);
+}
+
+.loading, .error {
+  color: white;
+  text-align: center;
+  padding: 2rem;
+}

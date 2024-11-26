@@ -1,0 +1,149 @@
+.post-view {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.post-view-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.3);
+    z-index: -1;
+}
+
+.post-view-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.post-view-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.post-view-user-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #39ff14;
+    margin-bottom: 10px;
+}
+
+.post-view-user-info {
+    text-align: center;
+}
+
+.post-view-user-info h2 {
+    margin: 0;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+.post-view-venue {
+    margin: 5px 0 0;
+    color: #39ff14;
+    font-size: 14px;
+}
+
+.post-view-time {
+    margin: 5px 0 0;
+    color: #ccc;
+    font-size: 14px;
+}
+
+.post-view-image-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 600px;
+}
+
+.post-view-main-image-wrapper {
+    width: 70%;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.post-view-main-image {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.post-view-side-image {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15%;
+    border-radius: 10px;
+    opacity: 0.5;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.post-view-side-image:hover {
+    opacity: 1;
+}
+
+.post-view-side-image.left {
+    left: 0;
+}
+
+.post-view-side-image.right {
+    right: 0;
+}
+
+.post-view-caption {
+    color: #fff;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.post-view-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.post-view-action-button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.post-view-action-button:hover {
+    color: #39ff14;
+}
+
+.post-view-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 24px;
+    cursor: pointer;
+}

@@ -1,0 +1,372 @@
+app Vibe {
+  wasp: {
+    version: "^0.14.2"
+  },
+  title: "Vibe",
+
+  
+  auth: {
+    userEntity: User,
+    methods: {
+      usernameAndPassword: {}
+    },
+    onAuthFailedRedirectTo: "/login"
+  }
+}
+
+route RootRoute { path: "/", to: SignupPage }
+
+route RegistrationChoiceRoute { path: "/registration-choice", to: RegistrationChoicePage }
+page RegistrationChoicePage {
+  component: import RegistrationChoice from "@src/frontend/pages/RegistrationChoice"
+}
+
+route SignupFormRoute {
+  path: "/signup-form",
+  to: SignupForm
+}
+
+route GenerateKeysRoute {
+  path: "/generate-keys",
+  to: GenerateKeys
+}
+
+route PrivateKeysRoute {
+  path: "/private-key",
+  to: PrivateKeys
+}
+
+route EmailVerificationRoute { path: "/email-verification", to: EmailVerificationPage }
+page EmailVerificationPage {
+  component: import EmailVerification from "@src/frontend/pages/EmailVerification"
+}
+
+page SignupPage {
+  component: import SignupPage from "@src/frontend/pages/SignupPage"
+}
+
+page SignupForm {
+  component: import SignupForm from "@src/frontend/pages/SignupForm"
+}
+
+page GenerateKeys {
+  component: import GenerateKeys from "@src/frontend/pages/GenerateKeys"
+}
+
+page PrivateKeys {
+  component: import PrivateKey from "@src/frontend/pages/PrivateKey"
+}
+
+route PhoneVerificationRoute { path: "/phone-verification", to: PhoneVerificationPage }
+page PhoneVerificationPage {
+  component: import PhoneVerification from "@src/frontend/pages/PhoneVerification"
+}
+
+route MFAVerificationRoute { path: "/mfa-verification", to: MFAVerificationPage }
+page MFAVerificationPage {
+  component: import MFAVerification from "@src/frontend/pages/MFAVerification"
+}
+
+route HomeFeedRoute { path: "/home", to: PartyProfessionalFeedPage }
+page PartyProfessionalFeedPage {
+  component: import PartyProfessionalFeed from "@src/frontend/pages/PartyProfessionalFeed"
+}
+
+route CityViewRoute { path: "/city-view", to: CityViewPage }
+page CityViewPage {
+  component: import CityView from "@src/frontend/pages/CityView"
+}
+
+route PostViewRoute { path: "/post/:id", to: PostView }
+page PostView {
+  component: import PostView from "@src/frontend/pages/PostView"
+}
+
+route Top10JointsRoute { path: "/top10", to: Top10JointsPage }
+page Top10JointsPage {
+  component: import Top10Joints from "@src/frontend/pages/Top10Joints"
+}
+
+route ProfileRoute { path: "/profile", to: ProfilePage }
+page ProfilePage {
+  component: import MyProfile from "@src/frontend/pages/MyProfile"
+}
+
+route NotificationsRoute { path: "/notifications", to: NotificationsPage }
+page NotificationsPage {
+  component: import Notifications from "@src/frontend/pages/Notifications"
+}
+
+route MessagesRoute { path: "/messages", to: MessagesPage }
+page MessagesPage {
+  component: import Messages from "@src/frontend/pages/Messages"
+}
+
+route VenuesRoute { path: "/venues", to: VenuesPage }
+page VenuesPage {
+  component: import Venues from "@src/frontend/pages/Venues"
+}
+
+route MapsRoute { path: "/maps", to: MapsPage }
+page MapsPage {
+  component: import Maps from "@src/frontend/pages/Maps"
+}
+
+route VenueSignupRoute { path: "/venue-signup", to: VenueRegistrationFlowPage }
+page VenueRegistrationFlowPage {
+  component: import VenueRegistrationFlow from "@src/frontend/pages/VenueRegistrationFlow"
+}
+
+route VenueOwnerHomeRoute { path: "/venue/home", to: VenueOwnerHomePage }
+page VenueOwnerHomePage {
+  component: import VenueOwnerHome from "@src/frontend/pages/VenueOwnerHome"
+}
+
+route VenueMenuRoute { path: "/venue/menu", to: VenueMenuPage }
+page VenueMenuPage {
+  component: import VenueMenu from "@src/frontend/pages/VenueMenu"
+}
+
+route VenueOrdersRoute { path: "/venue/orders", to: VenueOrdersPage }
+page VenueOrdersPage {
+  component: import VenueOrders from "@src/frontend/pages/VenueOrders"
+}
+
+route VenueCreditsRoute { path: "/venue/credits", to: VenueCreditsPage }
+page VenueCreditsPage {
+  component: import VenueCredits from "@src/frontend/pages/VenueCredits"
+}
+
+route VenueAssignRoute { path: "/venue/assign", to: VenueAssignPage }
+page VenueAssignPage {
+  component: import VenueAssign from "@src/frontend/pages/VenueAssign"
+}
+
+route VenueAccountsRoute { path: "/venue/accounts", to: VenueAccountsPage }
+page VenueAccountsPage {
+  component: import VenueAccounts from "@src/frontend/pages/VenueAccounts"
+}
+
+route POSRoute { 
+  path: "/venue/pos", 
+  to: POSPage 
+}
+
+page POSPage {
+  component: import { POSInterface } from "@src/frontend/pages/POS/POSInterface"
+}
+
+route LoginRoute { path: "/login", to: LoginPage }
+page LoginPage {
+  component: import Login from "@src/frontend/pages/Login"
+}
+
+route UserSignupFormRoute { path: "/user-signup", to: UserSignupFormPage }
+page UserSignupFormPage {
+  component: import UserSignupForm from "@src/frontend/User/UserSignupForm"
+}
+
+route UserGenerateKeysRoute { path: "/user-generate-keys", to: UserGenerateKeysPage }
+page UserGenerateKeysPage {
+  component: import UserGenerateKeys from "@src/frontend/User/UserGenerateKeys"
+}
+
+route UserPrivateKeyRoute { path: "/user-private-key", to: UserPrivateKeyPage }
+page UserPrivateKeyPage {
+  component: import UserPrivateKey from "@src/frontend/User/UserPrivateKey"
+}
+
+route UserMFAVerificationRoute { path: "/user-mfa-verification", to: UserMFAVerificationPage }
+page UserMFAVerificationPage {
+  component: import UserMFAVerification from "@src/frontend/User/UserMFAVerification"
+}
+
+route UserPhoneVerificationRoute { path: "/user-phone-verification", to: UserPhoneVerificationPage }
+page UserPhoneVerificationPage {
+  component: import UserPhoneVerification from "@src/frontend/User/UserPhoneVerification"
+}
+
+route UserEmailVerificationRoute { path: "/user-email-verification", to: UserEmailVerificationPage }
+page UserEmailVerificationPage {
+  component: import UserEmailVerification from "@src/frontend/User/UserEmailVerification"
+}
+
+route ProfileSetupRoute { path: "/profile-setup", to: ProfileSetupPage }
+page ProfileSetupPage {
+  component: import ProfileSetup from "@src/frontend/components/ProfileSetup"
+}
+
+route VenueHomeFeedRoute { path: "/venue-feed", to: VenueHomeFeedPage }
+page VenueHomeFeedPage {
+  component: import VenueHomeFeed from "@src/frontend/pages/VenueHomeFeed"
+}
+
+route OdooTestRoute { path: "/odoo-test", to: OdooTestPage }
+page OdooTestPage {
+  component: import OdooTest from "@src/frontend/components/OdooTest"
+}
+
+api setupVenuePOS {
+  fn: import { setupVenuePOS } from "@src/backend/venuePosSetup.js",
+  httpRoute: (POST, "/api/venue/setup-pos"),
+  auth: false
+}
+
+route MenuManagementRoute { 
+  path: "/venue/menu-management", 
+  to: MenuManagementPage 
+}
+
+page MenuManagementPage {
+  component: import MenuManagement from "@src/frontend/pages/POS/components/MenuManagement"
+}
+
+route AIWaiterRoute { 
+  path: "/venue/:venueId/ai-waiter", 
+  to: AIWaiterPage
+}
+
+page AIWaiterPage {
+  component: import AIWaiter from "@src/frontend/components/shared/AIWaiter",
+  authRequired: true
+}
+
+api aiChat {
+  fn: import { handleAIChat } from "@src/backend/routes/aiWaiter.js",
+  httpRoute: (POST, "/api/ai/chat"),
+  auth: true
+}
+
+api placeOrder {
+  fn: import { placeOrder } from "@src/backend/routes/orders.js",
+  httpRoute: (POST, "/api/orders/place-order"),
+  auth: true
+}
+
+api getMenu {
+  fn: import { getMenu } from "@src/backend/routes/menuRoutes.js",
+  httpRoute: (GET, "/api/menu/items"),
+  auth: true
+}
+
+api checkPOSSetup {
+  fn: import { checkPOSSetup } from "@src/backend/venuePosSetup.js",
+  httpRoute: (GET, "/api/venue/check-pos-setup/:venueId"),
+  auth: false
+}
+
+route ManagerLoginRoute {
+  path: "/venue/pos/auth/manager",
+  to: ManagerLoginPage
+}
+
+page ManagerLoginPage {
+  component: import ManagerLogin from "@src/frontend/pages/POS/auth/ManagerLogin"
+}
+
+route MasterSetupRoute {
+  path: "/venue/pos/auth/setup",
+  to: MasterSetupPage
+}
+
+page MasterSetupPage {
+  component: import MasterSetup from "@src/frontend/pages/POS/auth/MasterSetup"
+}
+
+route POSDashboardRoute {
+  path: "/venue/pos/dashboard",
+  to: POSDashboardPage
+}
+
+page POSDashboardPage {
+  component: import POSDashboard from "@src/frontend/pages/POS/components/POSDashboard"
+}
+
+route POSSystemRoute {
+  path: "/venue/pos/system",
+  to: POSSystemPage
+}
+
+page POSSystemPage {
+  component: import SimplifiedPOS from "@src/frontend/pages/POS/components/SimplifiedPOS"
+}
+
+route POSOrdersRoute {
+  path: "/venue/pos/orders",
+  to: POSOrdersPage
+}
+
+page POSOrdersPage {
+  component: import POSOrders from "@src/frontend/pages/POS/components/POSOrders"
+}
+
+route POSInventoryRoute {
+  path: "/venue/pos/inventory",
+  to: POSInventoryPage
+}
+
+page POSInventoryPage {
+  component: import POSInventory from "@src/frontend/pages/POS/components/POSInventory"
+}
+
+route POSMenuBuilderRoute {
+  path: "/venue/pos/menu",
+  to: POSMenuBuilderPage
+}
+
+page POSMenuBuilderPage {
+  component: import POSMenuBuilder from "@src/frontend/pages/POS/components/POSMenuBuilder"
+}
+
+route VenueMessagesRoute {
+  path: "/venue/messages",
+  to: VenueMessagesPage
+}
+
+route VenueNotificationsRoute {
+  path: "/venue/notifications",
+  to: VenueNotificationsPage
+}
+
+route VenueSettingsRoute {
+  path: "/venue/settings",
+  to: VenueSettingsPage
+}
+
+page VenueMessagesPage {
+  component: import VenueMessages from "@src/frontend/pages/VenueMessages"
+}
+
+page VenueNotificationsPage {
+  component: import VenueNotifications from "@src/frontend/pages/VenueNotifications"
+}
+
+page VenueSettingsPage {
+  component: import VenueSettings from "@src/frontend/pages/VenueSettings"
+}
+
+// ONLY KEEP THESE - NO ENTITY DECLARATIONS
+action createMenuItem {
+  fn: import { createMenuItem } from "@src/actions.js"
+}
+
+action updateMenuItem {
+  fn: import { updateMenuItem } from "@src/actions.js"
+}
+
+action deleteMenuItem {
+  fn: import { deleteMenuItem } from "@src/actions.js"
+}
+
+action updateInventory {
+  fn: import { updateInventory } from "@src/actions.js"
+}
+
+query getMenuItems {
+  fn: import { getMenuItems } from "@src/queries.js"
+}
+
+query getInventory {
+  fn: import { getInventory } from "@src/queries.js"
+}
+

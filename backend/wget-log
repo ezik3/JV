@@ -1,0 +1,11 @@
+--2024-10-27 19:50:06--  https://nightly.odoo.com/odoo.key
+Resolving nightly.odoo.com (nightly.odoo.com)... 35.240.72.178
+Connecting to nightly.odoo.com (nightly.odoo.com)|35.240.72.178|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 3112 (3.0K) [application/octet-stream]
+Saving to: ‘STDOUT’
+
+-              0%       0  --.-KB/s               -            100%   3.04K  --.-KB/s    in 0s      
+
+2024-10-27 19:50:08 (278 MB/s) - written to stdout [3112/3112]
+

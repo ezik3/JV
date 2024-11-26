@@ -1,0 +1,43 @@
+.pos-interface {
+    padding: 20px;
+  }
+  
+  .pos-interface h2 {
+    margin-bottom: 20px;
+  }
+  
+  .pos-interface ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .pos-interface li {
+    background: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .pos-interface select {
+    margin-left: 10px;
+  }
+  
+  /* New styles */
+  .MuiCard-root {
+    height: 100%;
+  }
+  
+  .MuiCardContent-root {
+    flex-grow: 1;
+  }
+  
+  .MuiAppBar-root {
+    margin-bottom: 20px;
+  }
+  
+  .MuiDrawer-paper {
+    width: 250px;
+  }

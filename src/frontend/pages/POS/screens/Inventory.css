@@ -1,0 +1,148 @@
+.inventory {
+    padding: 2rem;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background: #232323;
+    border-radius: 0.5rem;
+    padding: 0.5rem 1rem;
+    width: 300px;
+  }
+  
+  .search-bar input {
+    background: none;
+    border: none;
+    color: #ffffff;
+    width: 100%;
+    padding: 0.5rem;
+    outline: none;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .action-button {
+    background: linear-gradient(135deg, #6200EA, #B388FF);
+    color: #ffffff;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .inventory-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  .stat-card {
+    background: #232323;
+    border-radius: 1rem;
+    padding: 1.5rem;
+  }
+  
+  .stat-title {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .stat-value {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  
+  .stat-trend {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .trend-up {
+    color: #00E676;
+  }
+  
+  .trend-down {
+    color: #FF1744;
+  }
+  
+  .inventory-table {
+    background: #232323;
+    border-radius: 1rem;
+    overflow: hidden;
+  }
+  
+  .table-header {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    background: #2C2C2C;
+    font-weight: 500;
+  }
+  
+  .table-row {
+    display: grid;
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 1fr;
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    align-items: center;
+  }
+  
+  .stock-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+  }
+  
+  .stock-high {
+    background: #00E676;
+  }
+  
+  .stock-medium {
+    background: #FFD740;
+  }
+  
+  .stock-low {
+    background: #FF1744;
+  }
+  
+  .item-actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .item-button {
+    background: #2C2C2C;
+    border: none;
+    color: #ffffff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .item-button:hover {
+    background: #6200EA;
+  }

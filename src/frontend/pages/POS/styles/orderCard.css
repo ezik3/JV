@@ -1,0 +1,108 @@
+.order-card {
+  background: var(--surface-dark);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.order-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.order-number {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.order-status {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  color: white;
+}
+
+.order-time {
+  color: var(--text-secondary);
+  font-size: 14px;
+}
+
+.order-items {
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 0;
+  margin-bottom: 12px;
+}
+
+.order-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.item-quantity {
+  background: var(--surface-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.item-name {
+  flex: 1;
+  color: var(--text-primary);
+}
+
+.item-price {
+  color: var(--text-secondary);
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.order-total {
+  font-weight: bold;
+  color: var(--text-primary);
+}
+
+.order-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.action-button.accept {
+  background: var(--success);
+  color: white;
+}
+
+.action-button.ready {
+  background: var(--warning);
+  color: white;
+}
+
+.action-button.deliver {
+  background: var(--primary);
+  color: white;
+}

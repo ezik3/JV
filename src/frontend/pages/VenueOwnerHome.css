@@ -1,0 +1,148 @@
+/* VenueOwnerHome.css */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #0c0c0c;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.venue-owner-home {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.navbar {
+  background: #2c3e50;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-item {
+  color: #ecf0f1;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #3498db;
+}
+
+.nav-item.active {
+  color: #3498db;
+}
+
+.nav-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.nav-item span {
+  font-size: 0.8rem;
+}
+
+/* Make it responsive */
+@media (max-width: 768px) {
+  .nav-item span {
+    display: none;
+  }
+  
+  .nav-item {
+    padding: 0.5rem;
+  }
+}
+
+.dashboard h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.quick-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  width: 30%;
+}
+
+.stat-card h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #00ffff;
+}
+
+.main-content {
+  display: flex;
+  gap: 20px;
+}
+
+.content-section {
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  padding: 20px;
+  width: 50%;
+}
+
+.content-section h2 {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+.activity-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.activity-list li {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.action-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+.action-btn {
+  background-color: #00ffff;
+  color: #1a1a1a;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  text-align: center;
+  font-weight: bold;
+}
+
+.action-btn:hover {
+  background-color: #00cccc;
+}

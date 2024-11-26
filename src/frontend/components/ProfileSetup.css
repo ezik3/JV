@@ -1,0 +1,209 @@
+.profile-setup-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    color: #ffffff;
+  }
+  
+  .setup-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .setup-step h2 {
+    color: #00e5ff;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-size: 16px;
+  }
+  
+  .input-group input:focus {
+    border-color: #00e5ff;
+    outline: none;
+  }
+  
+  .visibility-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .visibility-toggle label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .next-button {
+    background-color: #00e5ff;
+    color: #000000;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .next-button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+  }
+  
+  .next-button:hover:not(:disabled) {
+    background-color: #00b8d4;
+  }
+  
+  .photo-options {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .photo-options button {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 2px solid #00e5ff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 200px;
+  }
+  
+  .photo-options button:hover {
+    background-color: #00e5ff;
+    color: #000000;
+  }
+  
+  .camera-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .camera-container video {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .camera-container button {
+    background-color: #00e5ff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .camera-container button:hover {
+    background-color: #00b8d4;
+  }
+  
+  .preview-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+  
+  .preview-container img {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  .preview-actions {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .preview-actions button {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    border: 2px solid #00e5ff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .preview-actions button:last-child {
+    background-color: #00e5ff;
+    color: #000000;
+    border: none;
+  }
+  
+  .preview-actions button:hover {
+    transform: translateY(-2px);
+  }
+  
+  .error-message {
+    color: #ff0000;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-setup-container {
+      margin: 10px;
+      padding: 15px;
+    }
+  
+    .input-group input,
+    .photo-options button {
+      width: 100%;
+    }
+  }
+
+.disabled-input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 12px;
+  border-radius: 5px;
+  width: 100%;
+  font-family: 'Orbitron', sans-serif;
+  cursor: not-allowed;
+  margin-bottom: 20px;
+}
+
+.disabled-input:focus {
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}

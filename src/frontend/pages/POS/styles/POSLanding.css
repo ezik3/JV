@@ -1,0 +1,9 @@
+.pos-landing {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f6fa;
+}
+
+/* Add any additional styles you need */

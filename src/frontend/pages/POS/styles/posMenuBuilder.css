@@ -1,0 +1,257 @@
+:root {
+  --primary: #6200EA;
+  --secondary: #B388FF;
+  --dark: #1A1A1A;
+  --light: #FFFFFF;
+  --accent: #00E5FF;
+  --success: #00E676;
+  --warning: #FFD740;
+  --error: #FF1744;
+  --gradient: linear-gradient(135deg, var(--primary), var(--secondary));
+  --surface: #232323;
+  --surface-light: #2C2C2C;
+  --button-purple: #8B5CF6;
+  --background-dark: #18181B;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: var(--background-dark);
+  color: var(--light);
+  min-height: 100vh;
+}
+
+.dashboard {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  height: 100vh;
+  background: var(--background-dark);
+}
+
+.sidebar {
+  background: var(--background-dark);
+  padding: 2rem;
+  border-right: 1px solid rgba(255,255,255,0.1);
+}
+
+.logo {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--button-purple);
+  text-decoration: none;
+  display: block;
+}
+
+.nav-menu {
+  list-style: none;
+}
+
+.nav-item {
+  margin-bottom: 0.5rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem;
+  color: var(--light);
+  text-decoration: none;
+  border-radius: 0.5rem;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.nav-link:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-link.active {
+  background: var(--button-purple);
+  color: var(--light);
+}
+
+.main-content {
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.menu-builder {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.menu-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--light);
+}
+
+.action-button {
+  background: var(--button-purple);
+  color: var(--light);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+.action-button:hover {
+  background: var(--primary);
+}
+
+.menu-form {
+  background: var(--surface);
+  padding: 2rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+}
+
+.menu-form h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: var(--light);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group.span-2 {
+  grid-column: span 2;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: var(--light);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.75rem;
+  background: var(--surface-light);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 0.5rem;
+  color: var(--light);
+  font-size: 0.9rem;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--button-purple);
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.menu-items {
+  margin-top: 2rem;
+}
+
+.menu-items h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.25rem;
+  color: var(--light);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.menu-card {
+  background: var(--surface);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-card:hover {
+  transform: translateY(-5px);
+}
+
+.menu-item-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--light);
+}
+
+.menu-item-description {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.menu-item-price {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--button-purple);
+  margin-bottom: 0.5rem;
+}
+
+.inventory-status {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.status-in-stock {
+  background: rgba(34, 197, 94, 0.1);
+  color: var(--success);
+}
+
+.status-low-stock {
+  background: rgba(234, 179, 8, 0.1);
+  color: var(--warning);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.menu-card {
+  animation: fadeIn 0.5s ease;
+}
+

@@ -1,0 +1,30 @@
+.category-bar {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  overflow-x: auto;
+  background: var(--surface-dark);
+  border-radius: 12px;
+}
+
+.category-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  background: var(--surface-light);
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.category-button:hover {
+  background: var(--primary-dark);
+  color: white;
+}
+
+.category-button.active {
+  background: var(--primary);
+  color: white;
+}

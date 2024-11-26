@@ -1,0 +1,20 @@
+.master-setup-container {
+  min-height: 100vh;
+  background: var(--surface-darker);
+  color: var(--text-primary);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.master-setup-container form {
+  width: 100%;
+  max-width: 400px;
+  background: var(--surface-dark);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Add more styles as needed */

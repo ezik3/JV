@@ -1,0 +1,131 @@
+/* src/frontend/pages/POS/styles/kitchen-grid.css */
+:root {
+    --surface-dark: #1A1F2C;
+    --surface-darker: #151922;
+    --surface-light: #2A303C;
+    --primary: #06B6D4;
+    --primary-dark: #0891B2;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --border-color: #334155;
+    --success: #22C55E;
+    --warning: #F59E0B;
+    --danger: #EF4444;
+  }
+  
+  .kitchen-grid-container {
+    min-height: 100vh;
+    background: var(--surface-darker);
+    color: var(--text-primary);
+  }
+  
+  .kitchen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+  
+  .order-card {
+    background: var(--surface-dark);
+    border-radius: 1rem;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .order-card.new {
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .order-header {
+    background: var(--surface-light);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .order-time {
+    background: var(--primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    font-size: 0.875rem;
+  }
+  
+  .order-time.urgent {
+    background: var(--danger);
+    animation: pulse 2s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  .kitchen-stats {
+    display: flex;
+    gap: 2rem;
+  }
+  
+  .stat {
+    text-align: center;
+  }
+  
+  .stat-label {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+  }
+  
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+  
+  .filter-buttons {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .filter-button {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 0.5rem;
+    background: var(--surface-light);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .filter-button.active {
+    background: var(--primary);
+    color: white;
+    border-color: var(--primary);
+  }
+  
+  .action-button {
+    flex: 1;
+    padding: 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .action-button.complete {
+    background: var(--success);
+    color: white;
+  }
+  
+  .action-button.bump {
+    background: var(--warning);
+    color: white;
+  }

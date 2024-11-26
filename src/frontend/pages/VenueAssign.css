@@ -1,0 +1,188 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: #ffffff;
+    overflow: auto;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+nav {
+    background-color: #1e1e1e;
+    padding: 10px 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 15px;
+}
+
+nav ul li a.active {
+    background-color: #00e5ff;
+    color: #000000;
+}
+
+h1, h2, h3 {
+    color: #00e5ff;
+}
+
+.assign-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.employee-list {
+    flex: 1;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.assignment-area {
+    flex: 2;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.employee-card {
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.employee-card:hover {
+    background-color: #333333;
+}
+
+.employee-card img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.role-selector {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.role-btn {
+    background-color: #2a2a2a;
+    border: none;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.role-btn.active {
+    background-color: #00e5ff;
+    color: #000000;
+}
+
+.assignment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.assignment-slot {
+    background-color: #2a2a2a;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #2a2a2a;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+}
+
+.drag-over {
+    border: 2px dashed #00e5ff;
+}
+
+.top-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.create-employee-btn {
+    display: flex;
+    align-items: center;
+    background-color: #00e5ff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.create-employee-btn .plus {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.create-roster-btn {
+    background-color: #00e5ff;
+    color: #000000;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.add-role-btn {
+    background-color: #2a2a2a;
+    border: none;
+    color: #ffffff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 20px;
+    margin: 0 5px;
+}

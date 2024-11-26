@@ -1,0 +1,92 @@
+.venue-signup {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.venue-signup h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.venue-signup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.venue-signup input,
+.venue-signup select,
+.venue-signup button {
+  margin: 10px 0;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.venue-signup select {
+  background-color: white;
+}
+
+.venue-signup button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+.venue-signup button:hover {
+  background-color: #0056b3;
+}
+
+.file-upload {
+  margin: 10px 0;
+}
+
+.file-upload input[type="file"] {
+  margin-bottom: 5px;
+}
+
+.file-upload p {
+  font-size: 14px;
+  color: #666;
+}
+
+.uploaded-documents {
+  margin-top: 20px;
+}
+
+.uploaded-documents h4 {
+  margin-bottom: 10px;
+}
+
+.uploaded-documents ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.uploaded-documents li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.uploaded-documents button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.uploaded-documents button:hover {
+  background-color: #c82333;
+}

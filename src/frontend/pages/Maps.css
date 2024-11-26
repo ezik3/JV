@@ -1,0 +1,61 @@
+.maps-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.map-search {
+  margin-bottom: 20px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  font-size: 16px;
+}
+
+.map-placeholder {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 20px;
+  min-height: 400px;
+}
+
+.venues-list, .friends-list {
+  margin-top: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.venue-item, .friend-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 10px;
+}
+
+.venue-item:last-child, .friend-item:last-child {
+  border-bottom: none;
+}
+
+h2, h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+h4 {
+  color: #666;
+  margin-bottom: 5px;
+}
+
+p {
+  color: #888;
+  margin: 5px 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}

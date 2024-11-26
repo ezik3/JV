@@ -1,0 +1,32 @@
+:root[data-theme="dark"] {
+  --surface-dark: #1A1F2C;
+  --surface-darker: #151922;
+  --surface-light: #2A303C;
+  --primary: #06B6D4;
+  --primary-dark: #0891B2;
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --border-color: #334155;
+}
+
+:root[data-theme="light"] {
+  --surface-dark: #FFFFFF;
+  --surface-darker: #F1F5F9;
+  --surface-light: #F8FAFC;
+  --primary: #06B6D4;
+  --primary-dark: #0891B2;
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --border-color: #E2E8F0;
+}
+
+.pos-page {
+  background: var(--surface-darker);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ... rest of the CSS from your HTML file ... */

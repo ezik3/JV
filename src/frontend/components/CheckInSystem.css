@@ -1,0 +1,79 @@
+.check-in-system {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  max-width: 300px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.check-in-system.minimized {
+  width: auto;
+  height: auto;
+}
+
+.minimize-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.status-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.status-buttons button {
+  background-color: #2a2a2a;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  flex: 1;
+  margin: 0 5px;
+}
+
+.status-buttons button.active {
+  background-color: #00e5ff;
+  color: black;
+}
+
+.ai-host {
+  margin-bottom: 10px;
+  text-align: center;
+  color: white;
+}
+
+.start-order-button, .order-options button {
+  background-color: #00e5ff;
+  color: black;
+  border: none;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.order-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.order-status {
+  background-color: #2a2a2a;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 10px;
+}

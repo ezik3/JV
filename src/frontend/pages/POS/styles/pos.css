@@ -1,0 +1,109 @@
+/* Base styles */
+:root[data-theme="dark"] {
+    --surface-dark: #1A1F2C;
+    --surface-darker: #151922;
+    --surface-light: #2A303C;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+  }
+  
+  :root[data-theme="light"] {
+    --surface-dark: #FFFFFF;
+    --surface-darker: #F1F5F9;
+    --surface-light: #F8FAFC;
+    --primary: #06B6D4;
+    --primary-dark: #0891B2;
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --border-color: #E2E8F0;
+  }
+  
+  .pos-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface-darker);
+    color: var(--text-primary);
+    font-family: 'Inter', sans-serif;
+  }
+  
+  /* Copy all the styles from your HTML file here */
+  /* ... rest of your styles ... */
+  
+  /* Add these to your existing pos.css */
+  .pos-layout {
+    display: flex;
+    min-height: 100vh;
+    background: var(--surface-darker);
+    color: var(--text-primary);
+  }
+  
+  .pos-content {
+    flex: 1;
+    padding: 20px;
+    background: var(--surface-darker);
+    color: var(--text-primary);
+  }
+  
+  /* Keep your existing CSS and add/modify these classes */
+  .pos-container {
+    min-height: 100vh;
+    background: var(--surface-darker, #151922);
+    color: var(--text-primary, #F8FAFC);
+  }
+  
+  .pos-header {
+    padding: 1rem 2rem;
+    background: var(--surface-light, #1E293B);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .pos-content {
+    padding: 2rem;
+  }
+  
+  .pos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  .pos-section {
+    background: var(--surface-light, #1E293B);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    font-size: 1.2rem;
+    color: var(--text-primary, #F8FAFC);
+  }
+  
+  h1, h2 {
+    margin: 0;
+    color: var(--text-primary, #F8FAFC);
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
