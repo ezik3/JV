@@ -57,30 +57,12 @@ const ProfileSetup = (props) => {
   const handlePhotoUpload = async (photoData) => {
     try {
       const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-
-      const response = await fetch('/api/profile/update-photo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          userId,
-          profilePic: photoData
-        })
+      const response = await api.post('/api/profile/update-photo', {
+        userId,
+        profilePic: photoData
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      console.log('Photo upload response:', data);
-      return data;
-
+      return response.data;
     } catch (error) {
-      console.error('Error uploading profile picture:', error);
       throw new Error('Failed to upload profile picture: ' + error.message);
     }
   };
@@ -88,37 +70,34 @@ const ProfileSetup = (props) => {
       e.preventDefault();
       try {
         setError('');
-        await handlePhotoUpload(profilePic);
-        await handleProfileComplete();
+        const result = await handlePhotoUpload(profilePic);
+        if (result.success) {
+          history.push('/home');
+        }
       } catch (error) {
         console.error('Setup submission error:', error);
         setError('Failed to complete setup: ' + error.message);
       }
     };
+      const handleProfileComplete = async () => {
+        try {
+          const userId = localStorage.getItem('userId');
+          console.log('Sending profile update request:', { userId, profilePic });
+          const response = await api.post('/api/profile/update-photo', {
+            userId,
+            profilePic
+          });
+          console.log('Profile update response:', response);
 
-    const handleProfileComplete = async () => {
-      try {
-        console.log('Attempting to upload profile picture for userId:', userId);
-        const response = await api.post('/api/profile/update-photo', {
-          userId,
-          profilePic
-        });
-        console.log('Upload response:', response);
-
-        if (userRole === 'venue') {
-          history.push('/venue-feed');
-        } else {
-          history.push('/party-feed');
+          if (response.data.success) {
+            history.push('/home');
+          }
+        } catch (error) {
+          setError('Failed to update profile picture. Please try again.');
+          console.error('Profile update error:', error);
         }
-
-        if (onComplete) {
-          onComplete();
-        }
-      } catch (error) {
-        console.error('Upload error:', error);
-        setError('Failed to update profile picture. Please try again.');
-      }
-    };  const handleLocationInput = async (e) => {
+      };
+    const handleLocationInput = async (e) => {
     const input = e.target.value;
     setLocation(input);
     

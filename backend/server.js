@@ -247,9 +247,8 @@ app.use('/api/xrp', require('./routes/xrp'));
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../frontend/build')));
 
-// Make sure this comes BEFORE the catchall route
+// Make sure this line exists and is before the catch-all route
 app.use('/api/profile', profileRoutes);
-
 // This should be last
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
