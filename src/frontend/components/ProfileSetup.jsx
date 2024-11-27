@@ -98,26 +98,27 @@ const ProfileSetup = (props) => {
 
     const handleProfileComplete = async () => {
       try {
-        const userId = localStorage.getItem('userId');
-        const formData = new FormData();
-        formData.append('userId', userId);
-        formData.append('profilePic', profilePic);
-
-        const response = await api.post('/api/profile/update-photo', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
+        console.log('Attempting to upload profile picture for userId:', userId);
+        const response = await api.post('/api/profile/update-photo', {
+          userId,
+          profilePic
         });
+        console.log('Upload response:', response);
 
-        if (response.data && response.data.success) {
-          localStorage.setItem('userProfilePic', response.data.profilePicture);
-          history.push('/home');
+        if (userRole === 'venue') {
+          history.push('/venue-feed');
+        } else {
+          history.push('/party-feed');
+        }
+
+        if (onComplete) {
+          onComplete();
         }
       } catch (error) {
-        setError('Failed to complete setup: ' + (error.message || 'Unknown error'));
+        console.error('Upload error:', error);
+        setError('Failed to update profile picture. Please try again.');
       }
-    };
-  const handleLocationInput = async (e) => {
+    };  const handleLocationInput = async (e) => {
     const input = e.target.value;
     setLocation(input);
     
