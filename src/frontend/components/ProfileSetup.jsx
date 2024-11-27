@@ -23,21 +23,18 @@ const ProfileSetup = (props) => {
   const history = useHistory();
     const handleUsernameSubmit = async () => {
       const storedUserId = localStorage.getItem('userId');
-      console.log('Stored userId:', storedUserId);
+      console.log('Submitting with userId:', storedUserId);
       
-      if (!storedUserId) {
-        setError('User ID not found. Please try logging in again.');
-        return;
-      }
-
       try {
-        await api.post('/api/profile/update-username', {
+        const response = await api.post('/api/profile/update-username', {
           userId: storedUserId,
           username,
           showUsername
         });
+        console.log('Update response:', response);
         setStep('photo');
       } catch (error) {
+        console.error('Update error:', error);
         setError('Failed to update username. Please try again.');
       }
     };
