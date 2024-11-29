@@ -295,3 +295,22 @@ const posSetupRoutes = require('./routes/posSetup');
 
 // Use routes
 app.use('/api/venue', posSetupRoutes);
+
+// NFT Purchase endpoint
+app.post('/api/nft/purchase', async (req, res) => {
+  try {
+    const { cityId, amount, paymentMethod } = req.body;
+    
+    // Verify VIBE token balance and process payment
+    // Mint NFT on XRP Ledger
+    // Update database with new NFT ownership
+    
+    res.json({ success: true, message: 'NFT purchased successfully' });
+  } catch (error) {
+    res.status(500).json({ error: 'Purchase failed' });
+  }
+});
+
+const nftRoutes = require('./routes/nftRoutes');
+// Add this with your other app.use statements
+app.use('/api/nft', nftRoutes);

@@ -22,28 +22,14 @@ export default function UserSignupForm({ onRegistrationComplete }) {
     e.preventDefault();
     try {
       const response = await api.post('/api/auth/register', { ...formData, role: 'user' });
-      
-      // Store both userId and token
-      localStorage.setItem('userId', response.data.userId);
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('fullName', formData.fullName);
-      
-      // Debug logs
-      console.log('Registration response:', response.data);
-      console.log('Stored userId:', localStorage.getItem('userId'));
-      
+      localStorage.setItem('userFullName', formData.fullName);
       if (onRegistrationComplete) {
         onRegistrationComplete(response.data.userId);
       } else {
-        // Make sure we have the userId before redirecting
-        if (response.data.userId) {
-          history.push('/user-email-verification');
-        } else {
-          console.error('No userId received from registration');
-        }
+        history.push('/user-email-verification');
       }
     } catch (error) {
-      console.error('Registration failed:', error.response?.data || error);
+      console.error('Registration failed:', error);
     }
   };
 

@@ -1,50 +1,123 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { xrpService } from '../services/xrpService';
 import './SignupPage.css';
+import WalletModal from '../components/WalletModal';
+import walletService from '../services/walletService';
 
-export const SignupPage = () => {
+const SignupPage = () => {
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [walletConnected, setWalletConnected] = useState(false);
+  const [showWalletModal, setShowWalletModal] = useState(false);
+  const [walletAddress, setWalletAddress] = useState(null);
+
+  useEffect(() => {
+    // Sample data - replace with your API call
+    const fetchCities = async () => {
+      const citiesData = [
+        {
+          id: 1,
+          name: 'New York',
+          price: '5000 JVC',
+          image: 'https://source.unsplash.com/random/800x600/?newyork',
+          currentBid: '4500 JVC',
+          timeLeft: '2d 5h',
+          description: 'Own a piece of the Big Apple\'s advertising revenue',
+          revenueLastMonth: '500 JVC'
+        },
+        // Add more cities
+      ];
+      setCities(citiesData);
+      setLoading(false);
+    };
+
+    fetchCities();
+  }, []);
+
+  const handleConnectWallet = async () => {
+    try {
+      const address = await walletService.connect();
+      setWalletAddress(address);
+      setWalletConnected(true);
+      setShowWalletModal(false);
+    } catch (error) {
+      console.error('Failed to connect wallet:', error);
+    }
+  };
+
+  const handleNFTPurchase = async (city) => {
+    if (!walletConnected) {
+      setShowWalletModal(true);
+      return;
+    }
+
+    try {
+      const result = await walletService.purchaseNFT(city.id, city.price);
+      if (result.success) {
+        // Show success notification
+        alert('NFT purchased successfully!');
+      }
+    } catch (error) {
+      console.error('Purchase failed:', error);
+      alert('Failed to purchase NFT. Please try again.');
+    }
+  };
+
   return (
-    <div className="signup-page">
-      <div className="cyber-grid"></div>
-      <div className="floating-orbs"></div>
-      
-      <header className="header">
-        <div className="logo">
-          <span className="logo-text">Joint Vibe</span>
-          <div className="logo-glow"></div>
-        </div>
-        <nav className="nav-buttons">
-          <a href="#" className="nav-button login-button">
-            <span className="button-text">Login</span>
-            <div className="button-glow"></div>
-          </a>
-          <Link to="/registration-choice" className="nav-button signup-button">
-            <span className="button-text">Sign Up</span>
-            <div className="button-glow"></div>
-          </Link>
-        </nav>
-      </header>
-      
-      <main className="hero">
-        <div className="hero-content">
-          <h1 className="hero-title">
-            <span className="glitch" data-text="Joint Vibe">Joint Vibe</span>
-          </h1>
-          <p className="hero-description">
-            Step into the future of social connection. Experience venues in a dimension where reality meets the metaverse.
-          </p>
-          <div className="cta-buttons">
-            <Link to="/registration-choice" className="cta-button cta-primary">
-              <span className="button-text">Launch Experience</span>
-              <div className="button-glow"></div>
-            </Link>
-            <a href="#features" className="cta-button cta-secondary">
-              <span className="button-text">Explore Features</span>
-              <div className="button-glow"></div>
-            </a>
+    <div className="nft-marketplace-container">
+      <div className="marketplace-header">
+        <div className="header-content">
+          <h1>City NFT Marketplace</h1>
+          <p>Own the Future of Urban Advertising</p>
+          <div className="auth-buttons">
+            <Link to="/registration-choice" className="signup-btn">Sign Up</Link>
+            <Link to="/login" className="login-btn">Login</Link>
           </div>
         </div>
-      </main>
+      </div>
+
+      <div className="marketplace-grid">
+        {cities.map(city => (
+          <div key={city.id} className="nft-card">
+            <div className="nft-image-container">
+              <img src={city.image} alt={city.name} />
+              <div className="time-left">{city.timeLeft}</div>
+            </div>
+            <div className="nft-info">
+              <h3>{city.name}</h3>
+              <div className="price-info">
+                <div className="current-price">
+                  <span>Price</span>
+                  <h4>{city.price}</h4>
+                </div>
+                <div className="current-bid">
+                  <span>Current Bid</span>
+                  <h4>{city.currentBid}</h4>
+                </div>
+              </div>
+              <div className="revenue-info">
+                <span>Revenue Last Month</span>
+                <h4>{city.revenueLastMonth}</h4>
+              </div>
+              <p className="description">{city.description}</p>
+              <button 
+                className="purchase-btn"
+                onClick={() => handleNFTPurchase(city)}
+              >
+                Purchase NFT
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+      {showWalletModal && (
+        <WalletModal 
+          onConnect={handleConnectWallet}
+          onClose={() => setShowWalletModal(false)}
+        />
+      )}
     </div>
   );
 };

@@ -1,0 +1,54 @@
+
+.wallet-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.wallet-modal {
+  background: linear-gradient(135deg, rgba(5, 5, 5, 0.95), rgba(20, 20, 20, 0.95));
+  padding: 2rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 400px;
+  position: relative;
+  border: 1px solid var(--primary-neon);
+  box-shadow: 0 0 30px rgba(0, 255, 242, 0.2);
+}
+
+.connect-btn {
+  width: 100%;
+  padding: 1rem;
+  margin-top: 1rem;
+  background: linear-gradient(45deg, var(--primary-neon), var(--secondary-neon));
+  border: none;
+  border-radius: 10px;
+  color: var(--bg-dark);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.connect-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 242, 0.4);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--primary-neon);
+  font-size: 1.5rem;
+  cursor: pointer;
+}

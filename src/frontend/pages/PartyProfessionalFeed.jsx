@@ -501,4 +501,3 @@ const PartyProfessionalFeed = () => {
 };
 
 export default PartyProfessionalFeed;
-

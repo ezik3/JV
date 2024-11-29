@@ -155,6 +155,48 @@ class XRPService {
       return result;
     });
   }
+
+  async mintNFT(cityData) {
+    const transactionBlob = {
+      TransactionType: "NFTokenMint",
+      Account: process.env.XRP_ISSUER_ADDRESS,
+      URI: xrpl.convertStringToHex(JSON.stringify(cityData)),
+      Flags: 8,
+      TransferFee: 1000, // 10% royalty fee
+      NFTokenTaxon: 0
+    };
+
+    try {
+      const wallet = xrpl.Wallet.fromSeed(process.env.XRP_ISSUER_SECRET);
+      const prepared = await this.client.autofill(transactionBlob);
+      const signed = wallet.sign(prepared);
+      const result = await this.client.submitAndWait(signed.tx_blob);
+      console.log("NFT minted:", result);
+      return result;
+    } catch (error) {
+      console.error("Error minting NFT:", error);
+      throw error;
+    }
+  }
+
+  async verifyJVCoinBalance(address, amount) {
+    try {
+      const accountLines = await this.client.request({
+        command: "account_lines",
+        account: address,
+        peer: process.env.XRP_ISSUER_ADDRESS
+      });
+
+      const jvcBalance = accountLines.result.lines.find(
+        line => line.currency === 'JVC'
+      );
+
+      return jvcBalance && parseFloat(jvcBalance.balance) >= amount;
+    } catch (error) {
+      console.error("Error verifying JVC balance:", error);
+      throw error;
+    }
+  }
 }
 
 module.exports = new XRPService();
