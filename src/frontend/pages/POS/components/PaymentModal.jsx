@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
+import JVPaymentService from '../../../services/payments/JVPaymentService';
 import '../styles/paymentModal.css';
 
 const PaymentModal = ({ total, onClose, onComplete }) => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [processing, setProcessing] = useState(false);
+  const [cryptoType, setCryptoType] = useState('XRP');
 
   const handlePayment = async () => {
     setProcessing(true);
     try {
-      // Simulate payment processing
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      if (paymentMethod === 'card') {
+        await JVPaymentService.purchaseWithFiat(total);
+      } else if (paymentMethod === 'crypto') {
+        await JVPaymentService.purchaseWithCrypto(total, cryptoType);
+      }
       onComplete();
     } catch (error) {
       console.error('Payment failed:', error);
@@ -37,18 +42,30 @@ const PaymentModal = ({ total, onClose, onComplete }) => {
             💳 Card
           </button>
           <button 
+            className={`method-button ${paymentMethod === 'crypto' ? 'active' : ''}`}
+            onClick={() => setPaymentMethod('crypto')}
+          >
+            🪙 Crypto
+          </button>
+          <button 
             className={`method-button ${paymentMethod === 'jvcoin' ? 'active' : ''}`}
             onClick={() => setPaymentMethod('jvcoin')}
           >
             🪙 JV Coin
           </button>
-          <button 
-            className={`method-button ${paymentMethod === 'cash' ? 'active' : ''}`}
-            onClick={() => setPaymentMethod('cash')}
-          >
-            💵 Cash
-          </button>
         </div>
+
+        {paymentMethod === 'crypto' && (
+          <select 
+            value={cryptoType}
+            onChange={(e) => setCryptoType(e.target.value)}
+            className="crypto-select"
+          >
+            <option value="XRP">XRP</option>
+            <option value="BTC">Bitcoin</option>
+            <option value="ETH">Ethereum</option>
+          </select>
+        )}
 
         <button 
           className="process-payment"
