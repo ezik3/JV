@@ -1,18 +1,25 @@
-const stripe = require('stripe')('your_stripe_secret_key_here');
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const xrpService = require('./xrpService');
 
-async function processPayment(amount, token) {
-  try {
-    const charge = await stripe.charges.create({
-      amount: amount * 100, // Stripe uses cents
-      currency: 'usd',
-      source: token,
-      description: 'JV Coin Purchase'
-    });
-    return charge;
-  } catch (error) {
-    console.error('Error processing payment:', error);
-    throw error;
+class StripeService {
+  async processPayment(amount, token, userId) {
+    try {
+      // Process payment through Stripe
+      const charge = await stripe.charges.create({
+        amount: amount * 100,
+        currency: 'usd',
+        source: token,
+        description: 'JV Coin Purchase'
+      });
+
+      if (charge.status === 'succeeded') {
+        // Mint equivalent JV Coins through XRP
+        return await xrpService.createJVCoin(userId, amount);
+      }
+    } catch (error) {
+      throw new Error('Payment processing failed');
+    }
   }
 }
 
-module.exports = { processPayment };
+module.exports = new StripeService();

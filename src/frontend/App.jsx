@@ -36,6 +36,7 @@ import POSMenuBuilder from './pages/POS/POSMenuBuilder';
 import POSInventory from './pages/POS/POSInventory';
 import SimplifiedPOS from './pages/POS/SimplifiedPOS';
 import POSDashboard from './pages/POS/POSDashboard';
+import WalletPage from './pages/Wallet/WalletPage';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -69,6 +70,10 @@ function App() {
                 );
               }} 
             />
+          
+          {/* Add the wallet route here */}
+          <Route path="/wallet" component={WalletPage} />
+
           {/* Venue routes */}
           <Route path="/venue">
             <VenueAuthProvider>
