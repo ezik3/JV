@@ -4,6 +4,8 @@ import { xrpService } from '../services/xrpService';
 import './SignupPage.css';
 import WalletModal from '../components/WalletModal';
 import walletService from '../services/walletService';
+import AuthModal from '../components/AuthModal/AuthModal';
+import purchaseService from '../services/purchaseService';
 
 const SignupPage = () => {
   const [cities, setCities] = useState([]);
@@ -12,6 +14,8 @@ const SignupPage = () => {
   const [walletConnected, setWalletConnected] = useState(false);
   const [showWalletModal, setShowWalletModal] = useState(false);
   const [walletAddress, setWalletAddress] = useState(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const [purchaseType, setPurchaseType] = useState(null);
 
   useEffect(() => {
     // Sample data - replace with your API call
@@ -65,6 +69,11 @@ const SignupPage = () => {
     }
   };
 
+  const handlePurchaseClick = (type) => {
+    setPurchaseType(type);
+    setShowAuthModal(true);
+  };
+
   return (
     <div className="nft-marketplace-container">
       <div className="marketplace-header">
@@ -77,6 +86,24 @@ const SignupPage = () => {
           </div>
         </div>
       </div>
+
+      <nav className="navbar">
+        {/* Your existing navbar content */}
+        <div className="purchase-buttons">
+          <button 
+            className="button primary-button"
+            onClick={() => handlePurchaseClick('jvcoin')}
+          >
+            Buy JV Coin
+          </button>
+          <button 
+            className="button secondary-button"
+            onClick={() => handlePurchaseClick('nft')}
+          >
+            Buy NFT
+          </button>
+        </div>
+      </nav>
 
       <div className="marketplace-grid">
         {cities.map(city => (
@@ -116,6 +143,26 @@ const SignupPage = () => {
         <WalletModal 
           onConnect={handleConnectWallet}
           onClose={() => setShowWalletModal(false)}
+        />
+      )}
+      {showAuthModal && (
+        <AuthModal 
+          onClose={() => setShowAuthModal(false)}
+          onAuth={async (username, password) => {
+            try {
+              const auth = await api.post('/api/auth/login', { username, password });
+              if (auth.data.success) {
+                if (purchaseType === 'nft') {
+                  await purchaseService.purchaseNFT(auth.data.userId);
+                } else {
+                  await purchaseService.purchaseJVCoin(auth.data.userId);
+                }
+                setShowAuthModal(false);
+              }
+            } catch (error) {
+              console.error('Authentication failed:', error);
+            }
+          }}
         />
       )}
     </div>

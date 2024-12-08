@@ -91,8 +91,15 @@ const userSchema = new mongoose.Schema({
     permissions: [String]
   }],
 
-  // JV Coin fields (existing)
-  jvCoinBalance: { type: Number, default: 0 },
+  wallet: {
+    jvCoinBalance: { type: Number, default: 0 },
+    nfts: [{
+      tokenId: String,
+      name: String,
+      image: String,
+      purchaseDate: Date
+    }]
+  },
   xrpAddress: { type: String },
 
   // Timestamps

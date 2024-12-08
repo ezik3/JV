@@ -70,10 +70,12 @@ function App() {
                 );
               }} 
             />
-          
-          {/* Add the wallet route here */}
-          <Route path="/wallet" component={WalletPage} />
-
+                              {/* Add the wallet route here */}
+                              <Route path="/wallet" render={(props) => (
+                                <ErrorBoundary>
+                                  <WalletPage {...props} />
+                                </ErrorBoundary>
+                              )} />
           {/* Venue routes */}
           <Route path="/venue">
             <VenueAuthProvider>

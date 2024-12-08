@@ -207,3 +207,37 @@ const MyProfile = () => {
 };
 
 export default MyProfile;
+
+// Add these imports at the top
+import AuthModal from '../components/AuthModal/AuthModal';
+import purchaseService from '../services/purchaseService';
+
+// Inside your MyProfile component, add this new state
+const [walletData, setWalletData] = useState({
+  jvCoinBalance: 0,
+  nfts: []
+});
+
+// Add this section inside your profile-body div
+<div className="profile-section">
+  <h2 className="section-title">Wallet</h2>
+  <div className="wallet-stats">
+    <div className="stat">
+      <div className="stat-value">{walletData.jvCoinBalance} JV</div>
+      <div className="stat-label">JV Coin Balance</div>
+    </div>
+  </div>
+  
+  <h2 className="section-title">My NFTs</h2>
+  <div className="nft-grid">
+    {walletData.nfts.map(nft => (
+      <div key={nft.tokenId} className="nft-card">
+        <img src={nft.image} alt={nft.name} className="nft-image" />
+        <div className="nft-info">
+          <h3>{nft.name}</h3>
+          <p>Purchased: {new Date(nft.purchaseDate).toLocaleDateString()}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

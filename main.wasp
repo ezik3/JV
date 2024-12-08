@@ -370,3 +370,10 @@ query getInventory {
   fn: import { getInventory } from "@src/queries.js"
 }
 
+
+// Add this to your routes section
+page WalletPage {
+  component: import WalletPage from "@src/frontend/pages/Wallet/WalletPage.jsx"
+}
+
+route WalletRoute { path: "/wallet", to: WalletPage }
