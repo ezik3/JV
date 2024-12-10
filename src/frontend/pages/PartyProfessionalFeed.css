@@ -277,44 +277,52 @@ body, html {
   50% { transform: translateX(20px); }
   100% { transform: translateX(0); }
 }
+  .recent-posters-container {
+    width: 100%;
+    margin: 0 auto;
+    overflow-x: auto;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(to top, rgba(12, 12, 12, 0.95), rgba(12, 12, 12, 0.8));
+    padding: 20px 0;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+  }
 
-.recent-posters-container {
-  width: 100%;
-  margin: 0 auto;
-  overflow-x: auto;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: rgba(0,0,0,0.8);
-  padding: 10px;
-  z-index: 1000;
-}
+  .recent-posters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
 
-.recent-posters {
-  display: flex;
-  min-width: 100%;
-}
+  .recent-poster {
+    flex: 0 0 auto;
+    text-align: center;
+    position: relative;
+  }
 
-.recent-poster {
-  flex: 0 0 auto;
-  margin-right: 10px;
-  text-align: center;
-}
+  .recent-poster img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid #ff00ff;
+    box-shadow: 0 0 15px rgba(255, 0, 255, 0.5);
+  }
 
-.recent-poster img {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #800080;
-}
-
-.recent-poster p {
-  margin: 5px 0;
-  font-size: 12px;
-}
-
+  .recent-poster p {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: #fff;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  }
 /* New styles for autocomplete and check-in options */
 .autocomplete-dropdown {
   position: absolute;
