@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import AIWaiter from '../../../components/shared/AIWaiter';
-import MenuGrid from '../components/MenuGrid';
-import CategoryBar from '../components/CategoryBar';
-import Cart from '../components/Cart';
-import OrderCard from '../components/OrderCard';
+import MenuGrid from './MenuGrid';
+import CategoryBar from './CategoryBar';
+import Cart from './Cart';
+import OrderCard from './OrderCard';
 import '../styles/orderScreen.css';
 import { useOrders } from '../../../contexts/OrderContext';
 

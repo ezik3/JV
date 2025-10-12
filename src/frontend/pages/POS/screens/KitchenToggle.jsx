@@ -1,6 +1,6 @@
 // src/frontend/pages/POS/screens/KitchenToggle.jsx
 import React, { useState } from 'react';
-import KitchenListView from './Kitchen';
+import KitchenListView from '../components/Kitchen';
 import KitchenGridView from './Kitchen2';
 
 const KitchenToggle = () => {
