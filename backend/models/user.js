@@ -33,6 +33,16 @@ const userSchema = new mongoose.Schema({
     privateProfile: { type: Boolean, default: false },
     showLocation: { type: Boolean, default: true }
   },
+  
+  // User location (for finding nearby users/venues)
+  currentLocation: {
+    latitude: Number,
+    longitude: Number,
+    updatedAt: Date
+  },
+  
+  // Gold post tracking
+  lastGoldPostDate: { type: Date },
 
   // Authentication fields (existing)
   isTOTPEnabled: { type: Boolean, default: false },

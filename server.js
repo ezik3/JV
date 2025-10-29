@@ -1,67 +1,55 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
 const cors = require('cors');
-const xrpService = require('./xrpService'); // Add this line
-
-// Keep your existing imports for facial recognition
-const { detectFaces } = require('./faceDetection');
-const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-
-dotenv.config();
+const http = require('http');
+const { Server } = require('socket.io');
+require('dotenv').config();
 
 const app = express();
+const server = http.createServer(app);
 
-app.use(cors());
+// Configure CORS for both Express and Socket.IO
+const corsOptions = {
+  origin: ['http://localhost:3000', 'http://localhost:5173'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+  credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+// Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(err => console.log(err));
-
-// Connect to XRP Ledger
-xrpService.connect()
-  .then(() => console.log('Connected to XRP Ledger'))
-  .catch(err => console.log('Failed to connect to XRP Ledger', err));
-
-// Keep your existing multer configuration
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/');
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
+// Socket.IO setup with CORS
+const io = new Server(server, {
+  cors: corsOptions
 });
 
-const upload = multer({ storage: storage });
-
-// Keep your existing routes
-app.post('/upload', upload.single('image'), async (req, res) => {
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
-  }
-
-  try {
-    const imagePath = req.file.path;
-    const faces = await detectFaces(imagePath);
-    
-    // Delete the uploaded file after processing
-    fs.unlinkSync(imagePath);
-
-    res.json({ faces });
-  } catch (error) {
-    console.error('Error processing image:', error);
-    res.status(500).send('Error processing image');
-  }
+io.on('connection', (socket) => {
+  console.log('User connected:', socket.id);
+  
+  socket.on('disconnect', () => {
+    console.log('User disconnected:', socket.id);
+  });
 });
 
-// Routes (we'll add these later)
-// app.use('/api/users', require('./routes/users'));
-// app.use('/api/venues', require('./routes/venues'));
+// Make io available to routes
+app.set('io', io);
+
+// MongoDB Connection
+mongoose.connect(process.env.MONGODB_URI)
+  .then(() => console.log('Connected to MongoDB'))
+  .catch(err => console.error('MongoDB connection error:', err));
+
+// Routes
+app.use('/api/auth', require('./backend/routes/auth'));
+app.use('/api/posts', require('./backend/routes/posts'));
+app.use('/api/friends', require('./backend/routes/friends'));
+app.use('/api/users', require('./src/backend/routes/users'));
+app.use('/api/venues', require('./src/backend/routes/venues'));
+app.use('/api/profile', require('./backend/routes/profile'));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

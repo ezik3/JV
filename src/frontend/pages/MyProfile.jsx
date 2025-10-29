@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthModal from '../components/AuthModal/AuthModal';
 import purchaseService from '../services/purchaseService';
@@ -12,6 +12,14 @@ const MyProfile = () => {
     jvCoinBalance: 0,
     nfts: []
   });
+  const [userData, setUserData] = useState({
+    username: '',
+    fullName: '',
+    profilePicture: '/default-avatar.png',
+    bio: '',
+    interests: []
+  });
+  const [loading, setLoading] = useState(true);
 
   const toggleWalletModal = () => {
     setWalletModalVisible(!walletModalVisible);
@@ -34,6 +42,45 @@ const MyProfile = () => {
   const toggleMute = () => {
     setIsMuted(!isMuted);
   };
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        if (!userId) {
+          history.push('/login');
+          return;
+        }
+
+        const response = await fetch(`http://localhost:5001/api/auth/users/${userId}`, {
+          headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserData({
+            username: data.showUsername ? data.username : (data.fullName || data.username),
+            fullName: data.fullName || data.username,
+            profilePicture: data.profilePicture || '/default-avatar.png',
+            bio: data.bio || 'No bio available',
+            interests: data.interests || []
+          });
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [history]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="app-container">
@@ -89,17 +136,18 @@ const MyProfile = () => {
           {isPlaying ? '⏸' : '▶'}
         </button>
         <img
-          src="https://randomuser.me/api/portraits/women/32.jpg"
-          alt="DJ Sarah Spin"
+          src={userData.profilePicture}
+          alt={userData.username}
           className="profile-avatar"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.src = '/default-avatar.png';
+          }}
         />
         <div className="profile-info">
-          <h1 className="profile-name">DJ Sarah Spin</h1>
+          <h1 className="profile-name">{userData.fullName}</h1>
           <p className="profile-username">
-            @djsarahspin{' '}
-            <a href="/venues/sin-city" className="venue-link">
-              @Sin City
-            </a>
+            @{userData.username}
           </p>
           <div className="profile-stats">
             <div className="stat">
@@ -133,16 +181,17 @@ const MyProfile = () => {
         <div className="profile-section">
           <h2 className="section-title">About Me</h2>
           <p className="bio">
-            Electro-house DJ and music producer with a passion for creating unforgettable nights. Spinning beats and igniting dance floors across the globe. Let's make some noise! 🎧🔥
+            {userData.bio}
           </p>
           <h3 className="section-title">Interests</h3>
           <div className="interests">
-            <span className="interest-tag">Electronic Music</span>
-            <span className="interest-tag">DJing</span>
-            <span className="interest-tag">Music Production</span>
-            <span className="interest-tag">Festivals</span>
-            <span className="interest-tag">Nightlife</span>
-            <span className="interest-tag">Travel</span>
+            {userData.interests.length > 0 ? (
+              userData.interests.map((interest, index) => (
+                <span key={index} className="interest-tag">{interest}</span>
+              ))
+            ) : (
+              <p>No interests added yet</p>
+            )}
           </div>
         </div>
         <div className="profile-section">

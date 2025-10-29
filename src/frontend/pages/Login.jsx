@@ -17,11 +17,13 @@ function Login() {
       localStorage.setItem('userId', response.data.userId);
       localStorage.setItem('userRole', response.data.role);
       
-      // Redirect based on role
-      if (response.data.role === 'venue') {
+      // Redirect based on role and profile completion
+      if (response.data.nextStep) {
+        history.push(response.data.nextStep);
+      } else if (response.data.role === 'venue') {
         history.push('/venue/home');
       } else {
-        history.push('/home');
+        history.push('/party-feed');
       }
     } catch (error) {
       setError('Login failed: ' + (error.response?.data?.message || error.message));

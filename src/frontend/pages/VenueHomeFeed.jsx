@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 import './VenueHomeFeed.css';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:5001');
 
 const VenueHomeFeed = () => {
   const [posts, setPosts] = useState([]);

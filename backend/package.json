@@ -39,6 +39,6 @@
     "xrpl": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.19"
   }
 }

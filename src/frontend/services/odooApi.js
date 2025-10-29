@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:5000/api/odoo';
+const BASE_URL = 'http://localhost:5001/api/odoo';
 
 const odooApi = {
   async getProducts() {

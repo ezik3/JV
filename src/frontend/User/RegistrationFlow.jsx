@@ -43,7 +43,7 @@ const RegistrationFlow = () => {
   const handleMFAComplete = () => {
     // Redirect to appropriate feed based on role
     if (userRole === 'venue') {
-      history.push('/venue-feed');
+      history.push('/venue/home');
     } else {
       history.push('/party-feed');
     }

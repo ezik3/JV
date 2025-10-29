@@ -43,7 +43,7 @@ const OdooTest = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5000/api/odoo/products');
+        const response = await axios.get('http://localhost:5001/api/odoo/products');
         setProducts(response.data);
       } catch (err) {
         setError(err.message);

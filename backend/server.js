@@ -31,6 +31,8 @@ const { detectFaces } = require('./faceDetection');
 const multer = require('multer');
 const checkInRoutes = require('./routes/checkIn');
 const orderRoutes = require('./routes/orders');
+const postsRoutes = require('./routes/posts');
+const friendsRoutes = require('./routes/friends');
 const http = require('http');
 const { Server } = require('socket.io');
 const aiWaiterRoutes = require('./routes/aiWaiter');
@@ -106,6 +108,8 @@ app.use((req, res, next) => {
   next();
 });
 app.use('/api/orders', orderRoutes);
+app.use('/api/posts', postsRoutes);
+app.use('/api/friends', friendsRoutes);
 
 // Add this route to handle venue registration directly in server.js
 app.post('/api/auth/register-venue', (req, res) => {
@@ -244,15 +248,11 @@ app.post('/upload', upload.single('image'), async (req, res) => {
 // XRP routes
 app.use('/api/xrp', require('./routes/xrp'));
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../frontend/build')));
-
-// Make sure this line exists and is before the catch-all route
-app.use('/api/profile', profileRoutes);
-// This should be last
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
-});
+// COMMENTED OUT: Production build serving - not needed in development
+// app.use(express.static(path.join(__dirname, '../frontend/build')));
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname, '../frontend/build', 'index.html'));
+// });
 
 app.use((err, req, res, next) => {
   console.error('Error:', err);

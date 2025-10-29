@@ -7,6 +7,11 @@ import './ProfileSetup.css';
 const ProfileSetup = (props) => {
   useEffect(() => {
     console.log('ProfileSetup mounted with props:', props);
+    // Load fullName from localStorage
+    const storedFullName = localStorage.getItem('userFullName');
+    if (storedFullName) {
+      setFullName(storedFullName);
+    }
   }, []);
 
   const [step, setStep] = useState('username');
@@ -21,27 +26,30 @@ const ProfileSetup = (props) => {
   const webcamRef = useRef(null);
   const fileInputRef = useRef(null);
   const history = useHistory();
-    const handleUsernameSubmit = async () => {
-      const storedUserId = localStorage.getItem('userId');
-      try {
-        const response = await api.post('/api/profile/update-username', {
-          userId: storedUserId,
-          username,
-          showUsername
-        });
-        if (username.trim()) {
-          localStorage.setItem('username', username);
-        }
-        setStep('photo');
-      } catch (error) {
-        setError('Failed to update username. Please try again.');
+
+  const handleUsernameSubmit = async () => {
+    const storedUserId = localStorage.getItem('userId');
+    try {
+      const response = await api.post('/api/profile/update-username', {
+        userId: storedUserId,
+        username,
+        showUsername
+      });
+      if (username.trim()) {
+        localStorage.setItem('username', username);
       }
-    };
+      setStep('photo');
+    } catch (error) {
+      setError('Failed to update username. Please try again.');
+    }
+  };
+
   const handlePhotoCapture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setProfilePic(imageSrc);
-  setIsCameraActive(false);
-};
+    setIsCameraActive(false);
+  };
+
   const handleFileUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -65,38 +73,55 @@ const ProfileSetup = (props) => {
       throw new Error('Failed to upload profile picture: ' + error.message);
     }
   };
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        setError('');
-        const result = await handlePhotoUpload(profilePic);
-        if (result.success) {
-          history.push('/home');
-        }
-      } catch (error) {
-        console.error('Setup submission error:', error);
-        setError('Failed to complete setup: ' + error.message);
-      }
-    };
-      const handleProfileComplete = async () => {
-        try {
-          const userId = localStorage.getItem('userId');
-          console.log('Sending profile update request:', { userId, profilePic });
-          const response = await api.post('/api/profile/update-photo', {
-            userId,
-            profilePic
-          });
-          console.log('Profile update response:', response);
 
-          if (response.data.success) {
-            history.push('/home');
-          }
-        } catch (error) {
-          setError('Failed to update profile picture. Please try again.');
-          console.error('Profile update error:', error);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setError('');
+      console.log('=== PROFILE SETUP SUBMIT START ===');
+      console.log('Submitting profile setup...');
+      const result = await handlePhotoUpload(profilePic);
+      console.log('Photo upload result:', JSON.stringify(result, null, 2));
+      console.log('result.success:', result.success);
+      console.log('result.isProfileComplete:', result.isProfileComplete);
+      console.log('typeof result.success:', typeof result.success);
+      console.log('typeof result.isProfileComplete:', typeof result.isProfileComplete);
+      
+      if (result.success && result.isProfileComplete) {
+        console.log('BOTH CONDITIONS MET - Profile completed successfully, redirecting...');
+        // Get user role to determine redirect path
+        const userRole = localStorage.getItem('userRole');
+        console.log('User role:', userRole);
+        
+        // Set flag to prevent redirect loop
+        sessionStorage.setItem('profileSetupCompleted', 'true');
+        console.log('Set sessionStorage flag');
+        
+        // Small delay to ensure database update completes
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        if (userRole === 'venue') {
+          console.log('Redirecting to /venue/home');
+          history.push('/venue/home');
+        } else {
+          console.log('Redirecting to /party-feed');
+          history.push('/party-feed');
         }
-      };
-    const handleLocationInput = async (e) => {
+      } else {
+        console.log('CONDITION FAILED:');
+        console.log('  result.success =', result.success);
+        console.log('  result.isProfileComplete =', result.isProfileComplete);
+        console.log('=== PROFILE SETUP SUBMIT END (FAILED) ===');
+        setError('Profile setup incomplete. Please try again.');
+      }
+    } catch (error) {
+      console.error('=== PROFILE SETUP ERROR ===');
+      console.error('Setup submission error:', error);
+      setError('Failed to complete setup: ' + error.message);
+    }
+  };
+
+  const handleLocationInput = async (e) => {
     const input = e.target.value;
     setLocation(input);
     

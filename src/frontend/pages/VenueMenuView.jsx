@@ -18,7 +18,7 @@ const VenueMenuView = () => {
 
   const fetchVenueMenu = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/orders/menu/${venueId}`);
+      const response = await axios.get(`http://localhost:5001/api/orders/menu/${venueId}`);
       const menuItems = response.data;
       setMenu({
         food: menuItems.filter(item => item.category === 'Food'),
@@ -33,7 +33,7 @@ const VenueMenuView = () => {
 
   const fetchVenueInfo = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/venues/${venueId}`);
+      const response = await axios.get(`http://localhost:5001/api/venues/${venueId}`);
       setVenueInfo(response.data);
     } catch (error) {
       setError('Failed to load venue information');

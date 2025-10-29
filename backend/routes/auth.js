@@ -215,7 +215,7 @@ router.post('/login', loginLimiter, lockoutMiddleware, async (req, res) => {
 
     // Determine the next step based on profile completion and role
     const nextStep = !user.isProfileComplete ? '/profile-setup' : 
-                    user.role === 'venue' ? '/venue-feed' : 
+                    user.role === 'venue' ? '/venue/home' : 
                     user.role === 'admin' ? '/admin/dashboard' : 
                     '/party-feed';
     
@@ -367,7 +367,7 @@ router.get('/check-profile/:userId', async (req, res) => {
         profilePicture: user.profilePicture
       },
       nextStep: !user.isProfileComplete ? '/profile-setup' : 
-                user.role === 'venue' ? '/venue-feed' : 
+                user.role === 'venue' ? '/venue/home' : 
                 '/party-feed'
     });
   } catch (error) {
@@ -391,7 +391,7 @@ router.post('/complete-profile', authenticateJWT, async (req, res) => {
     
     await user.save();
 
-    const nextStep = user.role === 'venue' ? '/venue-feed' : '/party-feed';
+    const nextStep = user.role === 'venue' ? '/venue/home' : '/party-feed';
 
     res.json({ 
       success: true, 

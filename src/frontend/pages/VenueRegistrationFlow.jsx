@@ -41,6 +41,11 @@ const VenueRegistrationFlow = () => {
       console.log('Registration response:', response);
       
       if (response.data && response.data.userId) {
+        // Store venue data in localStorage
+        localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userRole', response.data.role);
+        
         setVenueData({ ...completeVenueData, id: response.data.userId });
         setMessage('Venue registered successfully. Proceeding to next step.');
         console.log('Moving to next step');
@@ -139,7 +144,16 @@ const VenueRegistrationFlow = () => {
       case 6:
         return <PrivateKey venueData={venueData} onComplete={() => setStep(7)} />;
       case 7:
-        return <div>Registration Complete</div>;
+        // Redirect to venue home after registration completion
+        setTimeout(() => {
+          window.location.href = '/venue/home';
+        }, 2000);
+        return (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <h2>Registration Complete! 🎉</h2>
+            <p>Redirecting to your venue dashboard...</p>
+          </div>
+        );
       default:
         return <div>Unknown step</div>;
     }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import api from '../api';
+import axios from 'axios';
 import './UserSignupForm.css';
 
 export default function UserSignupForm({ onRegistrationComplete }) {
@@ -11,6 +11,7 @@ export default function UserSignupForm({ onRegistrationComplete }) {
     phone: '',
     fullName: ''
   });
+  const [error, setError] = useState('');
   const history = useHistory();
   const [activeField, setActiveField] = useState(null);
 
@@ -20,16 +21,34 @@ export default function UserSignupForm({ onRegistrationComplete }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+    
     try {
-      const response = await api.post('/api/auth/register', { ...formData, role: 'user' });
-      localStorage.setItem('userFullName', formData.fullName);
-      if (onRegistrationComplete) {
-        onRegistrationComplete(response.data.userId);
-      } else {
+      const response = await axios.post('http://localhost:5001/api/auth/register', {
+        username: formData.email,
+        email: formData.email,
+        password: formData.password,
+        phone: formData.phone,
+        fullName: formData.fullName
+      });
+      
+      if (response.data.userId) {
+        localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userRole', response.data.role);
+        localStorage.setItem('userFullName', formData.fullName);
+        localStorage.setItem('userPhone', formData.phone);
+        localStorage.setItem('userEmail', formData.email);
         history.push('/user-email-verification');
       }
     } catch (error) {
       console.error('Registration failed:', error);
+      setError(error.response?.data?.error || error.message || 'Registration failed');
     }
   };
 
@@ -110,6 +129,7 @@ export default function UserSignupForm({ onRegistrationComplete }) {
             <label className="cyber-label">Full Name</label>
           </div>
 
+          {error && <div className="error-message" style={{color: '#ff0000', marginBottom: '1rem'}}>{error}</div>}
           <button type="submit" className="cyber-button">
             <span className="button-content">Sign Up</span>
             <span className="button-glitch"></span>

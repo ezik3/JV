@@ -24,10 +24,20 @@ const VenueOwnerHome = () => {
         return;
       }
 
+      // Check if we just completed profile setup
+      const justCompletedSetup = sessionStorage.getItem('profileSetupCompleted');
+      if (justCompletedSetup === 'true') {
+        console.log('Profile setup just completed, skipping check');
+        sessionStorage.removeItem('profileSetupCompleted');
+        setIsLoading(false);
+        return;
+      }
+
       const response = await api.get(`/api/auth/check-profile/${userId}`);
       console.log('Profile response:', response.data);
       
       if (!response.data.isProfileComplete) {
+        console.log('Profile incomplete, redirecting to setup');
         history.push('/profile-setup');
         return;
       }

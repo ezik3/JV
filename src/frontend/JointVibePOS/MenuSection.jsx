@@ -17,7 +17,7 @@ const MenuSection = ({ onAddItem }) => {
 
     const fetchMenuItems = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/orders/menu');
+            const response = await axios.get('http://localhost:5001/api/orders/menu');
             setMenuItems(response.data);
         } catch (error) {
             console.error('Error fetching menu:', error);

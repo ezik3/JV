@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './styles/global.css';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SignupPage from './pages/SignupPage';
@@ -84,6 +85,8 @@ function App() {
                 <Route path="/venue/messages" component={VenueMessages} />
                 <Route path="/venue/notifications" component={VenueNotifications} />
                 <Route path="/venue/settings" component={VenueSettings} />
+                <Route path="/venue/accounts" component={VenueAccounts} />
+                <Route path="/venue/credits" render={() => <div style={{padding: '20px'}}>Credits page - Coming Soon</div>} />
                 
                 {/* POS routes wrapped in POSProvider */}
                 <Route path="/venue/pos">

@@ -26,7 +26,7 @@ const VenueMenu = ({ venueId }) => {
 
   const fetchMenuItems = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/orders/menu/${venueId}`, {
+      const response = await axios.get(`http://localhost:5001/api/orders/menu/${venueId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       const menuItems = response.data;
@@ -45,7 +45,7 @@ const VenueMenu = ({ venueId }) => {
 
   const fetchCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/categories/${venueId}`, {
+      const response = await axios.get(`http://localhost:5001/api/categories/${venueId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       setCategories(response.data);
@@ -57,7 +57,7 @@ const VenueMenu = ({ venueId }) => {
 
   const addNewItem = async () => {
     try {
-      await axios.post('http://localhost:5000/api/orders/menu', 
+      await axios.post('http://localhost:5001/api/orders/menu',
         { ...newItem, venueId },
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
@@ -80,7 +80,7 @@ const VenueMenu = ({ venueId }) => {
 
   const updateMenuItem = async (id, updatedItem) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/menu/${id}`, 
+      await axios.put(`http://localhost:5001/api/orders/menu/${id}`,
         updatedItem,
         { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } }
       );
@@ -93,7 +93,7 @@ const VenueMenu = ({ venueId }) => {
 
   const deleteMenuItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/orders/menu/${id}`, {
+      await axios.delete(`http://localhost:5001/api/orders/menu/${id}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       });
       fetchMenuItems();

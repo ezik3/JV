@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 import './VenueOrders.css';
 
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:5001');
 
 const getProgressDots = (progress) => {
   let dots = [];
@@ -27,7 +27,7 @@ const VenueOrders = () => {
 
   useEffect(() => {
     // Fetch initial orders
-    fetch('http://localhost:5000/api/orders/all')
+    fetch('http://localhost:5001/api/orders/all')
       .then(response => response.json())
       .then(data => setOrders(data))
       .catch(error => console.error('Error fetching orders:', error));
