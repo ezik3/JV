@@ -23,7 +23,15 @@ const CustomerMenu = () => {
   const fetchMenu = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`/api/menu/items?venueId=${venueId}`, {
+      
+      // Validate venueId
+      if (!venueId || isNaN(venueId) || parseInt(venueId) <= 0) {
+        console.error('Invalid venue ID');
+        setLoading(false);
+        return;
+      }
+      
+      const response = await fetch(`/api/menu/items?venueId=${encodeURIComponent(venueId)}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }

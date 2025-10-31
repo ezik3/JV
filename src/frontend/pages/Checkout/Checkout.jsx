@@ -1,7 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { CreditCard, Wallet, MapPin, Clock, MessageSquare, ChevronLeft, Check } from 'lucide-react';
+import { CreditCard, Wallet, MapPin, Clock, MessageSquare, ChevronLeft, Check, AlertCircle, CheckCircle } from 'lucide-react';
 import './Checkout.css';
+
+const Toast = ({ message, type, onClose }) => {
+  useEffect(() => {
+    const timer = setTimeout(onClose, 5000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div className={`toast toast-${type}`}>
+      {type === 'success' ? <CheckCircle size={20} /> : <AlertCircle size={20} />}
+      <span>{message}</span>
+      <button onClick={onClose} className="toast-close">×</button>
+    </div>
+  );
+};
 
 const Checkout = () => {
   const history = useHistory();
@@ -14,6 +29,7 @@ const Checkout = () => {
   const [tables, setTables] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showAIWaiter, setShowAIWaiter] = useState(false);
+  const [toast, setToast] = useState(null);
 
   useEffect(() => {
     // Load cart from localStorage
@@ -52,7 +68,7 @@ const Checkout = () => {
 
   const handlePlaceOrder = async () => {
     if (orderType === 'dine-in' && !selectedTable) {
-      alert('Please select a table');
+      setToast({ message: 'Please select a table', type: 'error' });
       return;
     }
 
@@ -89,12 +105,21 @@ const Checkout = () => {
       localStorage.removeItem('orderType');
       localStorage.removeItem('venueId');
 
-      // Redirect to order confirmation or success page
-      alert(`Order placed successfully! Order #${result.order.orderNumber}`);
-      history.push('/home');
+      // Show success message and redirect
+      setToast({ 
+        message: `Order placed successfully! Order #${result.order.orderNumber}`, 
+        type: 'success' 
+      });
+      
+      setTimeout(() => {
+        history.push('/home');
+      }, 2000);
     } catch (error) {
       console.error('Error placing order:', error);
-      alert('Failed to place order. Please try again.');
+      setToast({ 
+        message: 'Failed to place order. Please try again.', 
+        type: 'error' 
+      });
     } finally {
       setLoading(false);
     }
@@ -290,6 +315,15 @@ const Checkout = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Toast Notification */}
+      {toast && (
+        <Toast 
+          message={toast.message} 
+          type={toast.type} 
+          onClose={() => setToast(null)} 
+        />
       )}
     </div>
   );

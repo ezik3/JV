@@ -28,8 +28,10 @@ export const placeOrder = async (req, res, context) => {
       };
     });
 
-    // Generate unique order number
-    const orderNumber = `ORD-${Date.now()}-${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    // Generate unique order number using timestamp and random string
+    const timestamp = Date.now();
+    const randomString = Math.random().toString(36).substr(2, 9).toUpperCase();
+    const orderNumber = `ORD-${timestamp}-${randomString}`;
 
     // Create order
     const order = await context.entities.Order.create({
