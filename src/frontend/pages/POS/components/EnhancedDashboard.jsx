@@ -10,14 +10,15 @@ import '../styles/enhancedDashboard.css';
 const EnhancedDashboard = () => {
   const [theme, setTheme] = useState('dark');
   const [timeRange, setTimeRange] = useState('today');
-  const [salesChart, setSalesChart] = useState(null);
-  const [categoryChart, setCategoryChart] = useState(null);
 
   useEffect(() => {
     // Initialize Charts with better styling
+    let chart1 = null;
+    let chart2 = null;
+
     const ctx1 = document.getElementById('salesChart');
     if (ctx1) {
-      const chart1 = new ChartJS(ctx1, {
+      chart1 = new ChartJS(ctx1, {
         type: 'line',
         data: {
           labels: ['6PM', '7PM', '8PM', '9PM', '10PM', '11PM', '12AM', '1AM', '2AM'],
@@ -122,12 +123,11 @@ const EnhancedDashboard = () => {
           }
         }
       });
-      setSalesChart(chart1);
     }
 
     const ctx2 = document.getElementById('categoryChart');
     if (ctx2) {
-      const chart2 = new ChartJS(ctx2, {
+      chart2 = new ChartJS(ctx2, {
         type: 'doughnut',
         data: {
           labels: ['Premium Vodka', 'VIP Booth', 'Cocktails', 'Beer', 'Wine', 'Food'],
@@ -190,12 +190,11 @@ const EnhancedDashboard = () => {
           }
         }
       });
-      setCategoryChart(chart2);
     }
 
     return () => {
-      if (salesChart) salesChart.destroy();
-      if (categoryChart) categoryChart.destroy();
+      if (chart1) chart1.destroy();
+      if (chart2) chart2.destroy();
     };
   }, []);
 
