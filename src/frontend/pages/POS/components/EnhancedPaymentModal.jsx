@@ -7,18 +7,19 @@ import '../styles/enhancedPaymentModal.css';
 
 // Configuration constants
 const VIBE_TO_USD_RATE = 0.85; // Should be fetched from API in production
+const DEFAULT_VIBE_BALANCE = 1250; // Should be fetched from user account
 
-const EnhancedPaymentModal = ({ total, items, onClose, onComplete }) => {
+const EnhancedPaymentModal = ({ total, items, onClose, onComplete, vibeBalance = DEFAULT_VIBE_BALANCE }) => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [processing, setProcessing] = useState(false);
   const [cryptoType, setCryptoType] = useState('XRP');
   const [paymentSuccess, setPaymentSuccess] = useState(false);
 
   const paymentMethods = [
-    { id: 'card', name: 'Credit/Debit Card', icon: CreditCard, color: '#6366F1' },
-    { id: 'crypto', name: 'Cryptocurrency', icon: Bitcoin, color: '#F59E0B' },
-    { id: 'vibe', name: 'VIBE Token', icon: TrendingUp, color: '#8B5CF6' },
-    { id: 'mobile', name: 'Mobile Wallet', icon: Smartphone, color: '#10B981' },
+    { id: 'card', name: 'Credit/Debit Card', icon: CreditCard, theme: 'theme-primary' },
+    { id: 'crypto', name: 'Cryptocurrency', icon: Bitcoin, theme: 'theme-crypto' },
+    { id: 'vibe', name: 'VIBE Token', icon: TrendingUp, theme: 'theme-vibe' },
+    { id: 'mobile', name: 'Mobile Wallet', icon: Smartphone, theme: 'theme-mobile' },
   ];
 
   const cryptoOptions = [
@@ -84,11 +85,8 @@ const EnhancedPaymentModal = ({ total, items, onClose, onComplete }) => {
             return (
               <button
                 key={method.id}
-                className={`payment-method-card ${paymentMethod === method.id ? 'active' : ''}`}
+                className={`payment-method-card ${method.theme} ${paymentMethod === method.id ? 'active' : ''}`}
                 onClick={() => setPaymentMethod(method.id)}
-                style={{
-                  '--method-color': method.color
-                }}
               >
                 <div className="method-icon">
                   <Icon size={24} />
@@ -165,11 +163,11 @@ const EnhancedPaymentModal = ({ total, items, onClose, onComplete }) => {
               <Wallet size={20} />
               <div>
                 <span className="balance-label">Available Balance</span>
-                <span className="balance-value">1,250 VIBE</span>
+                <span className="balance-value">{vibeBalance} VIBE</span>
               </div>
             </div>
             <div className="conversion-info">
-              <span>≈ ${(1250 * VIBE_TO_USD_RATE).toFixed(2)} USD</span>
+              <span>≈ ${(vibeBalance * VIBE_TO_USD_RATE).toFixed(2)} USD</span>
             </div>
           </div>
         )}

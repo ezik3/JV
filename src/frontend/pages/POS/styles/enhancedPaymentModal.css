@@ -126,6 +126,23 @@
   padding: 0 2rem 1.5rem;
 }
 
+/* Payment method theme classes */
+.payment-method-card.theme-primary {
+  --method-color: #6366F1;
+}
+
+.payment-method-card.theme-crypto {
+  --method-color: #F59E0B;
+}
+
+.payment-method-card.theme-vibe {
+  --method-color: #8B5CF6;
+}
+
+.payment-method-card.theme-mobile {
+  --method-color: #10B981;
+}
+
 .payment-method-card {
   position: relative;
   padding: 1.5rem 1rem;
@@ -150,22 +167,21 @@
 .payment-method-card.active {
   border-color: var(--method-color);
   background: var(--pos-bg-primary);
+}
+
+.payment-method-card.theme-primary.active {
   box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
-.payment-method-card[style*="--method-color: #6366F1"].active {
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
-}
-
-.payment-method-card[style*="--method-color: #F59E0B"].active {
+.payment-method-card.theme-crypto.active {
   box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
 }
 
-.payment-method-card[style*="--method-color: #8B5CF6"].active {
+.payment-method-card.theme-vibe.active {
   box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-.payment-method-card[style*="--method-color: #10B981"].active {
+.payment-method-card.theme-mobile.active {
   box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 

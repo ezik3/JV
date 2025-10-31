@@ -160,12 +160,15 @@
 
 .mode-option.active {
   border-color: var(--mode-color);
-  background: linear-gradient(
-    135deg,
-    rgba(var(--mode-color), 0.05),
-    transparent
-  );
-  box-shadow: 0 0 0 3px rgba(var(--mode-color), 0.1);
+  background: var(--pos-bg-primary);
+}
+
+.mode-classic.active {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+.mode-professional.active {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
 }
 
 .mode-option.active::before {
