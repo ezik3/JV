@@ -243,9 +243,51 @@ api placeOrder {
   auth: true
 }
 
+api getOrders {
+  fn: import { getOrders } from "@src/backend/routes/orders.js",
+  httpRoute: (GET, "/api/orders"),
+  auth: true
+}
+
+api updateOrderStatus {
+  fn: import { updateOrderStatus } from "@src/backend/routes/orders.js",
+  httpRoute: (PUT, "/api/orders/:id/status"),
+  auth: true
+}
+
+api getVenueOrders {
+  fn: import { getVenueOrders } from "@src/backend/routes/orders.js",
+  httpRoute: (GET, "/api/venues/:venueId/orders"),
+  auth: true
+}
+
 api getMenu {
   fn: import { getMenu } from "@src/backend/routes/menuRoutes.js",
   httpRoute: (GET, "/api/menu/items"),
+  auth: true
+}
+
+api createMenuItem {
+  fn: import { createMenuItem } from "@src/backend/routes/menuRoutes.js",
+  httpRoute: (POST, "/api/menu/items"),
+  auth: true
+}
+
+api updateMenuItem {
+  fn: import { updateMenuItem } from "@src/backend/routes/menuRoutes.js",
+  httpRoute: (PUT, "/api/menu/items/:id"),
+  auth: true
+}
+
+api deleteMenuItem {
+  fn: import { deleteMenuItem } from "@src/backend/routes/menuRoutes.js",
+  httpRoute: (DELETE, "/api/menu/items/:id"),
+  auth: true
+}
+
+api createCategory {
+  fn: import { createCategory } from "@src/backend/routes/menuRoutes.js",
+  httpRoute: (POST, "/api/menu/categories"),
   auth: true
 }
 
@@ -331,6 +373,26 @@ route VenueNotificationsRoute {
 route VenueSettingsRoute {
   path: "/venue/settings",
   to: VenueSettingsPage
+}
+
+route CustomerMenuRoute {
+  path: "/venue/:venueId/menu",
+  to: CustomerMenuPage
+}
+
+page CustomerMenuPage {
+  component: import CustomerMenu from "@src/frontend/pages/CustomerMenu/CustomerMenu",
+  authRequired: true
+}
+
+route CheckoutRoute {
+  path: "/checkout",
+  to: CheckoutPage
+}
+
+page CheckoutPage {
+  component: import Checkout from "@src/frontend/pages/Checkout/Checkout",
+  authRequired: true
 }
 
 page VenueMessagesPage {

@@ -15,6 +15,116 @@ model User {
   password  String
   isVenue   Boolean  @default(false)
   createdAt DateTime @default(now())
+  orders    Order[]
+  venues    Venue[]
+}
+
+model Venue {
+  id                Int            @id @default(autoincrement())
+  name              String
+  description       String?
+  address           String?
+  allowPreOrder     Boolean        @default(false)
+  isActive          Boolean        @default(true)
+  userId            Int
+  user              User           @relation(fields: [userId], references: [id])
+  categories        Category[]
+  menuItems         MenuItem[]
+  tables            Table[]
+  orders            Order[]
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+}
+
+model Category {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String?
+  imageUrl    String?
+  sortOrder   Int         @default(0)
+  isActive    Boolean     @default(true)
+  venueId     Int
+  venue       Venue       @relation(fields: [venueId], references: [id])
+  menuItems   MenuItem[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+}
+
+model MenuItem {
+  id           Int         @id @default(autoincrement())
+  name         String
+  description  String?
+  price        Float
+  imageUrl     String?
+  isAvailable  Boolean     @default(true)
+  preparationTime Int?
+  calories     Int?
+  allergens    String?
+  customizable Boolean     @default(false)
+  categoryId   Int
+  category     Category    @relation(fields: [categoryId], references: [id])
+  venueId      Int
+  venue        Venue       @relation(fields: [venueId], references: [id])
+  orderItems   OrderItem[]
+  inventoryItems InventoryItem[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+}
+
+model InventoryItem {
+  id          Int        @id @default(autoincrement())
+  name        String
+  quantity    Int
+  unit        String
+  lowStockThreshold Int?
+  menuItemId  Int?
+  menuItem    MenuItem?  @relation(fields: [menuItemId], references: [id])
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Table {
+  id          Int      @id @default(autoincrement())
+  tableNumber String
+  capacity    Int
+  isAvailable Boolean  @default(true)
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+  orders      Order[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id              Int         @id @default(autoincrement())
+  orderNumber     String      @unique
+  status          String      @default("pending") // pending, confirmed, preparing, ready, completed, cancelled
+  orderType       String      // dine-in, takeout, pre-order
+  totalAmount     Float
+  paymentStatus   String      @default("pending") // pending, paid, refunded
+  paymentMethod   String?     // jv-coin, card, cash
+  specialInstructions String?
+  userId          Int
+  user            User        @relation(fields: [userId], references: [id])
+  venueId         Int
+  venue           Venue       @relation(fields: [venueId], references: [id])
+  tableId         Int?
+  table           Table?      @relation(fields: [tableId], references: [id])
+  orderItems      OrderItem[]
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model OrderItem {
+  id              Int      @id @default(autoincrement())
+  quantity        Int
+  price           Float
+  customizations  String?  // JSON string for customizations
+  menuItemId      Int
+  menuItem        MenuItem @relation(fields: [menuItemId], references: [id])
+  orderId         Int
+  order           Order    @relation(fields: [orderId], references: [id])
+  createdAt       DateTime @default(now())
 }
 
 // Keep any other existing models you have here
