@@ -72,12 +72,11 @@ const ModeToggle = ({ currentMode, onModeChange }) => {
                 return (
                   <button
                     key={mode.id}
-                    className={`mode-option ${isActive ? 'active' : ''}`}
+                    className={`mode-option mode-${mode.id} ${isActive ? 'active' : ''}`}
                     onClick={() => {
                       onModeChange(mode.id);
                       setShowInfo(false);
                     }}
-                    style={{ '--mode-color': mode.color }}
                   >
                     <div className="mode-icon-container">
                       <Icon size={32} />

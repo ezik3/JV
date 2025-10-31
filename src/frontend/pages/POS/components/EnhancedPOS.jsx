@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   Search, Clock, Settings, User, 
   Plus, Minus, X, ShoppingCart, CreditCard,
-  Trash2, Grid, List, Filter, ChevronRight,
+  Trash2, Grid, List,
   TrendingUp, DollarSign, Package, Users
 } from 'lucide-react';
 import '../styles/enhancedPOS.css';
@@ -65,6 +65,9 @@ const EnhancedPOS = ({ mode = 'professional' }) => {
   const tax = subtotal * 0.1;
   const serviceCharge = subtotal * 0.18;
   const total = subtotal + tax + serviceCharge;
+
+  // Generate a unique order ID (in production, this should come from backend)
+  const [orderId] = useState(() => `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`);
 
   const handlePaymentComplete = () => {
     setShowPayment(false);
@@ -183,7 +186,7 @@ const EnhancedPOS = ({ mode = 'professional' }) => {
             <ShoppingCart size={24} />
             <div>
               <h2>Current Order</h2>
-              <span className="order-id">Order #{Math.floor(Math.random() * 1000)}</span>
+              <span className="order-id">Order {orderId}</span>
             </div>
           </div>
           {cart.length > 0 && (

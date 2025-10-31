@@ -258,10 +258,7 @@
 
 .action-card:hover {
   border-color: var(--action-color);
-  background: linear-gradient(135deg, 
-    rgba(var(--action-color), 0.05),
-    transparent
-  );
+  background: var(--pos-bg-hover);
   transform: translateX(4px);
 }
 

@@ -126,6 +126,15 @@
   overflow: hidden;
 }
 
+/* Mode-specific colors using CSS classes */
+.mode-option.mode-classic {
+  --mode-color: #10B981;
+}
+
+.mode-option.mode-professional {
+  --mode-color: #6366F1;
+}
+
 .mode-option::before {
   content: '';
   position: absolute;
@@ -166,16 +175,20 @@
 .mode-icon-container {
   width: 4rem;
   height: 4rem;
-  background: linear-gradient(135deg, 
-    rgba(var(--mode-color), 0.2),
-    rgba(var(--mode-color), 0.1)
-  );
   border-radius: 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 1.5rem;
   color: var(--mode-color);
+}
+
+.mode-classic .mode-icon-container {
+  background: rgba(16, 185, 129, 0.2);
+}
+
+.mode-professional .mode-icon-container {
+  background: rgba(99, 102, 241, 0.2);
 }
 
 .mode-option h3 {

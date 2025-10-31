@@ -5,6 +5,9 @@ import {
 } from 'lucide-react';
 import '../styles/enhancedPaymentModal.css';
 
+// Configuration constants
+const VIBE_TO_USD_RATE = 0.85; // Should be fetched from API in production
+
 const EnhancedPaymentModal = ({ total, items, onClose, onComplete }) => {
   const [paymentMethod, setPaymentMethod] = useState('card');
   const [processing, setProcessing] = useState(false);
@@ -166,7 +169,7 @@ const EnhancedPaymentModal = ({ total, items, onClose, onComplete }) => {
               </div>
             </div>
             <div className="conversion-info">
-              <span>≈ ${(1250 * 0.85).toFixed(2)} USD</span>
+              <span>≈ ${(1250 * VIBE_TO_USD_RATE).toFixed(2)} USD</span>
             </div>
           </div>
         )}

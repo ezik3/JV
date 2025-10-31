@@ -149,11 +149,24 @@
 
 .payment-method-card.active {
   border-color: var(--method-color);
-  background: linear-gradient(135deg, 
-    rgba(var(--method-color), 0.1), 
-    rgba(var(--method-color), 0.05)
-  );
-  box-shadow: 0 0 0 3px rgba(var(--method-color), 0.1);
+  background: var(--pos-bg-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.payment-method-card[style*="--method-color: #6366F1"].active {
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.payment-method-card[style*="--method-color: #F59E0B"].active {
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1);
+}
+
+.payment-method-card[style*="--method-color: #8B5CF6"].active {
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+}
+
+.payment-method-card[style*="--method-color: #10B981"].active {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 .method-icon {
