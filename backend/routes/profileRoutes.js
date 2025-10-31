@@ -25,17 +25,43 @@ router.post('/update-username', async (req, res) => {
 router.post('/update-photo', async (req, res) => {
   const { userId, profilePic } = req.body;
   try {
-    // Add console.log to track the request
-    console.log('Processing photo update:', { userId, profilePic: !!profilePic });
+    console.log('=== PHOTO UPDATE START ===');
+    console.log('Processing photo update for userId:', userId);
+    console.log('Has profilePic:', !!profilePic);
+
+    if (!profilePic) {
+      console.log('ERROR: No profile picture provided');
+      return res.status(400).json({ error: 'No profile picture provided' });
+    }
+
+    // ACTUALLY UPDATE THE DATABASE
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { 
+        profilePicture: profilePic,
+        isProfileComplete: true  // SET THIS TO TRUE
+      },
+      { new: true }
+    );
+
+    if (!user) {
+      console.log('ERROR: User not found for userId:', userId);
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    console.log('Profile update SUCCESS');
+    console.log('User isProfileComplete:', user.isProfileComplete);
+    console.log('=== PHOTO UPDATE END ===');
     
-    // Here you would update the user in your database
-    // For now, sending success response
+    // RETURN isProfileComplete IN THE RESPONSE
     res.json({ 
       success: true, 
       message: 'Profile photo updated successfully',
-      user: { userId, profilePic }
+      profilePicture: user.profilePicture,
+      isProfileComplete: user.isProfileComplete  // RETURN THIS
     });
   } catch (error) {
+    console.error('=== PHOTO UPDATE ERROR ===');
     console.error('Profile update error:', error);
     res.status(500).json({ error: 'Failed to update profile' });
   }
