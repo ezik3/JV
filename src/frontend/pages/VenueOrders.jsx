@@ -3,7 +3,9 @@ import { useHistory } from 'react-router-dom';
 import io from 'socket.io-client';
 import './VenueOrders.css';
 
-const socket = io('http://localhost:5000');
+// Use environment variable for Socket.IO URL, fallback to localhost
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
+const socket = io(SOCKET_URL);
 
 const getProgressDots = (progress) => {
   let dots = [];
@@ -28,7 +30,8 @@ const VenueOrders = () => {
   useEffect(() => {
     // Fetch initial orders from backend
     const token = localStorage.getItem('token');
-    fetch('http://localhost:5000/api/orders/pos/venue', {
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+    fetch(`${API_URL}/api/orders/pos/venue`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
