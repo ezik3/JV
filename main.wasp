@@ -263,7 +263,7 @@ api getOrderStatus {
 
 api updateOrderStatus {
   fn: import { updateOrderStatus } from "@src/backend/routes/orders.js",
-  httpRoute: (PATCH, "/api/orders/:orderId/status"),
+  httpRoute: (PUT, "/api/orders/:orderId/status"),
   auth: true
 }
 
