@@ -3,9 +3,19 @@ const router = express.Router();
 const Order = require('../models/order');
 const MenuItem = require('../models/menu');
 const { authenticateJWT } = require('../utils/jwtUtils');
+const rateLimit = require('express-rate-limit');
+
+// Rate limiter for order operations
+const orderLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per window
+  message: 'Too many order requests, please try again later',
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Create POS order
-router.post('/pos/create', authenticateJWT, async (req, res) => {
+router.post('/pos/create', authenticateJWT, orderLimiter, async (req, res) => {
   try {
     const { customerName, items } = req.body;
     const venueId = req.user.venueId; // Get venueId from authenticated user
@@ -31,7 +41,7 @@ router.post('/pos/create', authenticateJWT, async (req, res) => {
 });
 
 // Get venue's orders
-router.get('/pos/venue', authenticateJWT, async (req, res) => {
+router.get('/pos/venue', authenticateJWT, orderLimiter, async (req, res) => {
   try {
     const venueId = req.user.venueId;
     const orders = await Order.find({ venueId }).sort({ createdAt: -1 });
@@ -42,7 +52,7 @@ router.get('/pos/venue', authenticateJWT, async (req, res) => {
 });
 
 // Update order status
-router.patch('/pos/:orderId/status', authenticateJWT, async (req, res) => {
+router.patch('/pos/:orderId/status', authenticateJWT, orderLimiter, async (req, res) => {
   try {
     const { status } = req.body;
     const venueId = req.user.venueId;
@@ -69,7 +79,7 @@ router.patch('/pos/:orderId/status', authenticateJWT, async (req, res) => {
 });
 
 // Customer: Get my orders
-router.get('/my-orders', authenticateJWT, async (req, res) => {
+router.get('/my-orders', authenticateJWT, orderLimiter, async (req, res) => {
   try {
     const userId = req.user.id;
     const orders = await Order.find({ userId })
@@ -83,7 +93,7 @@ router.get('/my-orders', authenticateJWT, async (req, res) => {
 });
 
 // Customer: Get specific order
-router.get('/:orderId', authenticateJWT, async (req, res) => {
+router.get('/:orderId', authenticateJWT, orderLimiter, async (req, res) => {
   try {
     const { orderId } = req.params;
     const userId = req.user.id;

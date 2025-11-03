@@ -26,6 +26,11 @@ export const getMenu = async (req, res, context) => {
       return res.status(400).json({ error: 'venueId is required' });
     }
 
+    // Validate venueId format
+    if (!mongoose.Types.ObjectId.isValid(venueId)) {
+      return res.status(400).json({ error: 'Invalid venueId format' });
+    }
+
     // Ensure MenuItem model is loaded
     const MenuItemModel = await loadMenuItem();
     
@@ -38,6 +43,6 @@ export const getMenu = async (req, res, context) => {
     res.json({ items: menuItems });
   } catch (error) {
     console.error('Error fetching menu items:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Failed to fetch menu items' });
   }
 };

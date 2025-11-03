@@ -35,6 +35,44 @@ export const placeOrder = async (req, res, context) => {
       });
     }
 
+    // Validate venueId format
+    if (!mongoose.Types.ObjectId.isValid(venueId)) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Invalid venueId format' 
+      });
+    }
+
+    // Validate items
+    if (!Array.isArray(items)) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'items must be an array' 
+      });
+    }
+
+    // Validate each item
+    for (const item of items) {
+      if (!item.name || typeof item.name !== 'string') {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Each item must have a valid name' 
+        });
+      }
+      if (typeof item.quantity !== 'number' || item.quantity <= 0) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Each item must have a valid quantity' 
+        });
+      }
+      if (typeof item.price !== 'number' || item.price < 0) {
+        return res.status(400).json({ 
+          success: false,
+          error: 'Each item must have a valid price' 
+        });
+      }
+    }
+
     // Ensure models are loaded
     const { Order: OrderModel } = await loadModels();
     
@@ -45,6 +83,14 @@ export const placeOrder = async (req, res, context) => {
     const calculatedTotal = totalAmount || items.reduce((sum, item) => 
       sum + (item.price * item.quantity), 0
     );
+    
+    // Validate total amount (prevent negative or unreasonably large orders)
+    if (calculatedTotal < 0 || calculatedTotal > 100000) {
+      return res.status(400).json({ 
+        success: false,
+        error: 'Invalid order total amount' 
+      });
+    }
     
     // Create the order in MongoDB
     const order = new OrderModel({
@@ -92,6 +138,11 @@ export const getVenueOrders = async (req, res, context) => {
       return res.status(400).json({ error: 'venueId is required' });
     }
 
+    // Validate venueId format
+    if (!mongoose.Types.ObjectId.isValid(venueId)) {
+      return res.status(400).json({ error: 'Invalid venueId format' });
+    }
+
     // Ensure models are loaded
     const { Order: OrderModel } = await loadModels();
     
@@ -105,7 +156,7 @@ export const getVenueOrders = async (req, res, context) => {
     res.json({ orders });
   } catch (error) {
     console.error('Error fetching venue orders:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Failed to fetch orders' });
   }
 };
 
@@ -115,6 +166,11 @@ export const getOrderStatus = async (req, res, context) => {
     
     if (!orderId) {
       return res.status(400).json({ error: 'orderId is required' });
+    }
+
+    // Validate orderId format
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).json({ error: 'Invalid orderId format' });
     }
 
     // Ensure models are loaded
@@ -130,7 +186,7 @@ export const getOrderStatus = async (req, res, context) => {
     res.json({ order });
   } catch (error) {
     console.error('Error fetching order status:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Failed to fetch order status' });
   }
 };
 
@@ -143,6 +199,11 @@ export const updateOrderStatus = async (req, res, context) => {
       return res.status(400).json({ 
         error: 'orderId and status are required' 
       });
+    }
+
+    // Validate orderId format
+    if (!mongoose.Types.ObjectId.isValid(orderId)) {
+      return res.status(400).json({ error: 'Invalid orderId format' });
     }
 
     // Validate status
@@ -175,6 +236,6 @@ export const updateOrderStatus = async (req, res, context) => {
     });
   } catch (error) {
     console.error('Error updating order status:', error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ error: 'Failed to update order status' });
   }
 };
