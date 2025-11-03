@@ -249,6 +249,24 @@ api getMenu {
   auth: true
 }
 
+api getVenueOrders {
+  fn: import { getVenueOrders } from "@src/backend/routes/orders.js",
+  httpRoute: (GET, "/api/orders/venue/:venueId"),
+  auth: true
+}
+
+api getOrderStatus {
+  fn: import { getOrderStatus } from "@src/backend/routes/orders.js",
+  httpRoute: (GET, "/api/orders/status/:orderId"),
+  auth: true
+}
+
+api updateOrderStatus {
+  fn: import { updateOrderStatus } from "@src/backend/routes/orders.js",
+  httpRoute: (PATCH, "/api/orders/:orderId/status"),
+  auth: true
+}
+
 api checkPOSSetup {
   fn: import { checkPOSSetup } from "@src/backend/venuePosSetup.js",
   httpRoute: (GET, "/api/venue/check-pos-setup/:venueId"),
