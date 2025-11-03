@@ -5,7 +5,6 @@ import './VenueOrders.css';
 
 // Use environment variable for Socket.IO URL, fallback to localhost
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:5000';
-const socket = io(SOCKET_URL);
 
 const getProgressDots = (progress) => {
   let dots = [];
@@ -28,6 +27,9 @@ const VenueOrders = () => {
   const history = useHistory();
 
   useEffect(() => {
+    // Create socket connection inside useEffect for proper lifecycle management
+    const socket = io(SOCKET_URL);
+
     // Fetch initial orders from backend
     const token = localStorage.getItem('token');
     const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
@@ -58,9 +60,11 @@ const VenueOrders = () => {
       );
     });
 
+    // Cleanup function to disconnect socket on unmount
     return () => {
       socket.off('newOrder');
       socket.off('orderStatusUpdated');
+      socket.disconnect();
     };
   }, []);
 
@@ -161,14 +165,14 @@ const OrderItem = ({ order }) => {
   return (
     <div className="order-item">
       <div className="order-info">
-        <span className="order-number">#{order._id.substring(0, 8)}</span>
-        <img src={`https://i.pravatar.cc/40?u=${order._id}`} alt={order.customerName} className="order-profile" onClick={viewProfile} />
-        <span className="order-name" onClick={viewProfile}>{order.customerName}</span>
+        <span className="order-number">#{order._id?.substring(0, 8) || 'N/A'}</span>
+        <img src={`https://i.pravatar.cc/40?u=${order._id || 'default'}`} alt={order.customerName || 'Customer'} className="order-profile" onClick={viewProfile} />
+        <span className="order-name" onClick={viewProfile}>{order.customerName || 'Guest'}</span>
         <span className="order-table">Table {order.tableNumber || 'N/A'}</span>
         <span>ordered</span>
-        <span className="order-time">{new Date(order.createdAt).toLocaleString()}</span>
+        <span className="order-time">{order.createdAt ? new Date(order.createdAt).toLocaleString() : 'N/A'}</span>
         <span className={`order-status ${order.paymentStatus === 'completed' ? 'status-paid' : 'status-unpaid'}`}>
-          {order.status}
+          {order.status || 'pending'}
         </span>
         <span className="order-price">${order.totalAmount?.toFixed(2) || '0.00'}</span>
         <div className="order-progress">
