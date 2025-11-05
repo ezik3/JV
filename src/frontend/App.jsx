@@ -24,7 +24,6 @@ import ProfileSetup from './components/ProfileSetup';
 import VenueHomeFeed from './pages/VenueHomeFeed';
 import OdooTest from './components/OdooTest';
 import VenueLayout from './components/VenueLayout';
-import { POSInterface } from './pages/POS/POSInterface';
 import { OrderProvider } from './contexts/OrderContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import POSErrorBoundary from './components/POSErrorBoundary';
@@ -32,11 +31,7 @@ import { VenueAuthProvider } from './context/VenueAuthContext';
 import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
-import { POSProvider } from './context/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
+import POSLayout from './pages/POS/POSLayout';
 import WalletPage from './pages/Wallet/WalletPage';
 
 function App() {
@@ -88,17 +83,10 @@ function App() {
                 <Route path="/venue/accounts" component={VenueAccounts} />
                 <Route path="/venue/credits" render={() => <div style={{padding: '20px'}}>Credits page - Coming Soon</div>} />
                 
-                {/* POS routes wrapped in POSProvider */}
+                {/* POS routes - single entry point with POSLayout handling all nested routes */}
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
-                    <POSProvider>
-                      <Switch>
-                        <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
-                        <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                        <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                        <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                      </Switch>
-                    </POSProvider>
+                    <POSLayout />
                   </POSErrorBoundary>
                 </Route>
               </Switch>

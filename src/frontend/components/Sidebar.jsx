@@ -1,38 +1,45 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './sidebar.css';
 
-const Sidebar = ({ userRole }) => {
-  const location = useLocation();
-  const isActive = (path) => location.pathname === path;
-
+const Sidebar = ({ userRole = 'manager' }) => {
   const menuItems = userRole === 'manager' ? [
-    { path: '/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/pos/sales', label: 'Sales', icon: '💰' },
-    { path: '/pos/staff', label: 'Staff', icon: '👥' },
-    { path: '/pos/analytics', label: 'Analytics', icon: '📈' },
-    { path: '/pos/settings', label: 'Settings', icon: '⚙️' }
+    { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/order', label: 'Orders', icon: '📝' },
+    { path: '/venue/pos/kitchen', label: 'Kitchen', icon: '🍳' },
+    { path: '/venue/pos/menu-management', label: 'Menu', icon: '📋' },
+    { path: '/venue/pos/inventory', label: 'Inventory', icon: '📦' },
+    { path: '/venue/pos/sales', label: 'Sales', icon: '💰' },
+    { path: '/venue/pos/staff', label: 'Staff', icon: '👥' },
+    { path: '/venue/pos/analytics', label: 'Analytics', icon: '📈' },
+    { path: '/venue/pos/settings', label: 'Settings', icon: '⚙️' },
+    { path: '/venue/pos/jv-list', label: 'JV-LIST', icon: '📝' }
   ] : [
-    { path: '/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/pos/orders', label: 'Orders', icon: '📝' }
+    { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/order', label: 'Orders', icon: '📝' },
+    { path: '/venue/pos/kitchen', label: 'Kitchen', icon: '🍳' }
   ];
 
   return (
-    <aside className="sidebar">
-      <div className="logo">
-        <span className="logo-icon">🎵</span>
-        JointVibe POS
+    <aside className="pos-sidebar" style={{ border: '3px solid lime' }}>
+      <div className="sidebar-header">
+        <div className="logo">
+          <span className="logo-icon">🎵</span>
+          <span className="logo-text">JointVibe POS</span>
+        </div>
       </div>
-      <nav className="nav-menu">
-        <ul>
+      <nav className="sidebar-nav">
+        <ul className="nav-menu">
           {menuItems.map((item) => (
             <li key={item.path}>
-              <Link 
+              <NavLink 
                 to={item.path} 
-                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                className="nav-link"
+                activeClassName="active"
               >
                 <span className="nav-icon">{item.icon}</span>
-                {item.label}
-              </Link>
+                <span className="nav-label">{item.label}</span>
+              </NavLink>
             </li>
           ))}
         </ul>
@@ -41,4 +48,4 @@ const Sidebar = ({ userRole }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;

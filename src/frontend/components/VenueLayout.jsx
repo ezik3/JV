@@ -4,7 +4,11 @@ import { Link, useLocation } from 'react-router-dom';
 const VenueLayout = ({ children }) => {
   const location = useLocation();
   const noLayoutRoutes = ['/venue/pos/login'];
-  const shouldShowLayout = !noLayoutRoutes.includes(location.pathname);
+  
+  // Exclude all POS routes from VenueLayout
+  const isPosRoute = location.pathname.startsWith('/venue/pos');
+  
+  const shouldShowLayout = !noLayoutRoutes.includes(location.pathname) && !isPosRoute;
 
   const isActiveRoute = (path) => {
     return location.pathname === path ? 'nav-item active' : 'nav-item';
