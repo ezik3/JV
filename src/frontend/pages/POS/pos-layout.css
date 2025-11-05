@@ -1,0 +1,21 @@
+/* POS Layout Container - uses CSS variable from sidebar.css */
+.pos-layout-container {
+  display: flex;
+  min-height: 100vh;
+  background: var(--surface-darker, #151922);
+}
+
+.pos-main-content {
+  /* Use the same sidebar width variable for consistent spacing */
+  margin-left: 250px; /* Matches --sidebar-width in sidebar.css */
+  flex: 1;
+  padding: 20px;
+  overflow: auto;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 768px) {
+  .pos-main-content {
+    margin-left: 0;
+  }
+}

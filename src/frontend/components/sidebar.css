@@ -1,5 +1,6 @@
 .pos-sidebar {
-  width: 250px;
+  --sidebar-width: 250px;
+  width: var(--sidebar-width);
   background: var(--surface-dark, #1A1F2C);
   height: 100vh;
   padding: 20px;

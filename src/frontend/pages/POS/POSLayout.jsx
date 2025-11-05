@@ -13,16 +13,18 @@ import SalesOverview from './components/SalesOverview';
 import StaffManagement from './components/StaffManagement';
 import Analytics from './components/Analytics';
 import VenueSettings from './components/VenueSettings';
+import './pos-layout.css';
 
 const POSLayout = () => {
   // Get user role from localStorage or context
-  const userRole = localStorage.getItem('venueRole') || 'manager';
+  // Default to 'staff' (more restrictive) if not set
+  const userRole = localStorage.getItem('venueRole') || 'staff';
 
   return (
     <POSProvider>
-      <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--surface-darker, #151922)' }}>
+      <div className="pos-layout-container">
         <Sidebar userRole={userRole} />
-        <main style={{ marginLeft: '250px', flex: 1, padding: '20px', overflow: 'auto' }}>
+        <main className="pos-main-content">
           <Switch>
             <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
             <Route exact path="/venue/pos/order" component={POSOrders} />
