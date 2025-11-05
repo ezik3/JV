@@ -33,10 +33,18 @@ import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
 import { POSProvider } from './context/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
+import POSMenuBuilder from './pages/POS/components/POSMenuBuilder';
+import POSInventory from './pages/POS/components/POSInventory';
+import SimplifiedPOS from './pages/POS/components/SimplifiedPOS';
+import POSDashboard from './pages/POS/components/POSDashboard';
+import Kitchen from './pages/POS/components/Kitchen';
+import SalesOverview from './pages/POS/components/SalesOverview';
+import StaffManagement from './pages/POS/components/StaffManagement';
+import Analytics from './pages/POS/components/Analytics';
+import POSVenueSettings from './pages/POS/components/VenueSettings';
+import MenuManagement from './pages/POS/components/MenuManagement';
+import OrderScreen from './pages/POS/components/OrderScreen';
+import Sidebar from './pages/POS/components/Sidebar';
 import WalletPage from './pages/Wallet/WalletPage';
 import VenueOrders from './pages/VenueOrders';
 
@@ -90,16 +98,28 @@ function App() {
                 <Route path="/venue/orders" component={VenueOrders} />
                 <Route path="/venue/credits" render={() => <div style={{padding: '20px'}}>Credits page - Coming Soon</div>} />
                 
-                {/* POS routes wrapped in POSProvider */}
+                {/* POS routes wrapped in POSProvider with Sidebar */}
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
                     <POSProvider>
-                      <Switch>
-                        <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
-                        <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                        <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                        <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                      </Switch>
+                      <div style={{ display: 'flex', height: '100vh', width: '100%', margin: 0, padding: 0 }}>
+                        <Sidebar userRole="manager" />
+                        <div style={{ flex: 1, overflow: 'auto', background: '#0f1419' }}>
+                          <Switch>
+                            <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
+                            <Route exact path="/venue/pos/order" component={OrderScreen} />
+                            <Route exact path="/venue/pos/kitchen" component={Kitchen} />
+                            <Route exact path="/venue/pos/sales" component={SalesOverview} />
+                            <Route exact path="/venue/pos/staff" component={StaffManagement} />
+                            <Route exact path="/venue/pos/analytics" component={Analytics} />
+                            <Route exact path="/venue/pos/settings" component={POSVenueSettings} />
+                            <Route exact path="/venue/pos/menu-management" component={MenuManagement} />
+                            <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
+                            <Route exact path="/venue/pos/inventory" component={POSInventory} />
+                            <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
+                          </Switch>
+                        </div>
+                      </div>
                     </POSProvider>
                   </POSErrorBoundary>
                 </Route>
