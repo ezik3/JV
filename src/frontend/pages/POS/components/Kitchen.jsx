@@ -1,5 +1,5 @@
 // src/frontend/pages/POS/screens/Kitchen.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/kitchen-list.css';
 
 const KitchenListView = ({ onToggleView }) => {
