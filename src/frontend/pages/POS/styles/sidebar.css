@@ -1,27 +1,31 @@
 .pos-sidebar {
   width: 250px;
-  background: var(--surface-dark);
+  background: #1a1f2e;
   height: 100vh;
   padding: 20px;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid #2d3548;
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 100;
 }
 
 .sidebar-header {
   padding-bottom: 20px;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #2d3548;
   margin-bottom: 20px;
 }
 
 .sidebar-header h1 {
-  color: var(--primary);
+  color: #00e5ff;
   font-size: 24px;
   margin-bottom: 8px;
+  font-weight: 700;
 }
 
 .user-role {
-  color: var(--text-secondary);
+  color: #94a3b8;
   font-size: 14px;
   text-transform: capitalize;
 }
@@ -30,6 +34,7 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  overflow-y: auto;
 }
 
 .nav-item {
@@ -37,17 +42,18 @@
   align-items: center;
   padding: 12px 16px;
   text-decoration: none;
-  color: var(--text-primary);
+  color: #e2e8f0;
   border-radius: 8px;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 .nav-item:hover {
-  background: var(--surface-light);
+  background: #2d3548;
 }
 
 .nav-item.active {
-  background: var(--primary);
+  background: #6366f1;
   color: white;
 }
 
@@ -58,4 +64,5 @@
 
 .nav-label {
   font-size: 16px;
+  font-weight: 500;
 }

@@ -1,6 +1,6 @@
 // src/frontend/components/OdooTest.jsx
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import odooApi from '../services/odooApi';
 
 const styles = {
   container: {
@@ -43,8 +43,8 @@ const OdooTest = () => {
     const fetchProducts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:5001/api/odoo/products');
-        setProducts(response.data);
+        const products = await odooApi.getProducts();
+        setProducts(products);
       } catch (err) {
         setError(err.message);
         console.error('Error fetching products:', err);

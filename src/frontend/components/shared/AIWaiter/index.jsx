@@ -73,7 +73,7 @@ const AIWaiter = ({
     try {
       // First, try to get the venue's menu
       if (inputText.toLowerCase().includes('menu')) {
-        const menuResponse = await fetch(`/api/menu/venue/${venueId}/items`, {
+        const menuResponse = await fetch(`/api/menu/items?venueId=${venueId}`, {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -83,15 +83,18 @@ const AIWaiter = ({
         
         const menuData = await menuResponse.json();
         
+        // Extract items from response (API returns { items: [...] })
+        const items = menuData.items || menuData;
+        
         // Format menu items for display
-        const menuText = formatMenuResponse(menuData);
+        const menuText = formatMenuResponse(items);
         setMessages(prev => [...prev, {
           text: menuText,
           sender: 'ai'
         }]);
         
         // Update the order section with available menu items
-        setCurrentOrder(menuData.map(item => ({
+        setCurrentOrder(items.map(item => ({
           ...item,
           quantity: 0
         })));
@@ -223,7 +226,7 @@ const AIWaiter = ({
 
   const handleMenuRequest = async () => {
     try {
-      const response = await fetch(`/api/menu/venue/${venueId}/items`, {
+      const response = await fetch(`/api/menu/items?venueId=${venueId}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -232,14 +235,15 @@ const AIWaiter = ({
       if (!response.ok) throw new Error('Failed to fetch menu');
       
       const menuData = await response.json();
-      const menuText = formatMenuResponse(menuData);
+      const items = menuData.items || menuData;
+      const menuText = formatMenuResponse(items);
       setMessages(prev => [...prev, {
         text: menuText,
         sender: 'ai'
       }]);
       
       // Update available items for ordering
-      setCurrentOrder(menuData.map(item => ({
+      setCurrentOrder(items.map(item => ({
         ...item,
         quantity: 0
       })));

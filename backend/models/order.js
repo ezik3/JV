@@ -31,6 +31,12 @@ const orderSchema = new mongoose.Schema({
     enum: ['pending', 'completed', 'failed'],
     default: 'pending'
   },
+  tableNumber: { type: String },
+  orderType: { 
+    type: String,
+    enum: ['customer', 'ai_waiter', 'pos'],
+    default: 'customer'
+  },
   createdAt: { type: Date, default: Date.now },
   venueId: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }
 });

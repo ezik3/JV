@@ -6,14 +6,15 @@ const Sidebar = ({ userRole }) => {
   const isActive = (path) => location.pathname === path;
 
   const menuItems = userRole === 'manager' ? [
-    { path: '/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/pos/sales', label: 'Sales', icon: '💰' },
-    { path: '/pos/staff', label: 'Staff', icon: '👥' },
-    { path: '/pos/analytics', label: 'Analytics', icon: '📈' },
-    { path: '/pos/settings', label: 'Settings', icon: '⚙️' }
+    { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/menu', label: 'Menu Builder', icon: '📝' },
+    { path: '/venue/pos/inventory', label: 'Inventory', icon: '📦' },
+    { path: '/venue/pos/system', label: 'System', icon: '⚙️' },
+    { path: '/venue/orders', label: 'Orders', icon: '🍽️' }
   ] : [
-    { path: '/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/pos/orders', label: 'Orders', icon: '📝' }
+    { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/menu', label: 'Menu', icon: '📝' },
+    { path: '/venue/orders', label: 'Orders', icon: '🍽️' }
   ];
 
   return (
@@ -41,4 +42,4 @@ const Sidebar = ({ userRole }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;
