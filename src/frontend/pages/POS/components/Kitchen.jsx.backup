@@ -1,9 +1,9 @@
 // src/frontend/pages/POS/screens/Kitchen.jsx
-import React, { useState } from 'react';
+import React from 'react';
 import '../styles/kitchen-list.css';
 
-const Kitchen = ({ onToggleView }) => {
-  const [orders, setOrders] = useState([]);
+const KitchenListView = ({ onToggleView }) => {
+  const [orders, setOrders] = React.useState([]);
   const [filterType, setFilterType] = useState('all');
   const [dropdownVisible, setDropdownVisible] = useState(false);
 
@@ -103,4 +103,4 @@ const Kitchen = ({ onToggleView }) => {
   );
 };
 
-export default Kitchen;
+export default KitchenListView;

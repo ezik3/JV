@@ -1,19 +1,22 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-const Sidebar = ({ userRole }) => {
+const Sidebar = ({ userRole = 'manager' }) => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
 
   const menuItems = userRole === 'manager' ? [
-    { path: '/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/pos/sales', label: 'Sales', icon: '💰' },
-    { path: '/pos/staff', label: 'Staff', icon: '👥' },
-    { path: '/pos/analytics', label: 'Analytics', icon: '📈' },
-    { path: '/pos/settings', label: 'Settings', icon: '⚙️' }
+    { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/menu', label: 'Menu', icon: '📋' },
+    { path: '/venue/pos/inventory', label: 'Inventory', icon: '📦' },
+    { path: '/venue/pos/system', label: 'Order System', icon: '🛒' },
+    { path: '/venue/pos/sales', label: 'Sales', icon: '💰' },
+    { path: '/venue/pos/staff', label: 'Staff', icon: '👥' },
+    { path: '/venue/pos/analytics', label: 'Analytics', icon: '📈' },
+    { path: '/venue/pos/settings', label: 'Settings', icon: '⚙️' }
   ] : [
-    { path: '/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/pos/orders', label: 'Orders', icon: '📝' }
+    { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/system', label: 'Orders', icon: '📝' }
   ];
 
   return (
@@ -26,8 +29,8 @@ const Sidebar = ({ userRole }) => {
         <ul>
           {menuItems.map((item) => (
             <li key={item.path}>
-              <Link 
-                to={item.path} 
+              <Link
+                to={item.path}
                 className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
               >
                 <span className="nav-icon">{item.icon}</span>
@@ -41,4 +44,4 @@ const Sidebar = ({ userRole }) => {
   );
 };
 
-export default Sidebar; 
+export default Sidebar;
