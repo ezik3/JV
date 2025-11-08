@@ -92,12 +92,15 @@ function App() {
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
                     <POSProvider>
-                      <Switch>
-                        <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
-                        <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                        <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                        <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                      </Switch>
+                      <POSLayout>
+                        <Switch>
+                          <Route exact path="/venue/pos" component={POSDashboard} />
+                          <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
+                          <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
+                          <Route exact path="/venue/pos/inventory" component={POSInventory} />
+                          <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
+                        </Switch>
+                      </POSLayout>
                     </POSProvider>
                   </POSErrorBoundary>
                 </Route>

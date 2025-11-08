@@ -1,19 +1,15 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { POSProvider } from '../../context/POSContext';
-import POSMenuBuilder from './components/POSMenuBuilder';
-import POSInventory from './components/POSInventory';
-import SimplifiedPOS from './components/SimplifiedPOS';
+import Sidebar from './components/Sidebar';
 
-const POSLayout = () => {
+const POSLayout = ({ children }) => {
   return (
-    <POSProvider>
-      <Switch>
-        <Route path="/venue/pos/menu" component={POSMenuBuilder} />
-        <Route path="/venue/pos/inventory" component={POSInventory} />
-        <Route path="/venue/pos/system" component={SimplifiedPOS} />
-      </Switch>
-    </POSProvider>
+    <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <Sidebar userRole="manager" />
+      <div style={{ flex: 1, padding: '20px' }}>
+        {children}
+      </div>
+    </div>
   );
 };
 
