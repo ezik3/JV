@@ -33,12 +33,19 @@ import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
 import { POSProvider } from './context/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
+import POSMenuBuilder from './pages/POS/components/POSMenuBuilder';
+import POSInventory from './pages/POS/components/POSInventory';
+import SimplifiedPOS from './pages/POS/components/SimplifiedPOS';
+import POSDashboard from './pages/POS/components/POSDashboard';
+import POSOrders from './pages/POS/components/POSOrders';
+import Kitchen from './pages/POS/components/Kitchen';
+import SalesOverview from './pages/POS/components/SalesOverview';
+import StaffManagement from './pages/POS/components/StaffManagement';
+import Analytics from './pages/POS/components/Analytics';
+import POSVenueSettings from './pages/POS/components/VenueSettings';
+import MenuManagement from './pages/POS/components/MenuManagement';
 import WalletPage from './pages/Wallet/WalletPage';
-import POSLayout from './components/POS/POSLayout';
+import POSLayout from './pages/POS/POSLayout';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -89,6 +96,12 @@ function App() {
                         <Switch>
                           <Route exact path="/venue/pos" component={POSDashboard} />
                           <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
+                          <Route exact path="/venue/pos/orders" component={POSOrders} />
+                          <Route exact path="/venue/pos/kitchen" component={Kitchen} />
+                          <Route exact path="/venue/pos/sales" component={SalesOverview} />
+                          <Route exact path="/venue/pos/staff" component={StaffManagement} />
+                          <Route exact path="/venue/pos/analytics" component={Analytics} />
+                          <Route exact path="/venue/pos/settings" component={POSVenueSettings} />
                           <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
                           <Route exact path="/venue/pos/inventory" component={POSInventory} />
                           <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
