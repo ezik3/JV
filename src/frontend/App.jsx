@@ -38,6 +38,7 @@ import POSInventory from './pages/POS/POSInventory';
 import SimplifiedPOS from './pages/POS/SimplifiedPOS';
 import POSDashboard from './pages/POS/POSDashboard';
 import WalletPage from './pages/Wallet/WalletPage';
+import POSLayout from './components/POS/POSLayout';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -50,33 +51,25 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={Login} />
-          {/* ... other public routes ... */}
-            <Route 
-              path="/profile-setup" 
-              render={(props) => {
-                const userId = localStorage.getItem('userId');
-                console.log('ProfileSetup Route - userId:', userId);
-                
-                if (!userId) {
-                  return <Redirect to="/login" />;
-                }
-                
-                return (
-                  <ProfileSetup
-                    userId={userId}
-                    userRole="user"
-                    onComplete={() => props.history.push('/home')}
-                    {...props}
-                  />
-                );
-              }} 
-            />
-                              {/* Add the wallet route here */}
-                              <Route path="/wallet" render={(props) => (
-                                <ErrorBoundary>
-                                  <WalletPage {...props} />
-                                </ErrorBoundary>
-                              )} />
+
+          <Route 
+            path="/profile-setup" 
+            render={(props) => {
+              const userId = localStorage.getItem('userId');
+              if (!userId) return <Redirect to="/login" />;
+              return <ProfileSetup userId={userId} userRole="user" onComplete={() => props.history.push('/home')} {...props} />;
+            }} 
+          />
+
+          <Route 
+            path="/wallet" 
+            render={(props) => (
+              <ErrorBoundary>
+                <WalletPage {...props} />
+              </ErrorBoundary>
+            )} 
+          />
+
           {/* Venue routes */}
           <Route path="/venue">
             <VenueAuthProvider>
@@ -86,9 +79,9 @@ function App() {
                 <Route path="/venue/notifications" component={VenueNotifications} />
                 <Route path="/venue/settings" component={VenueSettings} />
                 <Route path="/venue/accounts" component={VenueAccounts} />
-                <Route path="/venue/credits" render={() => <div style={{padding: '20px'}}>Credits page - Coming Soon</div>} />
-                
-                {/* POS routes wrapped in POSProvider */}
+                <Route path="/venue/credits" render={() => <div style={{ padding: '20px' }}>Credits page - Coming Soon</div>} />
+
+                {/* POS routes */}
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
                     <POSProvider>
@@ -104,6 +97,7 @@ function App() {
                     </POSProvider>
                   </POSErrorBoundary>
                 </Route>
+
               </Switch>
             </VenueAuthProvider>
           </Route>
