@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/sidebar.css';
 
 const Sidebar = ({ userRole }) => {
   return (
@@ -9,7 +10,7 @@ const Sidebar = ({ userRole }) => {
       </div>
       <nav className="sidebar-nav">
         <Link to="/venue/pos/dashboard">Dashboard</Link>
-        <Link to="/venue/pos/order">Orders</Link>
+        <Link to="/venue/pos/orders">Orders</Link>
         <Link to="/venue/pos/kitchen">Kitchen</Link>
         {userRole === 'manager' && (
           <>
@@ -17,7 +18,9 @@ const Sidebar = ({ userRole }) => {
             <Link to="/venue/pos/staff">Staff</Link>
             <Link to="/venue/pos/analytics">Analytics</Link>
             <Link to="/venue/pos/settings">Settings</Link>
-            <Link to="/venue/pos/menu-management">Menu</Link>
+            <Link to="/venue/pos/menu">Menu</Link>
+            <Link to="/venue/pos/inventory">Inventory</Link>
+            <Link to="/venue/pos/system">POS System</Link>
           </>
         )}
       </nav>
