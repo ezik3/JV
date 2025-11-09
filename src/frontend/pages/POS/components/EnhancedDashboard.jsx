@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Chart as ChartJS } from 'chart.js/auto';
 import { 
   TrendingUp, DollarSign, ShoppingCart, Users, 
   Package, Clock, AlertCircle, CheckCircle,
-  ArrowUp, ArrowDown, Activity, Calendar
+  ArrowUp, ArrowDown, Activity, Calendar,
+  BookOpen, BarChart3, Settings, ChefHat
 } from 'lucide-react';
 import '../styles/enhancedDashboard.css';
 
 const EnhancedDashboard = () => {
+  const history = useHistory();
   const [theme, setTheme] = useState('dark');
   const [timeRange, setTimeRange] = useState('today');
 
@@ -246,14 +249,53 @@ const EnhancedDashboard = () => {
   ];
 
   const quickActions = [
-    { label: 'New Order', icon: ShoppingCart, color: '#6366F1' },
-    { label: 'View Inventory', icon: Package, color: '#10B981' },
-    { label: 'Staff Schedule', icon: Users, color: '#8B5CF6' },
-    { label: 'Reports', icon: Activity, color: '#F59E0B' }
+    { label: 'New Order', icon: ShoppingCart, color: '#6366F1', route: '/venue/pos/system' },
+    { label: 'Menu Builder', icon: BookOpen, color: '#10B981', route: '/venue/pos/menu' },
+    { label: 'View Orders', icon: ChefHat, color: '#8B5CF6', route: '/venue/pos/orders' },
+    { label: 'Inventory', icon: Package, color: '#F59E0B', route: '/venue/pos/inventory' }
   ];
 
   return (
     <div className="enhanced-dashboard">
+      {/* Top Navigation */}
+      <div className="pos-top-nav">
+        <div className="nav-brand">
+          <h2>🔥 JointVibe POS</h2>
+        </div>
+        <div className="nav-links">
+          <button 
+            className="nav-link active"
+            onClick={() => history.push('/venue/pos/dashboard')}
+          >
+            Dashboard
+          </button>
+          <button 
+            className="nav-link"
+            onClick={() => history.push('/venue/pos/system')}
+          >
+            POS System
+          </button>
+          <button 
+            className="nav-link"
+            onClick={() => history.push('/venue/pos/orders')}
+          >
+            Orders
+          </button>
+          <button 
+            className="nav-link"
+            onClick={() => history.push('/venue/pos/menu')}
+          >
+            Menu Builder
+          </button>
+          <button 
+            className="nav-link"
+            onClick={() => history.push('/venue/pos/inventory')}
+          >
+            Inventory
+          </button>
+        </div>
+      </div>
+
       {/* Header */}
       <div className="dashboard-header">
         <div className="header-content">
@@ -316,7 +358,12 @@ const EnhancedDashboard = () => {
           {quickActions.map((action, index) => {
             const Icon = action.icon;
             return (
-              <button key={index} className="action-card" style={{ '--action-color': action.color }}>
+              <button 
+                key={index} 
+                className="action-card" 
+                style={{ '--action-color': action.color }}
+                onClick={() => action.route && history.push(action.route)}
+              >
                 <Icon size={20} />
                 <span>{action.label}</span>
               </button>
