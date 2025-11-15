@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
-import { DollarSign, TrendingUp, ShoppingCart, Receipt } from "lucide-react";
 
 export default function Sales() {
   const todayStats = {

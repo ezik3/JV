@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Clock, CheckCircle2 } from "lucide-react";
 import { usePOS } from "../contexts/POSContext";
 
 export default function Kitchen() {

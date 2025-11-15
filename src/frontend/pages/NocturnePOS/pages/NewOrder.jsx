@@ -4,7 +4,6 @@ import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Plus, Minus, Trash2, Search } from "lucide-react";
 import { useToast } from "../hooks/use-toast";
 
 export default function NewOrder() {

@@ -1,7 +1,6 @@
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { Eye } from "lucide-react";
 
 export default function Orders() {
   const mockOrders = [

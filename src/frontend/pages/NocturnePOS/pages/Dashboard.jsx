@@ -1,5 +1,11 @@
+import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { DollarSign, ShoppingCart, Users, TrendingUp } from "lucide-react";
+
+// Simple icon components using emoji
+const DollarSign = () => <span style={{ fontSize: '1.25rem' }}>💵</span>;
+const ShoppingCart = () => <span style={{ fontSize: '1.25rem' }}>🛒</span>;
+const Users = () => <span style={{ fontSize: '1.25rem' }}>👥</span>;
+const TrendingUp = () => <span style={{ fontSize: '1.25rem' }}>📈</span>;
 
 export default function Dashboard() {
   const stats = [
@@ -11,38 +17,41 @@ export default function Dashboard() {
 
   return (
     <div className="p-8 space-y-8">
-      
+      <div>
         <h1 className="text-4xl font-bold mb-2">Dashboard</h1>
         <p className="text-muted-foreground">Welcome back to JV POS</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {stats.map((stat) => (
-          <Card key={stat.title} className="glass glass-hover border-border">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium text-muted-foreground">
-                {stat.title}
-              </CardTitle>
-              <stat.icon className="h-5 w-5 text-primary" />
-            </CardHeader>
-            
-              <div className="text-3xl font-bold">{stat.value}</div>
-              <p className="text-xs text-accent mt-1">{stat.trend} from yesterday</p>
-            </CardContent>
-          </Card>
-        ))}
+        {stats.map((stat) => {
+          const IconComponent = stat.icon;
+          return (
+            <Card key={stat.title} className="glass glass-hover border-border">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  {stat.title}
+                </CardTitle>
+                <IconComponent />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold">{stat.value}</div>
+                <p className="text-xs text-accent mt-1">{stat.trend} from yesterday</p>
+              </CardContent>
+            </Card>
+          );
+        })}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="glass border-border">
-          
-            Recent Orders</CardTitle>
+          <CardHeader>
+            <CardTitle>Recent Orders</CardTitle>
           </CardHeader>
-          
+          <CardContent>
             <div className="space-y-4">
               {[1, 2, 3, 4, 5].map((i) => (
                 <div key={i} className="flex items-center justify-between py-2 border-b border-border last:border-0">
-                  
+                  <div>
                     <p className="font-medium">Order #{1000 + i}</p>
                     <p className="text-sm text-muted-foreground">Table {i}</p>
                   </div>
@@ -59,10 +68,10 @@ export default function Dashboard() {
         </Card>
 
         <Card className="glass border-border">
-          
-            Top Items</CardTitle>
+          <CardHeader>
+            <CardTitle>Top Items</CardTitle>
           </CardHeader>
-          
+          <CardContent>
             <div className="space-y-4">
               {['Signature Cocktail', 'House Wine', 'Premium Beer', 'Appetizer Platter', 'Dessert Special'].map((item, i) => (
                 <div key={item} className="flex items-center justify-between py-2 border-b border-border last:border-0">

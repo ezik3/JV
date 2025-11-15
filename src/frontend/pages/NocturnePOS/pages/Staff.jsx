@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { UserPlus, Clock, DollarSign } from "lucide-react";
 
 export default function Staff() {
   const mockStaff = [

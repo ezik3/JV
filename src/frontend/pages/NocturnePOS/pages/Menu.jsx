@@ -1,6 +1,5 @@
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import { Plus } from "lucide-react";
 import { usePOS } from "../contexts/POSContext";
 
 export default function Menu() {

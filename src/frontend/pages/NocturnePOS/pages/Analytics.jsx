@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { TrendingUp, Users, Clock, DollarSign } from "lucide-react";
 
 export default function Analytics() {
   const weeklyData = [

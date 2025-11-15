@@ -4,7 +4,6 @@ import { Button } from "../ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Square, Circle as CircleIcon, Save, Download, Grid3x3, Trash2 } from "lucide-react";
 import { v4 as uuidv4 } from "uuid";
 import { supabase } from "../integrations/supabase/client";
 import { toast } from "sonner";

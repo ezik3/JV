@@ -1,7 +1,6 @@
 import { Card, CardContent } from "../ui/card";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
-import { Plus, AlertTriangle } from "lucide-react";
 
 export default function Inventory() {
   const mockInventory = [
