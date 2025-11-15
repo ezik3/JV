@@ -40,16 +40,16 @@ export const POS_CONFIG = {
 
   [POS_SYSTEMS.NOCTURNE]: {
     name: 'Nocturne POS',
-    description: 'Modern POS built with Lovable.dev featuring beautiful UI/UX',
+    description: 'Modern POS built with clean JavaScript and inline styles',
     path: '../pages/NocturnePOS',
     mainComponent: 'NocturneInterface',
     features: [
-      'Modern shadcn/ui components',
-      'Tailwind CSS styling',
-      'Floorplan editor',
-      'Kitchen Display System',
-      'Advanced analytics',
-      'Staff management',
+      'Clean JavaScript (no TypeScript)',
+      'Inline styles (no external CSS)',
+      'Modern UI with gradients',
+      'Order management',
+      'Menu management',
+      'Dashboard analytics',
     ],
     enabled: true,
   },
