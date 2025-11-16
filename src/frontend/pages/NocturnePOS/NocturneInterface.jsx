@@ -31,9 +31,9 @@ export default function NocturneInterface() {
 
   return (
     <POSProvider>
-      <div style={{ display: 'flex', minHeight: '100vh' }}>
+      <div className="flex min-h-screen bg-noc">
         <Sidebar activePage={activePage} onNavigate={setActivePage} />
-        <main style={{ flex: 1, overflowY: 'auto' }}>
+        <main className="flex-1 overflow-auto">
           {renderPage()}
         </main>
       </div>
