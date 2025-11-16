@@ -1,9 +1,13 @@
 import React from 'react';
-import EnhancedDashboard from './EnhancedDashboard';
+import POSAdapter from './POSAdapter';
 
-// Using enhanced dashboard for better UX
+/**
+ * POSDashboard - Main POS dashboard entry point
+ * Uses POSAdapter to dynamically load the active POS system
+ * from posConfig.js (Enhanced or Nocturne)
+ */
 const POSDashboard = () => {
-  return <EnhancedDashboard />;
+  return <POSAdapter />;
 };
 
 export default POSDashboard;
