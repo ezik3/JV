@@ -12,7 +12,7 @@ export const POS_SYSTEMS = {
 
 // ⚠️ CHANGE THIS TO SWITCH POS SYSTEMS ⚠️
 // Options: POS_SYSTEMS.ENHANCED | POS_SYSTEMS.NOCTURNE | POS_SYSTEMS.CLASSIC
-export const ACTIVE_POS_SYSTEM = POS_SYSTEMS.ENHANCED;
+export const ACTIVE_POS_SYSTEM = POS_SYSTEMS.NOCTURNE;
 
 // Fallback order if active system fails to load
 export const FALLBACK_ORDER = [
