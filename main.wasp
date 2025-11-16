@@ -282,6 +282,24 @@ page POSDashboardPage {
   component: import POSDashboard from "@src/frontend/pages/POS/components/POSDashboard"
 }
 
+route NocturneDashboardRoute {
+  path: "/venue/pos/nocturne/dashboard",
+  to: NocturneDashboardPage
+}
+
+page NocturneDashboardPage {
+  component: import NocturneDashboard from "@src/frontend/pages/POS/NocturnePOS/DashboardPage"
+}
+
+route NocturneNewOrderRoute {
+  path: "/venue/pos/nocturne/new-order",
+  to: NocturneNewOrderPage
+}
+
+page NocturneNewOrderPage {
+  component: import NocturneNewOrder from "@src/frontend/pages/POS/NocturnePOS/NewOrderPage"
+}
+
 route POSSystemRoute {
   path: "/venue/pos/system",
   to: POSSystemPage
