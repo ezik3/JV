@@ -279,7 +279,25 @@ route POSDashboardRoute {
 }
 
 page POSDashboardPage {
-  component: import POSDashboard from "@src/frontend/pages/POS/components/POSDashboard"
+  component: import POSDashboard from "@src/frontend/pages/POS/Dashboard"
+}
+
+route POSOrderEntryRoute {
+  path: "/venue/pos/orders",
+  to: POSOrderEntryPage
+}
+
+page POSOrderEntryPage {
+  component: import POSOrderEntry from "@src/frontend/pages/POS/OrderEntry"
+}
+
+route POSKitchenRoute {
+  path: "/venue/pos/kitchen",
+  to: POSKitchenPage
+}
+
+page POSKitchenPage {
+  component: import POSKitchen from "@src/frontend/pages/POS/Kitchen"
 }
 
 route POSSystemRoute {
@@ -291,14 +309,15 @@ page POSSystemPage {
   component: import SimplifiedPOS from "@src/frontend/pages/POS/components/SimplifiedPOS"
 }
 
-route POSOrdersRoute {
-  path: "/venue/pos/orders",
-  to: POSOrdersPage
-}
-
-page POSOrdersPage {
-  component: import POSOrders from "@src/frontend/pages/POS/components/POSOrders"
-}
+// OLD POS - Backed up to POS_OLD_BACKUP
+// route POSOrdersRoute {
+//   path: "/venue/pos/orders-old",
+//   to: POSOrdersPage
+// }
+//
+// page POSOrdersPage {
+//   component: import POSOrders from "@src/frontend/pages/POS_OLD_BACKUP/components/POSOrders"
+// }
 
 route POSInventoryRoute {
   path: "/venue/pos/inventory",
