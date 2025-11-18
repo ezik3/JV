@@ -1,0 +1,7 @@
+
+
+# Supabase Configuration
+
+VITE_SUPABASE_URL=https://fnevlujerzdieasrsicy.supabase.co
+
+VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZuZXZsdWplcnpkaWVhc3JzaWN5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjMzODY2ODEsImV4cCI6MjA3ODk2MjY4MX0.wR3xjwG-lWM_NjHELeohBQNzeBdB9Bep16Q5q-GV3bY

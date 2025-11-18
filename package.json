@@ -10,6 +10,7 @@
     "@react-google-maps/api": "^2.20.3",
     "@stripe/react-stripe-js": "^2.8.1",
     "@stripe/stripe-js": "^4.8.0",
+    "@supabase/supabase-js": "^2.81.1",
     "@tensorflow-models/blazeface": "^0.1.0",
     "@tensorflow/tfjs-node": "^4.21.0",
     "axios": "^1.4.0",
