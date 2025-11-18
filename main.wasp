@@ -362,12 +362,28 @@ action updateInventory {
   fn: import { updateInventory } from "@src/actions.js"
 }
 
+action createOrder {
+  fn: import { createOrder } from "@src/actions.js"
+}
+
+action updateOrderStatus {
+  fn: import { updateOrderStatus } from "@src/actions.js"
+}
+
 query getMenuItems {
   fn: import { getMenuItems } from "@src/queries.js"
 }
 
 query getInventory {
   fn: import { getInventory } from "@src/queries.js"
+}
+
+query getOrders {
+  fn: import { getOrders } from "@src/queries.js"
+}
+
+query getOrderById {
+  fn: import { getOrderById } from "@src/queries.js"
 }
 
 

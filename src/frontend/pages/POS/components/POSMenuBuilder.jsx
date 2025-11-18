@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import feather from 'feather-icons';
 import '../styles/posMenuBuilder.css';
-import { usePOS } from '../../../context/POSContext';
+import { usePOS } from '../../../contexts/POSContext';
 
 const POSMenuBuilder = () => {
   const { menuItems, addMenuItem } = usePOS();

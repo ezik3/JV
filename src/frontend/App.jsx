@@ -32,7 +32,7 @@ import { VenueAuthProvider } from './context/VenueAuthContext';
 import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
-import { POSProvider } from './context/POSContext';
+import { POSProvider } from './contexts/POSContext';
 import POSMenuBuilder from './pages/POS/POSMenuBuilder';
 import POSInventory from './pages/POS/POSInventory';
 import SimplifiedPOS from './pages/POS/SimplifiedPOS';

@@ -21,3 +21,49 @@ export const getInventory = async (args, context) => {
     include: { menuItem: true }
   })
 }
+
+export const getOrders = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+
+  const venueId = context.user.venueId
+  const { status } = args || {}
+
+  return context.entities.Order.findMany({
+    where: { 
+      venueId,
+      ...(status && { status })
+    },
+    include: {
+      items: {
+        include: {
+          menuItem: true
+        }
+      }
+    },
+    orderBy: {
+      createdAt: 'desc'
+    }
+  })
+}
+
+export const getOrderById = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+
+  const { id } = args
+  const venueId = context.user.venueId
+
+  const order = await context.entities.Order.findFirst({
+    where: { id, venueId },
+    include: {
+      items: {
+        include: {
+          menuItem: true
+        }
+      }
+    }
+  })
+
+  if (!order) { throw new HttpError(404, 'Order not found') }
+
+  return order
+}

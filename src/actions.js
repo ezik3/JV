@@ -79,3 +79,59 @@ export const updateInventory = async (args, context) => {
     data: { quantity }
   })
 }
+
+export const createOrder = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+
+  const { items, orderType, subtotal, tax, tip, total } = args
+  const venueId = context.user.venueId
+
+  const order = await context.entities.Order.create({
+    data: {
+      venueId,
+      orderType,
+      status: 'pending',
+      subtotal,
+      tax,
+      tip,
+      total,
+      items: {
+        create: items.map(item => ({
+          menuItemId: item.menuItemId,
+          quantity: item.quantity,
+          price: item.price
+        }))
+      }
+    },
+    include: {
+      items: {
+        include: {
+          menuItem: true
+        }
+      }
+    }
+  })
+
+  return order
+}
+
+export const updateOrderStatus = async (args, context) => {
+  if (!context.user) { throw new HttpError(401) }
+
+  const { id, status } = args
+  const venueId = context.user.venueId
+
+  const order = await context.entities.Order.findFirst({
+    where: { id, venueId }
+  })
+
+  if (!order) { throw new HttpError(404, 'Order not found') }
+
+  return context.entities.Order.update({
+    where: { id },
+    data: { 
+      status,
+      completedAt: status === 'completed' ? new Date() : undefined
+    }
+  })
+}

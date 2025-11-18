@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { usePOS } from '../../../context/POSContext';
+import { usePOS } from '../../../contexts/POSContext';
 import feather from 'feather-icons';
 
 const POSInventory = () => {

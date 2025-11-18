@@ -6,7 +6,7 @@ import {
   TrendingUp, DollarSign, Package, Users
 } from 'lucide-react';
 import '../styles/enhancedPOS.css';
-import { usePOS } from '../../../context/POSContext';
+import { usePOS } from '../../../contexts/POSContext';
 import EnhancedPaymentModal from './EnhancedPaymentModal';
 
 const EnhancedPOS = ({ mode = 'professional' }) => {

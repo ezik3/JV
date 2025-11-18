@@ -14,7 +14,90 @@ model User {
   username  String   @unique
   password  String
   isVenue   Boolean  @default(false)
+  venueId   Int?
   createdAt DateTime @default(now())
+  
+  venue     Venue?   @relation(fields: [venueId], references: [id])
+}
+
+model Venue {
+  id          Int      @id @default(autoincrement())
+  name        String
+  address     String?
+  createdAt   DateTime @default(now())
+  
+  users       User[]
+  menuItems   MenuItem[]
+  inventory   Inventory[]
+  orders      Order[]
+  employees   Employee[]
+}
+
+model MenuItem {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  category    String
+  image       String?
+  venueId     Int
+  createdAt   DateTime @default(now())
+  
+  venue       Venue     @relation(fields: [venueId], references: [id])
+  inventory   Inventory?
+  orderItems  OrderItem[]
+}
+
+model Inventory {
+  id                 Int      @id @default(autoincrement())
+  menuItemId         Int      @unique
+  quantity           Int
+  lowStockThreshold  Int      @default(10)
+  venueId            Int
+  updatedAt          DateTime @updatedAt
+  
+  menuItem           MenuItem @relation(fields: [menuItemId], references: [id])
+  venue              Venue    @relation(fields: [venueId], references: [id])
+}
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  venueId     Int
+  orderType   String   // "dine-in", "takeout", "delivery"
+  status      String   // "pending", "in-progress", "completed", "cancelled"
+  total       Float
+  subtotal    Float
+  tax         Float?
+  tip         Float?
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+  
+  venue       Venue      @relation(fields: [venueId], references: [id])
+  items       OrderItem[]
+}
+
+model OrderItem {
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  menuItemId Int
+  quantity   Int
+  price      Float
+  
+  order      Order    @relation(fields: [orderId], references: [id])
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+}
+
+model Employee {
+  id        Int      @id @default(autoincrement())
+  venueId   Int
+  name      String
+  role      String   // "manager", "staff", "kitchen"
+  pin       String?
+  email     String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  
+  venue     Venue    @relation(fields: [venueId], references: [id])
 }
 
 // Keep any other existing models you have here
