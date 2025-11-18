@@ -10,11 +10,22 @@ import { useOrders } from '../../../contexts/OrderContext';
 const OrderScreen = ({ venueId }) => {
   const [cart, setCart] = useState([]);
   const [showAIWaiter, setShowAIWaiter] = useState(false);
-  const { orders, setActiveVenue } = useOrders();
+  const { orders = [], setActiveVenue, updateOrderStatus, isLoading } = useOrders();
 
   useEffect(() => {
-    setActiveVenue(venueId);
-  }, [venueId]);
+    if (venueId) {
+      setActiveVenue(venueId);
+    }
+  }, [venueId, setActiveVenue]);
+
+  const handleOrderStatus = async (orderId, newStatus) => {
+    try {
+      await updateOrderStatus(orderId, newStatus);
+    } catch (error) {
+      console.error('Error updating order status:', error);
+      alert('Failed to update order status. Please try again.');
+    }
+  };
 
   return (
     <div className="order-screen">
@@ -55,13 +66,19 @@ const OrderScreen = ({ venueId }) => {
       </div>
 
       <div className="orders-section">
-        {orders.map(order => (
-          <OrderCard 
-            key={order.id}
-            order={order}
-            onStatusUpdate={handleOrderStatus}
-          />
-        ))}
+        {isLoading ? (
+          <p>Loading orders...</p>
+        ) : orders.length === 0 ? (
+          <p>No orders yet</p>
+        ) : (
+          orders.map(order => (
+            <OrderCard 
+              key={order.id}
+              order={order}
+              onStatusUpdate={handleOrderStatus}
+            />
+          ))
+        )}
       </div>
     </div>
   );
