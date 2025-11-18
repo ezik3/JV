@@ -15,6 +15,202 @@ model User {
   password  String
   isVenue   Boolean  @default(false)
   createdAt DateTime @default(now())
+
+  // Relations for venue owners
+  venue     Venue?
+  orders    Order[]
+}
+
+// POS System Models
+
+model Venue {
+  id            Int      @id @default(autoincrement())
+  name          String
+  address       String?
+  phone         String?
+  email         String?
+  userId        Int      @unique
+  user          User     @relation(fields: [userId], references: [id])
+
+  menuItems     MenuItem[]
+  menuCategories MenuCategory[]
+  orders        Order[]
+  inventory     Inventory[]
+  staff         Staff[]
+  shifts        Shift[]
+  settings      VenueSettings?
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model VenueSettings {
+  id                Int      @id @default(autoincrement())
+  venueId           Int      @unique
+  venue             Venue    @relation(fields: [venueId], references: [id])
+
+  taxRate           Float    @default(0.1)
+  serviceChargeRate Float    @default(0.18)
+  currency          String   @default("USD")
+  timezone          String   @default("UTC")
+
+  // POS Settings
+  requireManagerApproval Boolean @default(false)
+  autoCloseShift    Boolean @default(false)
+  printReceipts     Boolean @default(true)
+
+  updatedAt         DateTime @updatedAt
+}
+
+model MenuCategory {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  icon        String?
+  displayOrder Int     @default(0)
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+
+  menuItems   MenuItem[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MenuItem {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  categoryId  Int
+  category    MenuCategory @relation(fields: [categoryId], references: [id])
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+
+  inventoryId Int?
+  inventory   Inventory? @relation(fields: [inventoryId], references: [id])
+
+  imageUrl    String?
+  isAvailable Boolean  @default(true)
+  preparationTime Int? // in minutes
+
+  orderItems  OrderItem[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Inventory {
+  id          Int      @id @default(autoincrement())
+  name        String
+  quantity    Int      @default(0)
+  unit        String   @default("units")
+  lowStockThreshold Int @default(10)
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+
+  menuItems   MenuItem[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Order {
+  id          Int      @id @default(autoincrement())
+  orderNumber String   @unique
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+  customerId  Int?
+  customer    User?    @relation(fields: [customerId], references: [id])
+
+  orderType   String   // "dine-in", "takeout", "delivery"
+  status      String   @default("pending") // "pending", "preparing", "ready", "completed", "cancelled"
+  tableNumber String?
+
+  items       OrderItem[]
+  payments    Payment[]
+
+  subtotal    Float
+  tax         Float
+  serviceCharge Float
+  total       Float
+
+  notes       String?
+  staffId     Int?
+  staff       Staff?   @relation(fields: [staffId], references: [id])
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  completedAt DateTime?
+}
+
+model OrderItem {
+  id          Int      @id @default(autoincrement())
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id])
+  menuItemId  Int
+  menuItem    MenuItem @relation(fields: [menuItemId], references: [id])
+
+  quantity    Int
+  price       Float    // Price at time of order
+  subtotal    Float
+
+  notes       String?
+  status      String   @default("pending") // "pending", "preparing", "ready", "served"
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Payment {
+  id          Int      @id @default(autoincrement())
+  orderId     Int
+  order       Order    @relation(fields: [orderId], references: [id])
+
+  amount      Float
+  method      String   // "cash", "card", "crypto", "vibe-token", "mobile-wallet"
+  status      String   @default("pending") // "pending", "completed", "failed", "refunded"
+
+  transactionId String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Staff {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String?
+  phone       String?
+  pin         String   // For POS login
+  role        String   // "manager", "server", "kitchen", "bartender"
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+
+  isActive    Boolean  @default(true)
+
+  shifts      Shift[]
+  orders      Order[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Shift {
+  id          Int      @id @default(autoincrement())
+  staffId     Int
+  staff       Staff    @relation(fields: [staffId], references: [id])
+  venueId     Int
+  venue       Venue    @relation(fields: [venueId], references: [id])
+
+  clockIn     DateTime @default(now())
+  clockOut    DateTime?
+
+  notes       String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 // Keep any other existing models you have here

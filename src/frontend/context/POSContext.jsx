@@ -1,44 +1,46 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext } from 'react';
+import { useQuery } from 'wasp/client/operations';
+import { getMenuItems, getMenuCategories, getInventory } from 'wasp/client/operations';
 
 const POSContext = createContext();
 
 export function POSProvider({ children }) {
-  const [menuItems, setMenuItems] = useState([
-    {
-      id: 1,
-      name: 'Premium Vodka Cocktail',
-      description: 'Signature cocktail made with our premium vodka',
-      price: 12.99,
-      category: 'Drinks',
-      inventoryItem: 'Premium Vodka',
-      stockStatus: 'in-stock'
-    }
-  ]);
+  // Fetch data using Wasp queries
+  const {
+    data: menuItems = [],
+    isLoading: menuItemsLoading,
+    error: menuItemsError
+  } = useQuery(getMenuItems);
 
-  const [inventory, setInventory] = useState({
-    1: { quantity: 100 }
-  });
+  const {
+    data: menuCategories = [],
+    isLoading: categoriesLoading,
+    error: categoriesError
+  } = useQuery(getMenuCategories);
 
-  const addMenuItem = (newItem) => {
-    setMenuItems(prev => [...prev, {
-      id: prev.length + 1,
-      ...newItem,
-      stockStatus: 'in-stock'
-    }]);
-  };
-
-  const updateInventory = (menuItemId, quantity) => {
-    setInventory(prev => ({
-      ...prev,
-      [menuItemId]: { quantity }
-    }));
-  };
+  const {
+    data: inventory = [],
+    isLoading: inventoryLoading,
+    error: inventoryError
+  } = useQuery(getInventory);
 
   const value = {
+    // Data
     menuItems,
+    menuCategories,
     inventory,
-    addMenuItem,
-    updateInventory
+
+    // Loading states
+    isLoading: menuItemsLoading || categoriesLoading || inventoryLoading,
+    menuItemsLoading,
+    categoriesLoading,
+    inventoryLoading,
+
+    // Errors
+    error: menuItemsError || categoriesError || inventoryError,
+    menuItemsError,
+    categoriesError,
+    inventoryError,
   };
 
   return (

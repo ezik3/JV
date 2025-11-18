@@ -345,29 +345,157 @@ page VenueSettingsPage {
   component: import VenueSettings from "@src/frontend/pages/VenueSettings"
 }
 
-// ONLY KEEP THESE - NO ENTITY DECLARATIONS
+// ============ QUERIES ============
+
+// Menu Items & Categories
+query getMenuItems {
+  fn: import { getMenuItems } from "@src/queries.js",
+  entities: [MenuItem, MenuCategory, Inventory]
+}
+
+query getMenuCategories {
+  fn: import { getMenuCategories } from "@src/queries.js",
+  entities: [MenuCategory, MenuItem, Inventory]
+}
+
+// Inventory
+query getInventory {
+  fn: import { getInventory } from "@src/queries.js",
+  entities: [Inventory, MenuItem]
+}
+
+// Orders
+query getOrders {
+  fn: import { getOrders } from "@src/queries.js",
+  entities: [Order, OrderItem, MenuItem, Payment, Staff, User]
+}
+
+query getOrder {
+  fn: import { getOrder } from "@src/queries.js",
+  entities: [Order, OrderItem, MenuItem, Payment, Staff, User]
+}
+
+// Staff & Shifts
+query getStaff {
+  fn: import { getStaff } from "@src/queries.js",
+  entities: [Staff, Shift, Order]
+}
+
+query getActiveShifts {
+  fn: import { getActiveShifts } from "@src/queries.js",
+  entities: [Shift, Staff]
+}
+
+// Settings
+query getVenueSettings {
+  fn: import { getVenueSettings } from "@src/queries.js",
+  entities: [VenueSettings]
+}
+
+// Dashboard
+query getDashboardStats {
+  fn: import { getDashboardStats } from "@src/queries.js",
+  entities: [Order, OrderItem, Payment]
+}
+
+// ============ ACTIONS ============
+
+// Menu Items
 action createMenuItem {
-  fn: import { createMenuItem } from "@src/actions.js"
+  fn: import { createMenuItem } from "@src/actions.js",
+  entities: [MenuItem, MenuCategory, Inventory, Venue, User]
 }
 
 action updateMenuItem {
-  fn: import { updateMenuItem } from "@src/actions.js"
+  fn: import { updateMenuItem } from "@src/actions.js",
+  entities: [MenuItem, MenuCategory, Inventory, Venue, User]
 }
 
 action deleteMenuItem {
-  fn: import { deleteMenuItem } from "@src/actions.js"
+  fn: import { deleteMenuItem } from "@src/actions.js",
+  entities: [MenuItem, Venue, User]
 }
 
+// Menu Categories
+action createMenuCategory {
+  fn: import { createMenuCategory } from "@src/actions.js",
+  entities: [MenuCategory, Venue, User]
+}
+
+action updateMenuCategory {
+  fn: import { updateMenuCategory } from "@src/actions.js",
+  entities: [MenuCategory, Venue, User]
+}
+
+action deleteMenuCategory {
+  fn: import { deleteMenuCategory } from "@src/actions.js",
+  entities: [MenuCategory, Venue, User]
+}
+
+// Inventory
 action updateInventory {
-  fn: import { updateInventory } from "@src/actions.js"
+  fn: import { updateInventory } from "@src/actions.js",
+  entities: [Inventory, Venue, User]
 }
 
-query getMenuItems {
-  fn: import { getMenuItems } from "@src/queries.js"
+action createInventory {
+  fn: import { createInventory } from "@src/actions.js",
+  entities: [Inventory, Venue, User]
 }
 
-query getInventory {
-  fn: import { getInventory } from "@src/queries.js"
+// Orders
+action createOrder {
+  fn: import { createOrder } from "@src/actions.js",
+  entities: [Order, OrderItem, MenuItem, VenueSettings, Venue, User]
+}
+
+action updateOrderStatus {
+  fn: import { updateOrderStatus } from "@src/actions.js",
+  entities: [Order, OrderItem, MenuItem, Payment, Venue, User]
+}
+
+action updateOrderItemStatus {
+  fn: import { updateOrderItemStatus } from "@src/actions.js",
+  entities: [OrderItem]
+}
+
+// Payments
+action createPayment {
+  fn: import { createPayment } from "@src/actions.js",
+  entities: [Payment, Order, Venue, User]
+}
+
+// Staff
+action createStaff {
+  fn: import { createStaff } from "@src/actions.js",
+  entities: [Staff, Venue, User]
+}
+
+action updateStaff {
+  fn: import { updateStaff } from "@src/actions.js",
+  entities: [Staff, Venue, User]
+}
+
+action deleteStaff {
+  fn: import { deleteStaff } from "@src/actions.js",
+  entities: [Staff, Venue, User]
+}
+
+// Shifts
+action clockIn {
+  fn: import { clockIn } from "@src/actions.js",
+  entities: [Shift, Staff, Venue, User]
+}
+
+action clockOut {
+  fn: import { clockOut } from "@src/actions.js",
+  entities: [Shift, Staff, Venue, User]
+}
+
+// Settings
+action updateVenueSettings {
+  fn: import { updateVenueSettings } from "@src/actions.js",
+  entities: [VenueSettings, Venue, User]
 }
 
 
