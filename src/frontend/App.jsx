@@ -21,10 +21,7 @@ import VenueAccounts from './pages/VenueAccounts';
 import CityView from './pages/CityView';
 import ErrorBoundary from './components/ErrorBoundary';
 import ProfileSetup from './components/ProfileSetup';
-import VenueHomeFeed from './pages/VenueHomeFeed';
-import OdooTest from './components/OdooTest';
 import VenueLayout from './components/VenueLayout';
-import { POSInterface } from './pages/POS/POSInterface';
 import { OrderProvider } from './contexts/OrderContext';
 import ProtectedRoute from './components/ProtectedRoute';
 import POSErrorBoundary from './components/POSErrorBoundary';
@@ -32,13 +29,10 @@ import { VenueAuthProvider } from './context/VenueAuthContext';
 import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
-import { POSProvider } from './contexts/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
 import WalletPage from './pages/Wallet/WalletPage';
-import POSLayout from './components/POS/POSLayout';
+
+// NEW POS layout (Option B) - single entry point, POSLayout owns nested POS routes & POSProvider
+import POSLayout from './pages/POS/POSLayout';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -52,22 +46,22 @@ function App() {
           <Route path="/signup" component={SignupPage} />
           <Route path="/login" component={Login} />
 
-          <Route 
-            path="/profile-setup" 
+          <Route
+            path="/profile-setup"
             render={(props) => {
               const userId = localStorage.getItem('userId');
               if (!userId) return <Redirect to="/login" />;
               return <ProfileSetup userId={userId} userRole="user" onComplete={() => props.history.push('/home')} {...props} />;
-            }} 
+            }}
           />
 
-          <Route 
-            path="/wallet" 
+          <Route
+            path="/wallet"
             render={(props) => (
               <ErrorBoundary>
                 <WalletPage {...props} />
               </ErrorBoundary>
-            )} 
+            )}
           />
 
           {/* Venue routes */}
@@ -81,20 +75,10 @@ function App() {
                 <Route path="/venue/accounts" component={VenueAccounts} />
                 <Route path="/venue/credits" render={() => <div style={{ padding: '20px' }}>Credits page - Coming Soon</div>} />
 
-                {/* POS routes */}
+                {/* POS: single entry point. POSLayout manages nested POS routes and POSProvider internally */}
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
-                    <POSProvider>
-                      <POSLayout>
-                        <Switch>
-                          <Route exact path="/venue/pos" component={POSDashboard} />
-                          <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
-                          <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                          <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                          <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                        </Switch>
-                      </POSLayout>
-                    </POSProvider>
+                    <POSLayout />
                   </POSErrorBoundary>
                 </Route>
 

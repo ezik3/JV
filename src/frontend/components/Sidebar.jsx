@@ -1,41 +1,49 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './sidebar.css';
 
 const Sidebar = ({ userRole = 'manager' }) => {
-  const location = useLocation();
-  const isActive = (path) => location.pathname === path;
-
   const menuItems = userRole === 'manager' ? [
     { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/venue/pos/order', label: 'New Order', icon: '🛒' },
+    { path: '/venue/pos/orders', label: 'Orders', icon: '📝' },
+    { path: '/venue/pos/kitchen', label: 'Kitchen', icon: '🍳' },
     { path: '/venue/pos/menu', label: 'Menu', icon: '📋' },
     { path: '/venue/pos/inventory', label: 'Inventory', icon: '📦' },
-    { path: '/venue/pos/system', label: 'Order System', icon: '🛒' },
+    { path: '/venue/pos/tables', label: 'Tables', icon: '🪑' },
+    { path: '/venue/pos/floorplan', label: 'Floorplan', icon: '📐' },
     { path: '/venue/pos/sales', label: 'Sales', icon: '💰' },
-    { path: '/venue/pos/staff', label: 'Staff', icon: '👥' },
     { path: '/venue/pos/analytics', label: 'Analytics', icon: '📈' },
+    { path: '/venue/pos/staff', label: 'Staff', icon: '👥' },
     { path: '/venue/pos/settings', label: 'Settings', icon: '⚙️' }
   ] : [
+    // staff / limited users
     { path: '/venue/pos/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/venue/pos/system', label: 'Orders', icon: '📝' }
+    { path: '/venue/pos/order', label: 'Orders', icon: '📝' },
+    { path: '/venue/pos/kitchen', label: 'Kitchen', icon: '🍳' }
   ];
 
   return (
-    <aside className="sidebar">
-      <div className="logo">
-        <span className="logo-icon">🎵</span>
-        JointVibe POS
+    <aside className="pos-sidebar">
+      <div className="sidebar-header">
+        <div className="logo">
+          <span className="logo-icon">🎵</span>
+          <span className="logo-text">JointVibe POS</span>
+        </div>
       </div>
-      <nav className="nav-menu">
-        <ul>
+      <nav className="sidebar-nav">
+        <ul className="nav-menu">
           {menuItems.map((item) => (
             <li key={item.path}>
-              <Link
+              <NavLink
                 to={item.path}
-                className={`nav-link ${isActive(item.path) ? 'active' : ''}`}
+                className="nav-link"
+                activeClassName="active"
+                exact
               >
                 <span className="nav-icon">{item.icon}</span>
-                {item.label}
-              </Link>
+                <span className="nav-label">{item.label}</span>
+              </NavLink>
             </li>
           ))}
         </ul>
