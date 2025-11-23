@@ -33,12 +33,12 @@ import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
 import { POSProvider } from './contexts/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
+import POSMenuBuilder from './pages/POS/components/POSMenuBuilder';
+import POSInventory from './pages/POS/components/POSInventory';
+import SimplifiedPOS from './pages/POS/components/SimplifiedPOS';
+import POSDashboard from './pages/POS/components/POSDashboard';
 import WalletPage from './pages/Wallet/WalletPage';
-import POSLayout from './components/POS/POSLayout';
+import POSLayout from './pages/POS/POSLayout';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
