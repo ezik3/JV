@@ -6,7 +6,7 @@ import Sidebar from '../../components/Sidebar';
 import './pos-layout.css';
 
 // POS Context
-import POSProvider from '../../contexts/POSContext';
+import { POSProvider } from '../../contexts/POSContext';
 
 // POS Pages
 import POSDashboard from './components/POSDashboard';
