@@ -6,16 +6,25 @@ import {
   TrendingUp, DollarSign, Package, Users
 } from 'lucide-react';
 import '../styles/enhancedPOS.css';
-import { usePOS } from '../../../context/POSContext';
+import { usePOS } from '../../../contexts/POSContext';
 import EnhancedPaymentModal from './EnhancedPaymentModal';
 
 const EnhancedPOS = ({ mode = 'professional' }) => {
-  const { menuItems } = usePOS();
+  const { menuItems, isLoading, error } = usePOS();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [cart, setCart] = useState([]);
   const [viewMode, setViewMode] = useState('grid');
   const [showPayment, setShowPayment] = useState(false);
+
+  // Handle loading and error states
+  if (isLoading) {
+    return <div className="pos-loading">Loading menu...</div>;
+  }
+
+  if (error) {
+    return <div className="pos-error">Error loading menu: {error.message}</div>;
+  }
 
   // Mock categories - in real app, derive from menu items
   const categories = [
@@ -27,7 +36,7 @@ const EnhancedPOS = ({ mode = 'professional' }) => {
     { id: 'bottle-service', name: 'Bottle Service', icon: '🍾' }
   ];
 
-  const filteredItems = menuItems.filter(item => {
+  const filteredItems = (menuItems || []).filter(item => {
     const matchesCategory = selectedCategory === 'all' || 
       item.category.toLowerCase() === selectedCategory;
     const matchesSearch = item.name.toLowerCase().includes(searchTerm.toLowerCase());

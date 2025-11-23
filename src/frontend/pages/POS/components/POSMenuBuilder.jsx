@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import feather from 'feather-icons';
 import '../styles/posMenuBuilder.css';
-import { usePOS } from '../../../context/POSContext';
+import { usePOS } from '../../../contexts/POSContext';
 
 const POSMenuBuilder = () => {
-  const { menuItems, addMenuItem } = usePOS();
+  const { menuItems = [], addMenuItem, isLoading } = usePOS();
   const [formData, setFormData] = useState({
     itemName: '',
     category: 'Drinks',
@@ -12,6 +12,7 @@ const POSMenuBuilder = () => {
     price: '',
     description: ''
   });
+  const [submitting, setSubmitting] = useState(false);
   
   const inventoryItems = [
     { id: 1, name: 'Premium Vodka', stock: 85, unit: 'bottles' },
@@ -32,23 +33,32 @@ const POSMenuBuilder = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addMenuItem({
-      name: formData.itemName,
-      description: formData.description,
-      price: parseFloat(formData.price),
-      category: formData.category,
-      inventoryItem: formData.inventoryItem
-    });
+    setSubmitting(true);
     
-    setFormData({
-      itemName: '',
-      category: 'Drinks',
-      inventoryItem: '',
-      price: '',
-      description: ''
-    });
+    try {
+      await addMenuItem({
+        name: formData.itemName,
+        description: formData.description,
+        price: parseFloat(formData.price),
+        category: formData.category,
+        inventoryItem: formData.inventoryItem
+      });
+      
+      setFormData({
+        itemName: '',
+        category: 'Drinks',
+        inventoryItem: '',
+        price: '',
+        description: ''
+      });
+    } catch (error) {
+      console.error('Error adding menu item:', error);
+      alert('Failed to add menu item. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -164,9 +174,9 @@ const POSMenuBuilder = () => {
               </div>
 
               <div className="form-group span-2">
-                <button type="submit" className="action-button">
+                <button type="submit" className="action-button" disabled={submitting}>
                   <i data-feather="plus"></i>
-                  Add Menu Item
+                  {submitting ? 'Adding...' : 'Add Menu Item'}
                 </button>
               </div>
             </form>
@@ -174,20 +184,28 @@ const POSMenuBuilder = () => {
 
           <div className="menu-items">
             <h3>Current Menu Items</h3>
-            <div className="menu-grid">
-              {menuItems.map(item => (
-                <div key={item.id} className="menu-card">
-                  <div className="menu-item-info">
-                    <h4 className="menu-item-title">{item.name}</h4>
-                    <p className="menu-item-description">{item.description}</p>
-                    <p className="menu-item-price">${item.price.toFixed(2)}</p>
-                    <span className={`inventory-status status-${item.stockStatus}`}>
-                      {item.stockStatus === 'in-stock' ? 'In Stock' : 'Low Stock'}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
+            {isLoading ? (
+              <p>Loading menu items...</p>
+            ) : (
+              <div className="menu-grid">
+                {menuItems.length === 0 ? (
+                  <p>No menu items yet. Add your first item above!</p>
+                ) : (
+                  menuItems.map(item => (
+                    <div key={item.id} className="menu-card">
+                      <div className="menu-item-info">
+                        <h4 className="menu-item-title">{item.name}</h4>
+                        <p className="menu-item-description">{item.description}</p>
+                        <p className="menu-item-price">${item.price.toFixed(2)}</p>
+                        <span className={`inventory-status status-${item.inventory?.quantity > 0 ? 'in-stock' : 'low-stock'}`}>
+                          {item.inventory?.quantity > 0 ? 'In Stock' : 'Low Stock'}
+                        </span>
+                      </div>
+                    </div>
+                  ))
+                )}
+              </div>
+            )}
           </div>
         </div>
       </main>
