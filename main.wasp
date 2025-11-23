@@ -345,45 +345,147 @@ page VenueSettingsPage {
   component: import VenueSettings from "@src/frontend/pages/VenueSettings"
 }
 
-// ONLY KEEP THESE - NO ENTITY DECLARATIONS
+// Entity declarations - Required for Wasp to access Prisma models
+entity User {=psl
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  isVenue   Boolean  @default(false)
+  venueId   Int?
+  createdAt DateTime @default(now())
+  
+  venue     Venue?   @relation(fields: [venueId], references: [id])
+psl=}
+
+entity Venue {=psl
+  id          Int      @id @default(autoincrement())
+  name        String
+  address     String?
+  createdAt   DateTime @default(now())
+  
+  users       User[]
+  menuItems   MenuItem[]
+  inventory   Inventory[]
+  orders      Order[]
+  employees   Employee[]
+psl=}
+
+entity MenuItem {=psl
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  price       Float
+  category    String
+  image       String?
+  venueId     Int
+  createdAt   DateTime @default(now())
+  
+  venue       Venue     @relation(fields: [venueId], references: [id])
+  inventory   Inventory?
+  orderItems  OrderItem[]
+psl=}
+
+entity Inventory {=psl
+  id                 Int      @id @default(autoincrement())
+  menuItemId         Int      @unique
+  quantity           Int
+  lowStockThreshold  Int      @default(10)
+  venueId            Int
+  updatedAt          DateTime @updatedAt
+  
+  menuItem           MenuItem @relation(fields: [menuItemId], references: [id])
+  venue              Venue    @relation(fields: [venueId], references: [id])
+psl=}
+
+entity Order {=psl
+  id          Int      @id @default(autoincrement())
+  venueId     Int
+  orderType   String
+  status      String
+  total       Float
+  subtotal    Float
+  tax         Float?
+  tip         Float?
+  createdAt   DateTime @default(now())
+  completedAt DateTime?
+  
+  venue       Venue      @relation(fields: [venueId], references: [id])
+  items       OrderItem[]
+psl=}
+
+entity OrderItem {=psl
+  id         Int      @id @default(autoincrement())
+  orderId    Int
+  menuItemId Int
+  quantity   Int
+  price      Float
+  
+  order      Order    @relation(fields: [orderId], references: [id])
+  menuItem   MenuItem @relation(fields: [menuItemId], references: [id])
+psl=}
+
+entity Employee {=psl
+  id        Int      @id @default(autoincrement())
+  venueId   Int
+  name      String
+  role      String
+  pin       String?
+  email     String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  
+  venue     Venue    @relation(fields: [venueId], references: [id])
+psl=}
+
+// Actions and Queries
 action createMenuItem {
-  fn: import { createMenuItem } from "@src/actions.js"
+  fn: import { createMenuItem } from "@src/actions.js",
+  entities: [MenuItem, Inventory, Venue]
 }
 
 action updateMenuItem {
-  fn: import { updateMenuItem } from "@src/actions.js"
+  fn: import { updateMenuItem } from "@src/actions.js",
+  entities: [MenuItem]
 }
 
 action deleteMenuItem {
-  fn: import { deleteMenuItem } from "@src/actions.js"
+  fn: import { deleteMenuItem } from "@src/actions.js",
+  entities: [MenuItem]
 }
 
 action updateInventory {
-  fn: import { updateInventory } from "@src/actions.js"
+  fn: import { updateInventory } from "@src/actions.js",
+  entities: [Inventory]
 }
 
 action createOrder {
-  fn: import { createOrder } from "@src/actions.js"
+  fn: import { createOrder } from "@src/actions.js",
+  entities: [Order, OrderItem]
 }
 
 action updateOrderStatus {
-  fn: import { updateOrderStatus } from "@src/actions.js"
+  fn: import { updateOrderStatus } from "@src/actions.js",
+  entities: [Order]
 }
 
 query getMenuItems {
-  fn: import { getMenuItems } from "@src/queries.js"
+  fn: import { getMenuItems } from "@src/queries.js",
+  entities: [MenuItem, Inventory]
 }
 
 query getInventory {
-  fn: import { getInventory } from "@src/queries.js"
+  fn: import { getInventory } from "@src/queries.js",
+  entities: [Inventory, MenuItem]
 }
 
 query getOrders {
-  fn: import { getOrders } from "@src/queries.js"
+  fn: import { getOrders } from "@src/queries.js",
+  entities: [Order, OrderItem, MenuItem]
 }
 
 query getOrderById {
-  fn: import { getOrderById } from "@src/queries.js"
+  fn: import { getOrderById } from "@src/queries.js",
+  entities: [Order, OrderItem, MenuItem]
 }
 
 
