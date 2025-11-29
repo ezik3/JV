@@ -10,7 +10,7 @@ import Venues from './pages/Venues';
 import VenueDetails from './pages/VenueDetails';
 import VenueOwnerHome from './pages/VenueOwnerHome';
 import CheckInSystem from './components/CheckInSystem';
-import AIWaiter from './components/AIWaiter';
+import AIWaiter from './components/shared/AIWaiter';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Home from './pages/Home';
