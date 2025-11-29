@@ -31,6 +31,12 @@ export default function POSLogin() {
     try {
       const response = await api.post('/api/auth/login', { email, password });
       
+      // Check if user is a venue
+      if (response.data.role !== 'venue') {
+        setError('This login is for venue owners only. Please use the regular login.');
+        return;
+      }
+      
       // Store auth data
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('userId', response.data.userId);
@@ -40,8 +46,12 @@ export default function POSLogin() {
         localStorage.setItem('venueName', response.data.venueName);
       }
       
-      // Redirect to POS dashboard
-      history.push('/venue/pos/dashboard');
+      // Redirect to POS dashboard or next step
+      if (response.data.nextStep) {
+        history.push(response.data.nextStep);
+      } else {
+        history.push('/venue/pos/dashboard');
+      }
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data?.error || 'Login failed. Please try again.');
     } finally {

@@ -30,22 +30,27 @@ export default function POSSignup() {
     setError('');
     
     try {
-      // Register as a venue
-      const response = await api.post('/api/auth/register', { 
+      // Register as a venue using the correct endpoint
+      const response = await api.post('/api/auth/register-venue', { 
         email, 
         password,
         venueName,
-        role: 'venue'
+        fullName: venueName
       });
       
       // Store auth data
-      localStorage.setItem('token', response.data.token);
-      localStorage.setItem('userId', response.data.userId);
-      localStorage.setItem('userRole', 'venue');
-      localStorage.setItem('venueName', venueName);
-      
-      // Redirect to POS dashboard
-      history.push('/venue/pos/dashboard');
+      if (response.data.token) {
+        localStorage.setItem('token', response.data.token);
+        localStorage.setItem('userId', response.data.userId);
+        localStorage.setItem('userRole', 'venue');
+        localStorage.setItem('venueName', venueName);
+        
+        // Redirect to POS dashboard
+        history.push('/venue/pos/dashboard');
+      } else {
+        // Registration successful but may need verification
+        setError('Registration successful! Please check your email to verify your account.');
+      }
     } catch (err) {
       setError(err.response?.data?.message || err.response?.data?.error || 'Registration failed. Please try again.');
     } finally {
