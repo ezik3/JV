@@ -1,7 +1,7 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import POSLogin from './nocturne/POSLogin';
 
+// Entry point for /venue/pos - renders Nocturne POS Login
 export const POSInterface = () => {
-  // Directly redirect to Manager Login
-  return <Redirect to="/venue/pos/auth/manager" />;
-}; 
+  return <POSLogin />;
+};

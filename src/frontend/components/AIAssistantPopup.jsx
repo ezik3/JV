@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AIWaiter from './AIWaiter';
+import AIWaiter from './shared/AIWaiter';
 import './AIAssistantPopup.css';
 
 function AIAssistantPopup({ venueId, onClose }) {

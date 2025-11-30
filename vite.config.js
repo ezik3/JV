@@ -4,4 +4,7 @@
    export default defineConfig({
      plugins: [react()],
      root: 'src/frontend',
+     server: {
+       open: true,
+     },
    })

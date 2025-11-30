@@ -10,7 +10,7 @@ import Venues from './pages/Venues';
 import VenueDetails from './pages/VenueDetails';
 import VenueOwnerHome from './pages/VenueOwnerHome';
 import CheckInSystem from './components/CheckInSystem';
-import AIWaiter from './components/AIWaiter';
+import AIWaiter from './components/shared/AIWaiter';
 import AdminDashboard from './pages/AdminDashboard';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -33,12 +33,16 @@ import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
 import { POSProvider } from './context/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
+import POSMenuBuilder from './pages/POS/components/POSMenuBuilder';
+import POSInventory from './pages/POS/components/POSInventory';
+import SimplifiedPOS from './pages/POS/components/SimplifiedPOS';
+import POSOrders from './pages/POS/components/POSOrders';
 import WalletPage from './pages/Wallet/WalletPage';
-import POSLayout from './components/POS/POSLayout';
+// Nocturne POS imports
+import POSLogin from './pages/POS/nocturne/POSLogin';
+import POSSignup from './pages/POS/nocturne/POSSignup';
+import NocturneDashboard from './pages/POS/nocturne/NocturneDashboard';
+import NocturnePOSLayout from './pages/POS/nocturne/NocturnePOSLayout';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -81,19 +85,42 @@ function App() {
                 <Route path="/venue/accounts" component={VenueAccounts} />
                 <Route path="/venue/credits" render={() => <div style={{ padding: '20px' }}>Credits page - Coming Soon</div>} />
 
-                {/* POS routes */}
+                {/* POS routes - Nocturne POS Integration */}
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
                     <POSProvider>
-                      <POSLayout>
-                        <Switch>
-                          <Route exact path="/venue/pos" component={POSDashboard} />
-                          <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
-                          <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                          <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                          <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                        </Switch>
-                      </POSLayout>
+                      <Switch>
+                        {/* Auth routes - no layout */}
+                        <Route exact path="/venue/pos" component={POSLogin} />
+                        <Route exact path="/venue/pos/signup" component={POSSignup} />
+                        
+                        {/* Protected POS routes - with Nocturne layout */}
+                        <Route exact path="/venue/pos/dashboard">
+                          <NocturnePOSLayout>
+                            <NocturneDashboard />
+                          </NocturnePOSLayout>
+                        </Route>
+                        <Route exact path="/venue/pos/menu">
+                          <NocturnePOSLayout>
+                            <POSMenuBuilder />
+                          </NocturnePOSLayout>
+                        </Route>
+                        <Route exact path="/venue/pos/inventory">
+                          <NocturnePOSLayout>
+                            <POSInventory />
+                          </NocturnePOSLayout>
+                        </Route>
+                        <Route exact path="/venue/pos/system">
+                          <NocturnePOSLayout>
+                            <SimplifiedPOS />
+                          </NocturnePOSLayout>
+                        </Route>
+                        <Route exact path="/venue/pos/orders">
+                          <NocturnePOSLayout>
+                            <POSOrders />
+                          </NocturnePOSLayout>
+                        </Route>
+                      </Switch>
                     </POSProvider>
                   </POSErrorBoundary>
                 </Route>
