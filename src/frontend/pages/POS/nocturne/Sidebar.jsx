@@ -44,11 +44,11 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="w-64 min-h-screen bg-sidebar-background text-sidebar-foreground flex flex-col border-r border-border">
+    <div className="w-64 min-h-screen flex flex-col border-r" style={{ backgroundColor: 'hsl(240, 5.3%, 26.1%)', color: 'hsl(0, 0%, 98%)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
       {/* Header */}
-      <div className="p-6 border-b border-white/10">
-        <h1 className="text-2xl font-bold">JV POS</h1>
-        <p className="text-sm text-sidebar-foreground/70 mt-1">Night Venue System</p>
+      <div className="p-6 border-b" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+        <h1 className="text-2xl font-bold" style={{ color: 'hsl(0, 0%, 98%)' }}>JV POS</h1>
+        <p className="text-sm mt-1" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Night Venue System</p>
       </div>
 
       {/* Navigation */}
@@ -59,13 +59,9 @@ const Sidebar = () => {
             <NavLink
               key={item.path}
               to={item.path}
-              className={({ isActive }) =>
-                cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-all",
-                  "text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-white/10",
-                  isActive && "bg-white/20 text-sidebar-foreground font-semibold"
-                )
-              }
+              className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all"
+              style={{ color: 'rgba(255, 255, 255, 0.8)' }}
+              activeStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: 'hsl(0, 0%, 98%)', fontWeight: '600' }}
             >
               <Icon className="h-5 w-5" />
               <span>{item.label}</span>
@@ -75,17 +71,19 @@ const Sidebar = () => {
       </nav>
 
       {/* Footer Actions */}
-      <div className="p-4 border-t border-white/10 space-y-2">
+      <div className="p-4 space-y-2" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
         <NavLink
           to="/venue/home"
-          className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-white/10 w-full"
+          className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all w-full"
+          style={{ color: 'rgba(255, 255, 255, 0.8)' }}
         >
           <Home className="h-5 w-5" />
           <span>Venue Home</span>
         </NavLink>
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all text-sidebar-foreground/80 hover:text-red-400 hover:bg-red-950/30 w-full"
+          className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all w-full"
+          style={{ color: 'rgba(255, 255, 255, 0.8)' }}
         >
           <LogOut className="h-5 w-5" />
           <span>Logout</span>
