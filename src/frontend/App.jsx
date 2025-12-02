@@ -36,9 +36,10 @@ import { POSProvider } from './context/POSContext';
 import POSMenuBuilder from './pages/POS/POSMenuBuilder';
 import POSInventory from './pages/POS/POSInventory';
 import SimplifiedPOS from './pages/POS/SimplifiedPOS';
-import POSDashboard from './pages/POS/POSDashboard';
 import WalletPage from './pages/Wallet/WalletPage';
-import POSLayout from './components/POS/POSLayout';
+import NocturneLayout from './pages/POS/nocturne/NocturneLayout';
+import NocturneDashboard from './pages/POS/nocturne/NocturneDashboard';
+import NocturneLogin from './pages/POS/nocturne/NocturneLogin';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -81,20 +82,24 @@ function App() {
                 <Route path="/venue/accounts" component={VenueAccounts} />
                 <Route path="/venue/credits" render={() => <div style={{ padding: '20px' }}>Credits page - Coming Soon</div>} />
 
-                {/* POS routes */}
+                {/* POS routes - Nocturne Integration */}
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
-                    <POSProvider>
-                      <POSLayout>
-                        <Switch>
-                          <Route exact path="/venue/pos" component={POSDashboard} />
-                          <Route exact path="/venue/pos/dashboard" component={POSDashboard} />
-                          <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                          <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                          <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                        </Switch>
-                      </POSLayout>
-                    </POSProvider>
+                    <Switch>
+                      <Route exact path="/venue/pos" component={NocturneLogin} />
+                      <Route path="/venue/pos">
+                        <POSProvider>
+                          <NocturneLayout>
+                            <Switch>
+                              <Route exact path="/venue/pos/dashboard" component={NocturneDashboard} />
+                              <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
+                              <Route exact path="/venue/pos/inventory" component={POSInventory} />
+                              <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
+                            </Switch>
+                          </NocturneLayout>
+                        </POSProvider>
+                      </Route>
+                    </Switch>
                   </POSErrorBoundary>
                 </Route>
 

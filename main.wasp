@@ -279,7 +279,7 @@ route POSDashboardRoute {
 }
 
 page POSDashboardPage {
-  component: import POSDashboard from "@src/frontend/pages/POS/components/POSDashboard"
+  component: import NocturnePOSDashboardWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSDashboardWrapper"
 }
 
 route POSSystemRoute {
@@ -288,7 +288,7 @@ route POSSystemRoute {
 }
 
 page POSSystemPage {
-  component: import SimplifiedPOS from "@src/frontend/pages/POS/components/SimplifiedPOS"
+  component: import NocturnePOSSystemWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSSystemWrapper"
 }
 
 route POSOrdersRoute {
@@ -297,7 +297,7 @@ route POSOrdersRoute {
 }
 
 page POSOrdersPage {
-  component: import POSOrders from "@src/frontend/pages/POS/components/POSOrders"
+  component: import NocturnePOSOrdersWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSOrdersWrapper"
 }
 
 route POSInventoryRoute {
@@ -306,7 +306,7 @@ route POSInventoryRoute {
 }
 
 page POSInventoryPage {
-  component: import POSInventory from "@src/frontend/pages/POS/components/POSInventory"
+  component: import NocturnePOSInventoryWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSInventoryWrapper"
 }
 
 route POSMenuBuilderRoute {
@@ -315,7 +315,7 @@ route POSMenuBuilderRoute {
 }
 
 page POSMenuBuilderPage {
-  component: import POSMenuBuilder from "@src/frontend/pages/POS/components/POSMenuBuilder"
+  component: import NocturnePOSMenuWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSMenuWrapper"
 }
 
 route VenueMessagesRoute {
