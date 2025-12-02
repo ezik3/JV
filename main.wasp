@@ -279,16 +279,16 @@ route POSDashboardRoute {
 }
 
 page POSDashboardPage {
-  component: import NocturnePOSDashboardWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSDashboardWrapper"
+  component: import Dashboard from "@src/frontend/pages/POS/nocturne/Dashboard"
 }
 
-route POSSystemRoute {
-  path: "/venue/pos/system",
-  to: POSSystemPage
+route POSNewOrderRoute {
+  path: "/venue/pos/new-order",
+  to: POSNewOrderPage
 }
 
-page POSSystemPage {
-  component: import NocturnePOSSystemWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSSystemWrapper"
+page POSNewOrderPage {
+  component: import NewOrder from "@src/frontend/pages/POS/nocturne/NewOrder"
 }
 
 route POSOrdersRoute {
@@ -297,16 +297,16 @@ route POSOrdersRoute {
 }
 
 page POSOrdersPage {
-  component: import NocturnePOSOrdersWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSOrdersWrapper"
+  component: import Orders from "@src/frontend/pages/POS/nocturne/Orders"
 }
 
-route POSInventoryRoute {
-  path: "/venue/pos/inventory",
-  to: POSInventoryPage
+route POSKitchenRoute {
+  path: "/venue/pos/kitchen",
+  to: POSKitchenPage
 }
 
-page POSInventoryPage {
-  component: import NocturnePOSInventoryWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSInventoryWrapper"
+page POSKitchenPage {
+  component: import Kitchen from "@src/frontend/pages/POS/nocturne/Kitchen"
 }
 
 route POSMenuBuilderRoute {
@@ -315,7 +315,61 @@ route POSMenuBuilderRoute {
 }
 
 page POSMenuBuilderPage {
-  component: import NocturnePOSMenuWrapper from "@src/frontend/pages/POS/nocturne/NocturnePOSMenuWrapper"
+  component: import Menu from "@src/frontend/pages/POS/nocturne/Menu"
+}
+
+route POSTablesRoute {
+  path: "/venue/pos/tables",
+  to: POSTablesPage
+}
+
+page POSTablesPage {
+  component: import Tables from "@src/frontend/pages/POS/nocturne/Tables"
+}
+
+route POSFloorplanRoute {
+  path: "/venue/pos/floorplan",
+  to: POSFloorplanPage
+}
+
+page POSFloorplanPage {
+  component: import Floorplan from "@src/frontend/pages/POS/nocturne/Floorplan"
+}
+
+route POSInventoryRoute {
+  path: "/venue/pos/inventory",
+  to: POSInventoryPage
+}
+
+page POSInventoryPage {
+  component: import Inventory from "@src/frontend/pages/POS/nocturne/Inventory"
+}
+
+route POSAnalyticsRoute {
+  path: "/venue/pos/analytics",
+  to: POSAnalyticsPage
+}
+
+page POSAnalyticsPage {
+  component: import Analytics from "@src/frontend/pages/POS/nocturne/Analytics"
+}
+
+route POSStaffRoute {
+  path: "/venue/pos/staff",
+  to: POSStaffPage
+}
+
+page POSStaffPage {
+  component: import Staff from "@src/frontend/pages/POS/nocturne/Staff"
+}
+
+route POSSettingsRoute {
+  path: "/venue/pos/settings",
+  to: POSSettingsPage
+}
+
+page POSSettingsPage {
+  component: import Settings from "@src/frontend/pages/POS/nocturne/Settings"
 }
 
 route VenueMessagesRoute {

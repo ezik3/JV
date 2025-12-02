@@ -5,9 +5,9 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
 import api from '../../../api';
-import './nocturne-pos.css';
+import './nocturne.css';
 
-const NocturneLogin = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -67,33 +67,32 @@ const NocturneLogin = () => {
   };
 
   return (
-    <div className="nocturne-pos flex min-h-screen items-center justify-center p-4">
-      <Card className="glass-strong w-full max-w-md fade-in">
+    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+      <Card className="w-full max-w-md glass border-border">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-bold text-center neon-text">
+          <CardTitle className="text-3xl font-bold text-center text-primary">
             JV POS
           </CardTitle>
-          <CardDescription className="text-center text-gray-300">
-            Night Venue Point of Sale System
+          <CardDescription className="text-center">
+            Sign in to your account
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-gray-200">Email</Label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="venue@example.com"
+                placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={loading}
-                className="glass border-gray-600 text-white placeholder:text-gray-400"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-gray-200">Password</Label>
+              <Label htmlFor="password">Password</Label>
               <Input
                 id="password"
                 type="password"
@@ -102,27 +101,26 @@ const NocturneLogin = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 disabled={loading}
-                className="glass border-gray-600 text-white placeholder:text-gray-400"
               />
             </div>
             {error && (
-              <div className="text-sm text-red-400 bg-red-950/50 p-3 rounded-md border border-red-800">
+              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md border border-destructive/20">
                 {error}
               </div>
             )}
             <Button
               type="submit"
-              className="w-full neon-glow bg-indigo-600 hover:bg-indigo-700 text-white font-semibold"
+              className="w-full neon-glow"
               disabled={loading}
             >
-              {loading ? 'Signing in...' : 'Sign in'}
+              {loading ? 'Signing in...' : 'Sign In'}
             </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col space-y-2">
-          <div className="text-sm text-gray-400 text-center">
+          <div className="text-sm text-muted-foreground text-center">
             Don't have an account?{' '}
-            <Link to="/venue-signup" className="text-indigo-400 hover:text-indigo-300 underline">
+            <Link to="/venue-signup" className="text-primary hover:underline font-medium">
               Sign up
             </Link>
           </div>
@@ -132,4 +130,4 @@ const NocturneLogin = () => {
   );
 };
 
-export default NocturneLogin;
+export default Login;

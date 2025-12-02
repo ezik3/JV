@@ -32,14 +32,20 @@ import { VenueAuthProvider } from './context/VenueAuthContext';
 import VenueMessages from './pages/VenueMessages';
 import VenueNotifications from './pages/VenueNotifications';
 import VenueSettings from './pages/VenueSettings';
-import { POSProvider } from './context/POSContext';
-import POSMenuBuilder from './pages/POS/POSMenuBuilder';
-import POSInventory from './pages/POS/POSInventory';
-import SimplifiedPOS from './pages/POS/SimplifiedPOS';
 import WalletPage from './pages/Wallet/WalletPage';
-import NocturneLayout from './pages/POS/nocturne/NocturneLayout';
-import NocturneDashboard from './pages/POS/nocturne/NocturneDashboard';
-import NocturneLogin from './pages/POS/nocturne/NocturneLogin';
+import NocturneLayout from './pages/POS/nocturne/Layout';
+import Login from './pages/POS/nocturne/Login';
+import Dashboard from './pages/POS/nocturne/Dashboard';
+import NewOrder from './pages/POS/nocturne/NewOrder';
+import Orders from './pages/POS/nocturne/Orders';
+import Kitchen from './pages/POS/nocturne/Kitchen';
+import Menu from './pages/POS/nocturne/Menu';
+import Tables from './pages/POS/nocturne/Tables';
+import Floorplan from './pages/POS/nocturne/Floorplan';
+import Inventory from './pages/POS/nocturne/Inventory';
+import Analytics from './pages/POS/nocturne/Analytics';
+import Staff from './pages/POS/nocturne/Staff';
+import Settings from './pages/POS/nocturne/Settings';
 
 function App() {
   const [currentVenue, setCurrentVenue] = useState(null);
@@ -86,18 +92,23 @@ function App() {
                 <Route path="/venue/pos">
                   <POSErrorBoundary>
                     <Switch>
-                      <Route exact path="/venue/pos" component={NocturneLogin} />
+                      <Route exact path="/venue/pos" component={Login} />
                       <Route path="/venue/pos">
-                        <POSProvider>
-                          <NocturneLayout>
-                            <Switch>
-                              <Route exact path="/venue/pos/dashboard" component={NocturneDashboard} />
-                              <Route exact path="/venue/pos/menu" component={POSMenuBuilder} />
-                              <Route exact path="/venue/pos/inventory" component={POSInventory} />
-                              <Route exact path="/venue/pos/system" component={SimplifiedPOS} />
-                            </Switch>
-                          </NocturneLayout>
-                        </POSProvider>
+                        <NocturneLayout>
+                          <Switch>
+                            <Route exact path="/venue/pos/dashboard" component={Dashboard} />
+                            <Route exact path="/venue/pos/new-order" component={NewOrder} />
+                            <Route exact path="/venue/pos/orders" component={Orders} />
+                            <Route exact path="/venue/pos/kitchen" component={Kitchen} />
+                            <Route exact path="/venue/pos/menu" component={Menu} />
+                            <Route exact path="/venue/pos/tables" component={Tables} />
+                            <Route exact path="/venue/pos/floorplan" component={Floorplan} />
+                            <Route exact path="/venue/pos/inventory" component={Inventory} />
+                            <Route exact path="/venue/pos/analytics" component={Analytics} />
+                            <Route exact path="/venue/pos/staff" component={Staff} />
+                            <Route exact path="/venue/pos/settings" component={Settings} />
+                          </Switch>
+                        </NocturneLayout>
                       </Route>
                     </Switch>
                   </POSErrorBoundary>
