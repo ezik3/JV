@@ -1,10 +1,12 @@
 import React from 'react';
+import Layout from './Layout';
 import { Card, CardContent } from './ui/card';
 import { Layout } from 'lucide-react';
 import './nocturne.css';
 
 const Floorplan = () => {
   return (
+    <Layout>
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-foreground">Floor Plan Editor</h1>
@@ -37,7 +39,7 @@ const Floorplan = () => {
         </Card>
       </div>
     </div>
+    </Layout>
   );
 };
-
 export default Floorplan;

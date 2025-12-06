@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -61,6 +62,7 @@ const Kitchen = () => {
   };
 
   return (
+    <Layout>
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-foreground">Kitchen Display</h1>
@@ -237,7 +239,7 @@ const Kitchen = () => {
         </TabsContent>
       </Tabs>
     </div>
+    </Layout>
   );
 };
-
 export default Kitchen;

@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { DollarSign, ShoppingCart, Users, TrendingUp, Clock } from 'lucide-react';
 import './nocturne.css';
@@ -71,6 +72,7 @@ const Analytics = () => {
   const maxOrders = Math.max(...peakHours.map(h => h.orders));
 
   return (
+    <Layout>
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-foreground">Analytics</h1>
@@ -231,7 +233,7 @@ const Analytics = () => {
         </CardContent>
       </Card>
     </div>
+    </Layout>
   );
 };
-
 export default Analytics;

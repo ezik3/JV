@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -64,7 +65,8 @@ const NewOrder = () => {
   const total = subtotal + tax;
 
   return (
-    <div className="flex h-screen bg-background">
+    <Layout>
+      <div className="flex h-screen bg-background">
       {/* Menu Section */}
       <div className="flex-1 p-6 overflow-y-auto">
         <div className="mb-6">
@@ -209,6 +211,7 @@ const NewOrder = () => {
         </div>
       </div>
     </div>
+    </Layout>
   );
 };
 

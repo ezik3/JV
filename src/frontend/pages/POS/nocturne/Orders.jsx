@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -51,7 +52,8 @@ const Orders = () => {
   ];
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
+    <Layout>
+      <div className="p-6 space-y-6 bg-background min-h-screen">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Orders</h1>
@@ -147,6 +149,7 @@ const Orders = () => {
         </CardContent>
       </Card>
     </div>
+    </Layout>
   );
 };
 

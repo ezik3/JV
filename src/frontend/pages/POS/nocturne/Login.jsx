@@ -5,23 +5,43 @@ import './nocturne.css';
 const Login = () => {
   const history = useHistory();
   const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     venueName: '',
-    address: ''
+    address: '',
+    phone: '',
+    username: ''
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    setLoading(true);
 
-    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register-venue';
+    const endpoint = isLogin
+      ? 'http://localhost:5000/api/auth/login'
+      : 'http://localhost:5000/api/auth/register-venue';
+
+    const payload = isLogin
+      ? { email: formData.email, password: formData.password }
+      : {
+          email: formData.email,
+          password: formData.password,
+          venueName: formData.venueName,
+          address: formData.address,
+          phone: formData.phone || '0400000000',
+          username: formData.username || formData.venueName,
+          fullName: formData.venueName
+        };
 
     try {
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+        body: JSON.stringify(payload)
       });
 
       const data = await response.json();
@@ -30,11 +50,18 @@ const Login = () => {
         localStorage.setItem('token', data.token);
         localStorage.setItem('userId', data.userId);
         localStorage.setItem('userRole', data.role);
-        localStorage.setItem('venueId', data.venueId);
+        if (data.venueId) {
+          localStorage.setItem('venueId', data.venueId);
+        }
         history.push('/venue/pos/dashboard');
+      } else {
+        setError(data.error || data.details || 'Authentication failed. Please try again.');
       }
     } catch (error) {
       console.error('Auth error:', error);
+      setError('Connection error. Please check if the backend server is running on port 5000.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -79,11 +106,17 @@ const Login = () => {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            {error && (
+              <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-sm text-red-800 font-medium">{error}</p>
+              </div>
+            )}
+
             {!isLogin && (
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Venue Name
+                    Venue Name *
                   </label>
                   <input
                     type="text"
@@ -96,7 +129,7 @@ const Login = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Address
+                    Address *
                   </label>
                   <input
                     type="text"
@@ -105,6 +138,19 @@ const Login = () => {
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
                     placeholder="Enter venue address"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Phone Number *
+                  </label>
+                  <input
+                    type="tel"
+                    required
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="04XX XXX XXX"
                   />
                 </div>
               </>
@@ -140,9 +186,10 @@ const Login = () => {
 
             <button
               type="submit"
-              className="w-full bg-gray-900 text-white py-4 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
+              disabled={loading}
+              className="w-full bg-gray-900 text-white py-4 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isLogin ? 'Sign In' : 'Create Account'}
+              {loading ? 'Please wait...' : (isLogin ? 'Sign In' : 'Create Account')}
             </button>
           </form>
         </div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -48,6 +49,7 @@ const Menu = () => {
   };
 
   return (
+    <Layout>
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div className="flex items-center justify-between">
         <div>
@@ -137,7 +139,7 @@ const Menu = () => {
         </Card>
       )}
     </div>
+    </Layout>
   );
 };
-
 export default Menu;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -58,6 +59,7 @@ const Settings = () => {
   };
 
   return (
+    <Layout>
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div>
         <h1 className="text-3xl font-bold text-foreground">Settings</h1>
@@ -284,7 +286,7 @@ const Settings = () => {
         </CardContent>
       </Card>
     </div>
+    </Layout>
   );
 };
-
 export default Settings;

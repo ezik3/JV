@@ -300,13 +300,22 @@ page POSOrdersPage {
   component: import Orders from "@src/frontend/pages/POS/nocturne/Orders"
 }
 
-route POSKitchenRoute {
-  path: "/venue/pos/kitchen",
-  to: POSKitchenPage
+route POSKitchenLegacyRoute {
+  path: "/venue/pos/kitchen-legacy",
+  to: POSKitchenLegacyPage
 }
 
-page POSKitchenPage {
+page POSKitchenLegacyPage {
   component: import Kitchen from "@src/frontend/pages/POS/nocturne/Kitchen"
+}
+
+route POSKitchenDisplayRoute {
+  path: "/venue/pos/kitchen-display",
+  to: POSKitchenDisplayPage
+}
+
+page POSKitchenDisplayPage {
+  component: import KitchenDisplay from "@src/frontend/pages/POS/nocturne/KitchenDisplay"
 }
 
 route POSMenuBuilderRoute {

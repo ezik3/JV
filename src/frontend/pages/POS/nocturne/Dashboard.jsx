@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Badge } from './ui/badge';
 import { DollarSign, ShoppingCart, Users, TrendingUp } from 'lucide-react';
@@ -63,11 +64,12 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="p-6 space-y-6 bg-background min-h-screen">
-      <div>
-        <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">Welcome back! Here's what's happening today.</p>
-      </div>
+    <Layout>
+      <div className="p-6 space-y-6 bg-background min-h-screen">
+        <div>
+          <h1 className="text-3xl font-bold text-foreground">Dashboard</h1>
+          <p className="text-muted-foreground">Welcome back! Here's what's happening today.</p>
+        </div>
 
       {/* Stats Grid */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -146,7 +148,8 @@ const Dashboard = () => {
           </CardContent>
         </Card>
       </div>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

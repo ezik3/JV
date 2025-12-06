@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -59,6 +60,7 @@ const Tables = () => {
   };
 
   return (
+    <Layout>
     <div className="flex h-screen bg-background">
       {/* Tables Grid */}
       <div className="flex-1 p-6 overflow-y-auto">
@@ -249,7 +251,7 @@ const Tables = () => {
         </div>
       )}
     </div>
+    </Layout>
   );
 };
-
 export default Tables;

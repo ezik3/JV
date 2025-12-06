@@ -1,4 +1,5 @@
 import React from 'react';
+import Layout from './Layout';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
@@ -105,6 +106,7 @@ const Staff = () => {
   };
 
   return (
+    <Layout>
     <div className="p-6 space-y-6 bg-background min-h-screen">
       <div className="flex items-center justify-between">
         <div>
@@ -265,7 +267,7 @@ const Staff = () => {
         </TabsContent>
       </Tabs>
     </div>
+    </Layout>
   );
 };
-
 export default Staff;
