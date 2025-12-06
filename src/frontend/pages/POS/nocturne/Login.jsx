@@ -1,131 +1,156 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, Link } from 'react-router-dom';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card';
-import api from '../../../api';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import './nocturne.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
   const history = useHistory();
-
-  useEffect(() => {
-    // Check if user is already logged in
-    const token = localStorage.getItem('token');
-    const userRole = localStorage.getItem('userRole');
-
-    if (token && userRole === 'venue') {
-      history.push('/venue/pos/dashboard');
-    }
-  }, [history]);
+  const [isLogin, setIsLogin] = useState(true);
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    venueName: '',
+    address: ''
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
+
+    const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register-venue';
 
     try {
-      const response = await api.post('/api/auth/login', {
-        email,
-        password
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
 
-      if (response.data.success) {
-        const { token, userId, role, venueId } = response.data;
+      const data = await response.json();
 
-        // Verify user is a venue owner
-        if (role !== 'venue') {
-          setError('Access denied. Only venue owners can access the POS system.');
-          setLoading(false);
-          return;
-        }
-
-        // Store auth data
-        localStorage.setItem('token', token);
-        localStorage.setItem('userId', userId);
-        localStorage.setItem('userRole', role);
-        if (venueId) {
-          localStorage.setItem('venueId', venueId);
-        }
-
-        // Redirect to POS dashboard
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('userId', data.userId);
+        localStorage.setItem('userRole', data.role);
+        localStorage.setItem('venueId', data.venueId);
         history.push('/venue/pos/dashboard');
-      } else {
-        setError(response.data.message || 'Login failed');
       }
-    } catch (err) {
-      console.error('Login error:', err);
-      setError(err.response?.data?.message || 'Invalid email or password');
-    } finally {
-      setLoading(false);
+    } catch (error) {
+      console.error('Auth error:', error);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
-      <Card className="w-full max-w-md glass border-border">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-bold text-center text-primary">
-            JV POS
-          </CardTitle>
-          <CardDescription className="text-center">
-            Sign in to your account
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                disabled={loading}
-              />
-            </div>
-            {error && (
-              <div className="text-sm text-destructive bg-destructive/10 p-3 rounded-md border border-destructive/20">
-                {error}
-              </div>
-            )}
-            <Button
-              type="submit"
-              className="w-full neon-glow"
-              disabled={loading}
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="w-full max-w-md">
+        {/* Header */}
+        <div className="text-center mb-12">
+          <h1 className="text-5xl font-bold mb-2">
+            <span className="text-gray-900">JV Night </span>
+            <span className="text-gray-500">Venue</span>
+          </h1>
+          <p className="text-gray-600 text-lg">Premium POS System</p>
+          <p className="text-gray-500 text-sm mt-4 max-w-md mx-auto">
+            Complete POS solution with real-time kitchen display, floorplan editor, payment processing, and comprehensive venue management.
+          </p>
+        </div>
+
+        {/* Form Card */}
+        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-200">
+          <div className="flex justify-center gap-4 mb-8">
+            <button
+              onClick={() => setIsLogin(true)}
+              className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                isLogin
+                  ? 'bg-gray-900 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
             >
-              {loading ? 'Signing in...' : 'Sign In'}
-            </Button>
-          </form>
-        </CardContent>
-        <CardFooter className="flex flex-col space-y-2">
-          <div className="text-sm text-muted-foreground text-center">
-            Don't have an account?{' '}
-            <Link to="/venue-signup" className="text-primary hover:underline font-medium">
-              Sign up
-            </Link>
+              Sign In to POS
+            </button>
+            <button
+              onClick={() => setIsLogin(false)}
+              className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                !isLogin
+                  ? 'bg-gray-900 text-white shadow-lg'
+                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Create Account
+            </button>
           </div>
-        </CardFooter>
-      </Card>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {!isLogin && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Venue Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.venueName}
+                    onChange={(e) => setFormData({ ...formData, venueName: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="Enter venue name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Address
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.address}
+                    onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+                    className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                    placeholder="Enter venue address"
+                  />
+                </div>
+              </>
+            )}
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                placeholder="Enter your email"
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                Password
+              </label>
+              <input
+                type="password"
+                required
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-gray-900 text-white py-4 rounded-lg font-semibold text-lg hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl"
+            >
+              {isLogin ? 'Sign In' : 'Create Account'}
+            </button>
+          </form>
+        </div>
+
+        <p className="text-center text-gray-500 text-sm mt-6">
+          © 2024 JV Night Venue. All rights reserved.
+        </p>
+      </div>
     </div>
   );
 };

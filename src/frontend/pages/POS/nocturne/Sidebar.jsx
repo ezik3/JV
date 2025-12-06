@@ -5,18 +5,17 @@ import {
   ShoppingCart,
   ClipboardList,
   UtensilsCrossed,
-  Menu as MenuIcon,
+  Monitor,
+  MenuSquare,
   Armchair,
-  Map,
+  LayoutGrid,
   Package,
   BarChart3,
   Users,
-  Settings as SettingsIcon,
-  LogOut,
-  Home
+  Settings,
+  Home,
+  LogOut
 } from 'lucide-react';
-import { cn } from './lib/utils';
-import './nocturne.css';
 
 const Sidebar = () => {
   const history = useHistory();
@@ -25,14 +24,15 @@ const Sidebar = () => {
     { path: '/venue/pos/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/venue/pos/new-order', label: 'New Order', icon: ShoppingCart },
     { path: '/venue/pos/orders', label: 'Orders', icon: ClipboardList },
-    { path: '/venue/pos/kitchen', label: 'Kitchen', icon: UtensilsCrossed },
-    { path: '/venue/pos/menu', label: 'Menu', icon: MenuIcon },
+    { path: '/venue/pos/kitchen-legacy', label: 'Kitchen (Legacy)', icon: UtensilsCrossed },
+    { path: '/venue/pos/kitchen-display', label: 'Kitchen Display', icon: Monitor },
+    { path: '/venue/pos/menu', label: 'Menu', icon: MenuSquare },
     { path: '/venue/pos/tables', label: 'Tables', icon: Armchair },
-    { path: '/venue/pos/floorplan', label: 'Floorplan', icon: Map },
+    { path: '/venue/pos/floorplan', label: 'Floorplan', icon: LayoutGrid },
     { path: '/venue/pos/inventory', label: 'Inventory', icon: Package },
     { path: '/venue/pos/analytics', label: 'Analytics', icon: BarChart3 },
     { path: '/venue/pos/staff', label: 'Staff', icon: Users },
-    { path: '/venue/pos/settings', label: 'Settings', icon: SettingsIcon },
+    { path: '/venue/pos/settings', label: 'Settings', icon: Settings }
   ];
 
   const handleLogout = () => {
@@ -40,15 +40,26 @@ const Sidebar = () => {
     localStorage.removeItem('userId');
     localStorage.removeItem('userRole');
     localStorage.removeItem('venueId');
-    history.push('/venue/home');
+    history.push('/venue/pos/login');
   };
 
   return (
-    <div className="w-64 min-h-screen flex flex-col border-r" style={{ backgroundColor: 'hsl(240, 5.3%, 26.1%)', color: 'hsl(0, 0%, 98%)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+    <div
+      className="w-64 min-h-screen flex flex-col border-r"
+      style={{
+        backgroundColor: 'hsl(240, 5.3%, 26.1%)',
+        color: 'hsl(0, 0%, 98%)',
+        borderColor: 'rgba(255, 255, 255, 0.1)'
+      }}
+    >
       {/* Header */}
       <div className="p-6 border-b" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
-        <h1 className="text-2xl font-bold" style={{ color: 'hsl(0, 0%, 98%)' }}>JV POS</h1>
-        <p className="text-sm mt-1" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>Night Venue System</p>
+        <h1 className="text-2xl font-bold" style={{ color: 'hsl(0, 0%, 98%)' }}>
+          JV POS
+        </h1>
+        <p className="text-sm mt-1" style={{ color: 'rgba(255, 255, 255, 0.7)' }}>
+          Night Venue System
+        </p>
       </div>
 
       {/* Navigation */}
@@ -59,9 +70,17 @@ const Sidebar = () => {
             <NavLink
               key={item.path}
               to={item.path}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all"
-              style={{ color: 'rgba(255, 255, 255, 0.8)' }}
-              activeStyle={{ backgroundColor: 'rgba(255, 255, 255, 0.2)', color: 'hsl(0, 0%, 98%)', fontWeight: '600' }}
+              className={({ isActive }) =>
+                `flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
+                  isActive
+                    ? 'font-semibold'
+                    : ''
+                }`
+              }
+              style={({ isActive }) => ({
+                backgroundColor: isActive ? 'rgba(255, 255, 255, 0.2)' : 'transparent',
+                color: isActive ? 'hsl(0, 0%, 98%)' : 'rgba(255, 255, 255, 0.8)'
+              })}
             >
               <Icon className="h-5 w-5" />
               <span>{item.label}</span>
@@ -71,19 +90,29 @@ const Sidebar = () => {
       </nav>
 
       {/* Footer Actions */}
-      <div className="p-4 space-y-2" style={{ borderTop: '1px solid rgba(255, 255, 255, 0.1)' }}>
-        <NavLink
-          to="/venue/home"
+      <div className="p-4 border-t space-y-2" style={{ borderColor: 'rgba(255, 255, 255, 0.1)' }}>
+        <button
+          onClick={() => history.push('/venue/home')}
           className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all w-full"
-          style={{ color: 'rgba(255, 255, 255, 0.8)' }}
+          style={{
+            backgroundColor: 'transparent',
+            color: 'rgba(255, 255, 255, 0.8)'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
         >
           <Home className="h-5 w-5" />
           <span>Venue Home</span>
-        </NavLink>
+        </button>
         <button
           onClick={handleLogout}
           className="flex items-center gap-3 px-4 py-3 rounded-lg transition-all w-full"
-          style={{ color: 'rgba(255, 255, 255, 0.8)' }}
+          style={{
+            backgroundColor: 'transparent',
+            color: 'rgba(255, 255, 255, 0.8)'
+          }}
+          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.1)'}
+          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
         >
           <LogOut className="h-5 w-5" />
           <span>Logout</span>

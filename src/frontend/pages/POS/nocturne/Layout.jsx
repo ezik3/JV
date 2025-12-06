@@ -10,9 +10,9 @@ const Layout = ({ children }) => {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full" style={{ backgroundColor: 'hsl(0, 0%, 100%)' }}>
+    <div className="flex min-h-screen w-full" style={{ backgroundColor: '#ffffff' }}>
       <Sidebar />
-      <main className="flex-1 overflow-auto p-8">
+      <main className="flex-1 overflow-auto">
         {children}
       </main>
     </div>
