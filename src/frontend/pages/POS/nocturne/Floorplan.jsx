@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from './Layout';
 import { Card, CardContent } from './ui/card';
-import { Layout } from 'lucide-react';
+import { Layout as LayoutIcon } from 'lucide-react';
 import './nocturne.css';
 
 const Floorplan = () => {
@@ -18,7 +18,7 @@ const Floorplan = () => {
           <CardContent className="p-12 text-center">
             <div className="flex flex-col items-center gap-4">
               <div className="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center">
-                <Layout className="h-12 w-12 text-primary" />
+                <LayoutIcon className="h-12 w-12 text-primary" />
               </div>
               <h2 className="text-2xl font-bold text-foreground">
                 Drag-and-Drop Floorplan Editor
